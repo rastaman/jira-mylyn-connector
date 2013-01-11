@@ -55,10 +55,12 @@
 		</sequential>
 	</macrodef>
 
-<macrodef name="init-basebuilder">
+	<macrodef name="init-basebuilder">
         <sequential>
-        	<property name="base.builder.home" value="${tools.home}/basebuilder-${basebuilder.version}"/>
-			<available file="${base.builder.home}/.provisioned" property="base.builder.exists"/>
+<!--        	<property name="base.builder.home" value="${tools.home}/basebuilder-${basebuilder.version}"/> -->
+        	<property name="base.builder.home" value="${tools.home}/sdk-${eclipse.sdk.version}"/>
+<!--			<available file="${base.builder.home}/.provisioned" property="base.builder.exists"/> -->
+			<property name="base.builder.exists" value="true"/>
 			<antcall target="provision-basebuilder"/>
         </sequential>
     </macrodef>
@@ -87,13 +89,16 @@
 			<pathconvert property="@{application}.launcher">
 				<first count="1">
 					<sort>
-						<fileset dir="${base.builder.home}/eclipse/plugins" includes="**/org.eclipse.equinox.launcher*.jar" />
+						<!-- <fileset dir="${base.builder.home}/eclipse/plugins" includes="**/org.eclipse.equinox.launcher*.jar" /> -->
+						<fileset dir="${base.builder.home}/eclipse/plugins" includes="**/org.eclipse.equinox.launcher_*.jar" />
 						<reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
 							<date />
 						</reverse>
 					</sort>
 				</first>
 			</pathconvert>
+			
+			<echo message="lanuncher set to: ${@{application}.launcher}" />
 
 			<!-- launch the eclipse application -->
 			<java fork="true" jar="${@{application}.launcher}" dir="." timeout="@{timeout}" failonerror="@{failonerror}"
