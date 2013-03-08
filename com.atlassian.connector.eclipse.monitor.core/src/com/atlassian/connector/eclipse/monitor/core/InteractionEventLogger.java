@@ -30,11 +30,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
 import com.thoughtworks.xstream.io.xml.JDomDriver;
 
 /**
  * @author Mik Kersten
  * @author Pawel Niewiadomski
+ * @author Jacek Jaroczynski
  */
 public class InteractionEventLogger extends AbstractMonitorLog {
 
@@ -44,7 +46,7 @@ public class InteractionEventLogger extends AbstractMonitorLog {
 
 	public InteractionEventLogger(File outputFile) {
 		this.outputFile = outputFile;
-		xs = new XStream(new JDomDriver());
+		xs = new XStream(new Sun14ReflectionProvider(), new JDomDriver());
 		xs.aliasType("interactionEvent", InteractionEvent.class);
 	}
 

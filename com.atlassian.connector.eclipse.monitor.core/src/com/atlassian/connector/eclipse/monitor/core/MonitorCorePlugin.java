@@ -39,13 +39,14 @@ import com.atlassian.connector.eclipse.internal.ui.AtlassianBundlesInfo;
 /**
  * @author Mik Kersten
  * @author Shawn Minto
+ * @author Jacek Jaroczynski
  */
 public class MonitorCorePlugin extends Plugin {
 	private static final String SYSTEM_INFO_PREFIX = "system info: ";
 
 	private static final long HOUR = 3600 * 1000;
 
-	public static final long DELAY_BETWEEN_TRANSMITS = 3 * 24 * HOUR;
+	public static final long DELAY_BETWEEN_TRANSMITS = 24 * HOUR;
 
 	public static final String MONITOR_LOG_NAME_OLD = "monitor-log.xml";
 
@@ -82,11 +83,11 @@ public class MonitorCorePlugin extends Plugin {
 		log.interactionObserved(InteractionEvent.makePreference(MonitorCorePlugin.ID_PLUGIN, SYSTEM_INFO_PREFIX + "os",
 				Platform.getOS()));
 		log.interactionObserved(InteractionEvent.makePreference(MonitorCorePlugin.ID_PLUGIN, SYSTEM_INFO_PREFIX
-				+ Platform.PI_RUNTIME, Platform.getBundle(Platform.PI_RUNTIME).getHeaders().get(
-				Constants.BUNDLE_VERSION).toString()));
+				+ Platform.PI_RUNTIME,
+				Platform.getBundle(Platform.PI_RUNTIME).getHeaders().get(Constants.BUNDLE_VERSION).toString()));
 		log.interactionObserved(InteractionEvent.makePreference(MonitorCorePlugin.ID_PLUGIN, SYSTEM_INFO_PREFIX
-				+ "connector-version", MonitorCorePlugin.getDefault().getBundle().getHeaders().get(
-				Constants.BUNDLE_VERSION).toString()));
+				+ "connector-version",
+				MonitorCorePlugin.getDefault().getBundle().getHeaders().get(Constants.BUNDLE_VERSION).toString()));
 	}
 
 	private void logInstalledFeatures(InteractionEventLogger log) {
@@ -196,8 +197,13 @@ public class MonitorCorePlugin extends Plugin {
 		IEclipsePreferences prefs = getPreferenceStore();
 		String uid = prefs.get(MonitorPreferenceConstants.PREF_MONITORING_USER_ID, null);
 		if (uid == null) {
-			prefs.put(MonitorPreferenceConstants.PREF_MONITORING_USER_ID, UUID.randomUUID().toString());
-			uid = prefs.get(MonitorPreferenceConstants.PREF_MONITORING_USER_ID, null);
+			uid = UUID.randomUUID().toString();
+			prefs.put(MonitorPreferenceConstants.PREF_MONITORING_USER_ID, uid);
+			try {
+				prefs.flush();
+			} catch (BackingStoreException e) {
+				e.printStackTrace();
+			}
 		}
 		return uid;
 	}
