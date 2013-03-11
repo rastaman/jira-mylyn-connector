@@ -26,6 +26,10 @@ public class Messages extends NLS {
 
 	public static String EnabledMonitoringNoticeDialog_please_consider_uploading;
 
+	public static String RestVersionNoticeDialog;
+
+	public static String RestVersionNoticeDialog_learn_more;
+
 	public static String UsageDataPreferencePage_collectors;
 
 	public static String UsageDataPreferencePage_description;

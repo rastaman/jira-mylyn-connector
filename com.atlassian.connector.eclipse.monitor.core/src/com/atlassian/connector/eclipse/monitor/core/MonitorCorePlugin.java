@@ -66,6 +66,8 @@ public class MonitorCorePlugin extends Plugin {
 
 	public static final String HELP_URL = "http://confluence.atlassian.com/display/IDEPLUGIN/Collecting+Usage+Statistics+for+the+Eclipse+Connector";
 
+	public static final String INSTALLATION_URL = "https://confluence.atlassian.com/display/IDEPLUGIN/Installing+the+Eclipse+Connector?focusedCommentId=329976089#InstallingtheEclipseConnector-EclipseUpdateSites";
+
 	private UsageDataUploadJob scheduledStatisticsUploadJob;
 
 	public MonitorCorePlugin() {

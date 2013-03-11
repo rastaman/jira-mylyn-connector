@@ -22,4 +22,6 @@ public final class MonitorUiPreferenceConstants {
 
 	public static final String PREF_MONITORING_FIRST_TIME = "com.atlassian.connector.eclipse.monitor.usage.first.time";
 
+	public static final String PREF_REST_VERSION_ANNOUNCED = "com.atlassian.connector.eclipse.monitor.rest.version.informed";
+
 }

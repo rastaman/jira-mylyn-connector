@@ -29,6 +29,7 @@ import org.osgi.framework.BundleContext;
 
 import com.atlassian.connector.eclipse.internal.branding.ui.RuntimeUtil;
 import com.atlassian.connector.eclipse.internal.monitor.usage.dialogs.PermissionToMonitorDialog;
+import com.atlassian.connector.eclipse.internal.monitor.usage.dialogs.RestVersionDialog;
 import com.atlassian.connector.eclipse.monitor.core.MonitorCorePlugin;
 
 /**
@@ -48,6 +49,8 @@ public class MonitorUiPlugin extends AbstractUIPlugin {
 	public static final String ID_PLUGIN = "com.atlassian.connector.eclipse.monitor.ui"; //$NON-NLS-1$
 
 	private static final long FIVE_MINUTES_IN_MS = 5 * 60 * 1000;
+
+	private static final long THREE_MINUTES_IN_MS = 3 * 60 * 1000;
 
 	private static MonitorUiPlugin plugin;
 
@@ -84,6 +87,10 @@ public class MonitorUiPlugin extends AbstractUIPlugin {
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
+					if (!isRestVersionAnnounced() && !RuntimeUtil.suppressConfigurationWizards()) {
+						tellAboutRestVersion();
+					}
+
 					if (isFirstTime() && !RuntimeUtil.suppressConfigurationWizards()) {
 						askUserToEnableMonitoring();
 					}
@@ -92,6 +99,7 @@ public class MonitorUiPlugin extends AbstractUIPlugin {
 							Messages.MonitorUiPlugin_failed_to_start, t));
 				}
 			}
+
 		});
 	}
 
@@ -110,6 +118,28 @@ public class MonitorUiPlugin extends AbstractUIPlugin {
 	 */
 	public static MonitorUiPlugin getDefault() {
 		return plugin;
+	}
+
+	/**
+	 * Display dialog and tell about new version (REST) of the Connector to 3.0.x users
+	 */
+	private void tellAboutRestVersion() {
+		UIJob newVersionJob = new UIJob("Tell user REST version is there.") {
+			@Override
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				final IPreferenceStore store = getPreferenceStore();
+
+				// must not use boolean here, it will not be stored
+				store.setValue(MonitorUiPreferenceConstants.PREF_REST_VERSION_ANNOUNCED, "true");
+
+				new RestVersionDialog(WorkbenchUtil.getShell()).open();
+				return Status.OK_STATUS;
+			}
+		};
+
+		newVersionJob.setPriority(Job.INTERACTIVE);
+		newVersionJob.schedule(THREE_MINUTES_IN_MS);
+//		newVersionJob.schedule();
 	}
 
 	/**
@@ -145,6 +175,11 @@ public class MonitorUiPlugin extends AbstractUIPlugin {
 	public boolean isFirstTime() {
 		return !getPreferenceStore().contains(MonitorUiPreferenceConstants.PREF_MONITORING_FIRST_TIME)
 				|| getPreferenceStore().getBoolean(MonitorUiPreferenceConstants.PREF_MONITORING_FIRST_TIME);
+	}
+
+	private boolean isRestVersionAnnounced() {
+		return getPreferenceStore().contains(MonitorUiPreferenceConstants.PREF_REST_VERSION_ANNOUNCED)
+				|| getPreferenceStore().getBoolean(MonitorUiPreferenceConstants.PREF_REST_VERSION_ANNOUNCED);
 	}
 
 	public boolean isMonitoringEnabled() {
