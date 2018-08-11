@@ -79,7 +79,7 @@
 	<!-- ===================================================================== -->
 	<target name="preFetch">
 		<echo message="Fetching connector-commons" />
-		<delete dir="${buildDirectory}/../../../connector-commons" />
+		<delete dir="${buildDirectory}/../../../connector-commons" failonerror="true"/>
 		<mkdir dir="${buildDirectory}/../../../connector-commons" />
 			
 		<exec executable="hg" failonerror="true">
@@ -105,44 +105,46 @@
 		<mkdir dir="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.tasks" />
 		<mkdir dir="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.docs" />
 					
+		<property name="mylyn_branch" value="e_4_8_m_3_24_x" />
+		<property name="mylyn_git_base_url" value="http://git.eclipse.org/gitroot/mylyn" />
 		<exec executable="git" failonerror="true">
 			<arg value="clone" />
-			<arg value="git://git.eclipse.org/gitroot/mylyn/org.eclipse.mylyn.commons.git" />
+			<arg value="${mylyn_git_base_url}/org.eclipse.mylyn.commons.git" />
 			<arg value="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.commons" />
 		</exec>
 		<exec executable="git" failonerror="true" dir="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.commons">
 			<arg value="checkout" />
-			<arg value="refs/remotes/origin/e_3_8_m_3_8_x" />
+			<arg value="refs/remotes/origin/${mylyn_branch}" />
 		</exec>
 		
 		<exec executable="git" failonerror="true">
 			<arg value="clone" />
-			<arg value="git://git.eclipse.org/gitroot/mylyn/org.eclipse.mylyn.context.git" />
+			<arg value="${mylyn_git_base_url}/org.eclipse.mylyn.context.git" />
 			<arg value="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.context" />
 		</exec>
 		<exec executable="git" failonerror="true" dir="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.context">
 			<arg value="checkout" />
-			<arg value="refs/remotes/origin/e_3_8_m_3_8_x" />
+			<arg value="refs/remotes/origin/${mylyn_branch}" />
 		</exec>
 		
 		<exec executable="git" failonerror="true">
 			<arg value="clone" />
-			<arg value="git://git.eclipse.org/gitroot/mylyn/org.eclipse.mylyn.tasks.git" />
+			<arg value="${mylyn_git_base_url}/org.eclipse.mylyn.tasks.git" />
 			<arg value="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.tasks" />
 		</exec>
 		<exec executable="git" failonerror="true" dir="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.tasks">
 			<arg value="checkout" />
-			<arg value="refs/remotes/origin/e_3_8_m_3_8_x" />
+			<arg value="refs/remotes/origin/${mylyn_branch}" />
 		</exec>
 		
 		<exec executable="git" failonerror="true">
 			<arg value="clone" />
-			<arg value="git://git.eclipse.org/gitroot/mylyn/org.eclipse.mylyn.docs.git" />
+			<arg value="${mylyn_git_base_url}/org.eclipse.mylyn.docs.git" />
 			<arg value="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.docs" />
 		</exec>
 		<exec executable="git" failonerror="true" dir="${buildDirectory}/../../../mylyn/org.eclipse.mylyn.docs">
 			<arg value="checkout" />
-			<arg value="refs/remotes/origin/e_3_8_m_3_8_x" />
+			<arg value="master" />
 		</exec>
 
 	</target>

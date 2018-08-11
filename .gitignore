@@ -4,6 +4,9 @@ com.atlassian.connector.eclipse.releng/build
 .*/bin
 com.atlassian.connector.eclipse.monitor.server/.idea
 
+mylyn/
+connector-commons/
+
 # Added
 **/bin
 **/.DS_Store

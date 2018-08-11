@@ -9,7 +9,7 @@
 	<!-- Add on <ant> task for each top level element being built.             -->
 	<!-- ===================================================================== -->
 	<target name="allElementsDelegator">
-		<ant antfile="${genericTargets}" target="${target}">
+		<ant antfile="${genericTargets}" target="${target}" output="dependencies.log">
 			<property name="type" value="feature" />
 			<property name="id" value="com.atlassian.connector.eclipse.dependencies" />
 		</ant>
