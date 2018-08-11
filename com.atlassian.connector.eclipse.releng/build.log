@@ -1,0 +1,260 @@
+Buildfile: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build.xml
+
+clean-build:
+
+for-each-target:
+
+e3.3:
+
+e3.4:
+
+e3.5:
+
+e3.6:
+
+e3.7:
+
+e4.6:
+
+clean-build-helper:
+   [delete] Deleting directory /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+clean-tests:
+
+for-each-target:
+
+e3.3:
+
+e3.4:
+
+e3.5:
+
+e3.6:
+
+e3.7:
+
+e4.6:
+
+clean-tests-helper:
+
+clean-results:
+   [delete] Deleting directory /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build-results
+
+clean:
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/timestamp.properties
+
+check-java:
+
+init-base:
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build-results
+     [echo] Running on Mac OS X 10.11.6 (x86_64) / macosx-carbon / macosx-x86-carbon, Apache Ant(TM) version 1.9.7 compiled on April 9 2016, Java 1.8
+
+init-build:
+
+init-timestamp:
+
+init-timestamp-snapshot:
+
+init-timestamp-release:
+
+for-each-target:
+
+e3.3:
+
+e3.4:
+
+e3.5:
+
+e3.6:
+
+e3.7:
+
+e4.6:
+
+get-build-dependencies-helper:
+     [echo] basedir = /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng
+     [echo] eclipse.base = /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools
+     [echo] build.home = /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build
+
+getBundle:
+     [echo] theZipExists = true
+
+downloadFile:
+
+unpackBundle:
+     [echo] isUnpacked = true
+
+unzipFile:
+
+untarFile:
+
+get-build-dependencies-helper-svn:
+
+getBundle:
+     [echo] theZipExists = true
+
+downloadFile:
+
+unpackBundle:
+     [echo] isUnpacked = true
+
+unzipFile:
+
+untarFile:
+
+get-build-dependencies-helper-svn-move:
+
+init:
+     [echo] Building 3.0.0.I20161120-1400
+
+build:
+
+for-each-target:
+
+e3.3:
+
+e3.4:
+
+e3.5:
+
+e3.6:
+
+e3.7:
+
+e4.6:
+
+build-helper-init:
+     [copy] Copying 6 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/maps
+
+pre-build:
+
+pre-build-release:
+
+build-helper:
+     [echo] Building 3.0.0.I20161120-1400 on Eclipse 4.6
+     [echo] Output is logged to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build-results/build-4.6.log
+     [echo] Eclipse home is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools/sdk-4.6/Eclipse.app/Contents/Eclipse/
+     [echo] Eclipse base is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools
+     [echo] Base dir is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng
+     [echo] Build target is set to 4.6
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.xmlrpc.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.xmlrpc.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.net.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.net.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.screenshots.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.screenshots.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.identity.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.identity.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.soap.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.soap.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.workbench.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.workbench.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.sdk.util.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.sdk.util.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.context.sdk.java.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.context.sdk.java.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.context.sdk.util.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.context.sdk.util.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.java.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.java.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.java.tasks.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.java.tasks.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.ide.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.ide.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.ide.ant.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.ide.ant.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.context.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.context.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.context.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.context.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.discovery.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.discovery.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.discovery.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.discovery.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.monitor.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.monitor.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.monitor.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.monitor.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.notifications.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.notifications.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.notifications.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.notifications.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.notifications.feed.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.notifications.feed.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.repositories.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.repositories.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.repositories.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.repositories.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.tasks.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.tasks.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.tasks.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.tasks.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.resources.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.resources.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.tasks.search.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.tasks.search.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.tasks.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.tasks.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.confluence.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.confluence.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.confluence.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.confluence.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.mediawiki.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.mediawiki.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.mediawiki.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.mediawiki.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.textile.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.textile.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.textile.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.textile.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.tracwiki.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.tracwiki.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.tracwiki.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.tracwiki.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.twiki.core.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.twiki.core.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.twiki.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.twiki.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.tasks.bugs.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.tasks.bugs.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.notifications.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.notifications.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.commons.repositories.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.commons.repositories.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.java.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.java.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.resources.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.resources.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.ide.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.ide.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.context.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.context.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.pde.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.pde.ui.
+     [java] [eclipse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.team.ui.
+     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.team.ui.
+     [java] 
+     [java] BUILD FAILED
+     [java] /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:35: The following error occurred while executing this line:
+     [java] /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:91: The following error occurred while executing this line:
+     [java] /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+     [java] /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+     [java] /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+     [java] 
+     [java] Total time: 3 minutes 5 seconds
+
+BUILD FAILED
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/scripts/buildHelper.xml:139: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/scripts/buildHelper.xml:48: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/scripts/buildHelper.xml:92: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/scripts/buildHelper.xml:380: Java returned: 13
+
+Total time: 3 minutes 11 seconds

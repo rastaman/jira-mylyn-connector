@@ -4,6 +4,10 @@ com.atlassian.connector.eclipse.releng/build
 .*/bin
 com.atlassian.connector.eclipse.monitor.server/.idea
 
+# Added
+**/bin
+**/.DS_Store
+
 # Eclipse Core
 .project
 

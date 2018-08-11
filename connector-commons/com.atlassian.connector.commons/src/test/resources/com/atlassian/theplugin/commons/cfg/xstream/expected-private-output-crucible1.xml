@@ -1,0 +1,11 @@
+<single-server-private-cfg>
+	<private-server-cfg>
+		<server-id>341d662c-e744-4690-a5f8-6e127c0bc84f</server-id>
+		<enabled>false</enabled>
+		<username>xyz</username>
+		<password>cGFzc3dvcmR4eXo=</password>
+		<use-http-basic>false</use-http-basic>
+		<used-default-credentials>false</used-default-credentials>
+		<shared>false</shared>
+	</private-server-cfg>
+</single-server-private-cfg>

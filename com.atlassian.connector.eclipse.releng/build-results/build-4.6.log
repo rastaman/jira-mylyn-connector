@@ -1,0 +1,1277 @@
+Buildfile: /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml
+
+main:
+
+preBuild:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+preSetup:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+checkLocalMaps:
+
+getMapFiles:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+postSetup:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+checkLocalBase:
+
+getBaseComponents:
+
+processRepos:
+
+fetch:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+preFetch:
+     [echo] Fetching connector-commons
+   [delete] Deleting directory /Users/lmaitre/Workspaces/Forge/connector-eclipse/connector-commons
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/connector-commons
+     [exec] requesting all changes
+     [exec] adding changesets
+     [exec] adding manifests
+     [exec] adding file changes
+     [exec] added 1468 changesets with 4768 changes to 1173 files (+6 heads)
+     [exec] updating to branch default
+     [exec] 532 files updated, 0 files merged, 0 files removed, 0 files unresolved
+     [exec] 64 files updated, 0 files merged, 14 files removed, 0 files unresolved
+     [echo] Fetching connector-commons done
+     [echo] Fetching Mylyn
+   [delete] Deleting directory /Users/lmaitre/Workspaces/Forge/connector-eclipse/mylyn
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/mylyn
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/mylyn/org.eclipse.mylyn.commons
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/mylyn/org.eclipse.mylyn.context
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/mylyn/org.eclipse.mylyn.tasks
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/mylyn/org.eclipse.mylyn.docs
+     [exec] Cloning into '/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../mylyn/org.eclipse.mylyn.commons'...
+     [exec] Note: checking out 'refs/remotes/origin/e_3_8_m_3_8_x'.
+     [exec] 
+     [exec] You are in 'detached HEAD' state. You can look around, make experimental
+     [exec] changes and commit them, and you can discard any commits you make in this
+     [exec] state without impacting any branches by performing another checkout.
+     [exec] 
+     [exec] If you want to create a new branch to retain commits you create, you may
+     [exec] do so (now or later) by using -b with the checkout command again. Example:
+     [exec] 
+     [exec]   git checkout -b <new-branch-name>
+     [exec] 
+     [exec] HEAD is now at d218ebb... 417043: Mylyn Discovery is broken on JDK 7u40
+     [exec] Cloning into '/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../mylyn/org.eclipse.mylyn.context'...
+     [exec] Note: checking out 'refs/remotes/origin/e_3_8_m_3_8_x'.
+     [exec] 
+     [exec] You are in 'detached HEAD' state. You can look around, make experimental
+     [exec] changes and commit them, and you can discard any commits you make in this
+     [exec] state without impacting any branches by performing another checkout.
+     [exec] 
+     [exec] If you want to create a new branch to retain commits you create, you may
+     [exec] do so (now or later) by using -b with the checkout command again. Example:
+     [exec] 
+     [exec]   git checkout -b <new-branch-name>
+     [exec] 
+     [exec] HEAD is now at 1a1535b... 420326: fix TaskActivityTimingTest.testCollapsedTiming()
+     [exec] Cloning into '/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../mylyn/org.eclipse.mylyn.tasks'...
+     [exec] Note: checking out 'refs/remotes/origin/e_3_8_m_3_8_x'.
+     [exec] 
+     [exec] You are in 'detached HEAD' state. You can look around, make experimental
+     [exec] changes and commit them, and you can discard any commits you make in this
+     [exec] state without impacting any branches by performing another checkout.
+     [exec] 
+     [exec] If you want to create a new branch to retain commits you create, you may
+     [exec] do so (now or later) by using -b with the checkout command again. Example:
+     [exec] 
+     [exec]   git checkout -b <new-branch-name>
+     [exec] 
+     [exec] HEAD is now at 803c842... 403571: fix failing Task tests
+     [exec] Cloning into '/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../mylyn/org.eclipse.mylyn.docs'...
+     [exec] remote: warning: ignoring extra bitmap file: objects/pack/pack-68b9f0f66e76020017172e069323323b355c5a65.pack        
+     [exec] Note: checking out 'refs/remotes/origin/e_3_8_m_3_8_x'.
+     [exec] 
+     [exec] You are in 'detached HEAD' state. You can look around, make experimental
+     [exec] changes and commit them, and you can discard any commits you make in this
+     [exec] state without impacting any branches by performing another checkout.
+     [exec] 
+     [exec] If you want to create a new branch to retain commits you create, you may
+     [exec] do so (now or later) by using -b with the checkout command again. Example:
+     [exec] 
+     [exec]   git checkout -b <new-branch-name>
+     [exec] 
+     [exec] HEAD is now at 5727e08... 405022: update version for 3.8.4 release
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+allElements:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+allElementsDelegator:
+
+init:
+
+fetchElement:
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features
+    [mkdir] Created dir: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 8 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.dependencies
+
+fetch.plugins:
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/com.sun.syndication_0.9.0.v200803061811.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.sun.syndication_0.9.0.v200803061811.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jetbrains.annotations_7.0.2.v20081216-1400.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jetbrains.annotations_7.0.2.v20081216-1400.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.axis_1.4.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.xmlrpc_3.0.0.v20100427-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.xmlrpc_3.0.0.v20100427-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.ws.commons.util_1.0.1.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.ws.commons.util_1.0.1.v20100518-1140.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.mail_1.4.0.v201005080615.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.mail_1.4.0.v201005080615.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.activation_1.1.0.v201005080500.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.activation_1.1.0.v201005080500.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.wsdl_1.6.2.v201005080631.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.wsdl_1.6.2.v201005080631.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.commons
+
+fetch.plugins:
+     [copy] Copying 514 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.commons
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.commons
+
+fetch.plugins:
+     [copy] Copying 18 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.core
+     [copy] Copying 31 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.monitor
+
+fetch.plugins:
+     [copy] Copying 44 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.core
+     [copy] Copying 65 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse
+
+fetch.plugins:
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.servlet_2.5.0.v200910301333.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.servlet_2.5.0.v200910301333.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.mortbay.jetty.server_6.1.23.v201004211559.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.mortbay.jetty.server_6.1.23.v201004211559.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.mortbay.jetty.util_6.1.23.v201004211559.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.mortbay.jetty.util_6.1.23.v201004211559.jar
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+     [copy] Copying 30 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.core
+     [copy] Copying 41 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.ui
+     [copy] Copying 11 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.help
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.commons
+
+fetch.plugins:
+     [copy] Copying 514 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.commons
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.commons
+
+fetch.plugins:
+     [copy] Copying 18 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.core
+     [copy] Copying 31 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.monitor
+
+fetch.plugins:
+     [copy] Copying 44 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.core
+     [copy] Copying 65 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.monitor
+
+fetch.plugins:
+     [copy] Copying 44 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.core
+     [copy] Copying 65 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.bamboo
+
+fetch.plugins:
+     [copy] Copying 30 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.core
+     [copy] Copying 41 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.core
+     [copy] Copying 243 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.ui
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+     [copy] Copying 28 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.directclickthrough.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 11 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.jira
+
+fetch.plugins:
+     [copy] Copying 262 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.ui
+     [copy] Copying 353 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.core
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+     [copy] Copying 31 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.ui
+     [copy] Copying 18 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.core
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.axis_1.4.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.wsdl_1.6.2.v201005080631.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.wsdl_1.6.2.v201005080631.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.logging_1.1.1.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.logging_1.1.1.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.activation_1.1.0.v201005080500.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.activation_1.1.0.v201005080500.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.mail_1.4.0.v201005080615.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.mail_1.4.0.v201005080615.jar
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.monitor
+
+fetch.plugins:
+     [copy] Copying 44 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.core
+     [copy] Copying 65 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.crucible
+
+fetch.plugins:
+     [copy] Copying 30 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.core
+     [copy] Copying 41 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.ui
+     [copy] Copying 13 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.crucible.core
+     [copy] Copying 46 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.crucible.ui
+     [copy] Copying 13 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.fisheye.core
+     [copy] Copying 13 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.fisheye.ui
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+     [copy] Copying 28 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.directclickthrough.ui
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.bamboo
+
+fetch.plugins:
+     [copy] Copying 30 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.core
+     [copy] Copying 41 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.core
+     [copy] Copying 243 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.ui
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+     [copy] Copying 28 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.directclickthrough.ui
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.crucible
+
+fetch.plugins:
+     [copy] Copying 30 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.core
+     [copy] Copying 41 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.ui
+     [copy] Copying 13 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.crucible.core
+     [copy] Copying 46 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.crucible.ui
+     [copy] Copying 13 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.fisheye.core
+     [copy] Copying 13 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.fisheye.ui
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+     [copy] Copying 28 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.directclickthrough.ui
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.subclipse
+
+fetch.plugins:
+     [copy] Copying 12 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.subclipse.ui
+     [copy] Copying 8 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.subclipse.core
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.cvs
+
+fetch.plugins:
+     [copy] Copying 12 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.cvs.ui
+     [copy] Copying 8 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.cvs.core
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.perforce
+
+fetch.plugins:
+     [copy] Copying 12 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.perforce.ui
+     [copy] Copying 8 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.perforce.core
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.perforce.p4java_2009.2.234487.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.perforce.p4java_2009.2.234487.jar
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.subversive
+
+fetch.plugins:
+     [copy] Copying 12 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.subversive.ui
+     [copy] Copying 8 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.subversive.core
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 8 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.test
+
+fetch.plugins:
+     [copy] Copying 23 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.tests
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jetbrains.annotations_7.0.2.v20081216-1400.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jetbrains.annotations_7.0.2.v20081216-1400.jar
+     [copy] Copying 27 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.commons.tests.dependencies
+     [copy] Copying 37 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.tests
+     [copy] Copying 101 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.tests
+     [copy] Copying 124 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.tasks.tests
+     [copy] Copying 16 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.tests.util
+     [copy] Copying 40 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.commons.tests
+     [copy] Copying 15 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.ide.tests
+     [copy] Copying 21 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.resources.tests
+     [copy] Copying 33 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.context.tests
+     [copy] Copying 48 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.eclipse.mylyn.java.tests
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.bamboo
+
+fetch.plugins:
+     [copy] Copying 30 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.core
+     [copy] Copying 41 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.core
+     [copy] Copying 243 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.bamboo.ui
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+     [copy] Copying 28 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.directclickthrough.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 11 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.jira
+
+fetch.plugins:
+     [copy] Copying 262 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.ui
+     [copy] Copying 353 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.core
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+     [copy] Copying 31 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.ui
+     [copy] Copying 18 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.core
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.axis_1.4.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.wsdl_1.6.2.v201005080631.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.wsdl_1.6.2.v201005080631.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.logging_1.1.1.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.logging_1.1.1.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.activation_1.1.0.v201005080500.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.activation_1.1.0.v201005080500.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.mail_1.4.0.v201005080615.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.mail_1.4.0.v201005080615.jar
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.monitor
+
+fetch.plugins:
+     [copy] Copying 44 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.core
+     [copy] Copying 65 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.commons
+
+fetch.plugins:
+     [copy] Copying 514 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.commons
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.joda.time_1.6.0.v20081202-0100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.httpclient_3.1.0.v201005080502.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.thoughtworks.xstream_1.3.0.v20100826-1640.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.codec_1.3.0.v20100518-1140.jar
+      [get] Getting: file:/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/../../../bundles/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.jdom_jaxen_1.0.0.20081203-1100.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.lang_2.4.0.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.io_1.4.0.v20081110-1000.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.io_1.4.0.v20081110-1000.jar
+
+fetch.recursively:
+
+init:
+
+fetchElement:
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+main:
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+     [copy] Copying 1 file to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/tempFeature
+
+fetch:
+
+fetch.element:
+     [copy] Copying 11 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.jira
+
+fetch.plugins:
+     [copy] Copying 262 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.ui
+     [copy] Copying 353 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.jira.core
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+     [copy] Copying 31 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.ui
+     [copy] Copying 18 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.commons.core
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.axis_1.4.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.axis_1.4.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.wsdl_1.6.2.v201005080631.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.wsdl_1.6.2.v201005080631.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.rpc_1.1.0.v201005080400.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.xml.soap_1.3.0.v201005080502.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+    [unzip] Expanding: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip into /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins
+   [delete] Deleting: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.discovery_0.2.0.v201004190315.zip
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.commons.logging_1.1.1.v201005080502.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/org.apache.commons.logging_1.1.1.v201005080502.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.activation_1.1.0.v201005080500.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.activation_1.1.0.v201005080500.jar
+      [get] Getting: http://archive.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/javax.mail_1.4.0.v201005080615.jar
+      [get] To: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/javax.mail_1.4.0.v201005080615.jar
+
+fetch.recursively:
+
+fetch:
+
+fetch.element:
+     [copy] Copying 9 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/features/com.atlassian.connector.eclipse.monitor
+
+fetch.plugins:
+     [copy] Copying 44 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.core
+     [copy] Copying 65 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.monitor.ui
+     [copy] Copying 45 files to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6/plugins/com.atlassian.connector.eclipse.branding.ui
+
+fetch.recursively:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+postFetch:
+
+generate:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+preGenerate:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+allElements:
+     [echo] Build directory is set to /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6
+
+allElementsDelegator:
+
+init:
+
+generateScript:
+[eclipse.buildScript] Some inter-plug-in dependencies have not been satisfied.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.bamboo.core:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.core_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.tasks.core.data_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.tasks.core.sync_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.bamboo.tests:
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.bamboo.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.bamboo.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.directclickthrough.ui_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.bamboo.ui:
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.bamboo.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.branding.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_[3.2.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.notifications.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.notifications.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.ui_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.branding.ui:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_[3.8.0,4.0.0).
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.commons.core:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Optional plug-in com.atlassian.connector.eclipse.monitor.core_0.0.0 is not available.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.commons.ui:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.core_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.core:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.branding.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.core_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.directclickthrough.ui:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Optional plug-in org.eclipse.mylyn.jira.core_0.0.0 is not available.
+[eclipse.buildScript] 	Optional plug-in com.atlassian.connector.eclipse.bamboo.core_0.0.0 is not available.
+[eclipse.buildScript] 	Optional plug-in com.atlassian.connector.eclipse.bamboo.ui_0.0.0 is not available.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.core_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.jira.core:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.soap_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.core_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.internal.monitor.ui_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.jira.tests:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.repositories.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.jira.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.jira.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.search_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tests.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.tests_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.soap_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.internal.tasks.ui.search_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.jira.ui:
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.jira.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.branding.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.ui_0.0.0.
+[eclipse.buildScript] 	Unsatisfied import package org.eclipse.mylyn.internal.monitor.ui_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.monitor.core:
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.branding.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_[3.0.0,4.0.0).
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.monitor.ui:
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.branding.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.monitor.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_[3.0.0,4.0.0).
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_[3.0.0,4.0.0).
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.tests:
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.bamboo.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.bamboo.tests_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.bamboo.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.jira.tests_0.0.0.
+[eclipse.buildScript] Bundle com.atlassian.connector.eclipse.ui:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in com.atlassian.connector.eclipse.core_0.0.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.commons.tests:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.screenshots_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.xmlrpc_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_3.8.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.context.tests:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.ui_0.0.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.ide.tests:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.ide.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.ide.ant_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.resources.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.team.ui_0.0.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.java.tests:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.sdk.java_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.ide.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.java.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.java.tasks_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.pde.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.resources.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.tests_0.0.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.resources.tests:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.context.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.ide.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.resources.ui_0.0.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.tasks.tests:
+[eclipse.buildScript] 	Optional plug-in org.apache.xerces_2.9.0 is not available.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.notifications.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.workbench_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.monitor.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.bugs_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.search_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tests.util_0.0.0.
+[eclipse.buildScript] Bundle org.eclipse.mylyn.tests.util:
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.net_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.repositories.core_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.commons.sdk.util_0.0.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.core_3.8.0.
+[eclipse.buildScript] 	Missing required plug-in org.eclipse.mylyn.tasks.ui_3.8.0.
+!SESSION 2016-11-20 15:28:21.326 -----------------------------------------------
+eclipse.buildId=4.6.1.M20160907-1200
+java.version=1.8.0_102
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -application org.eclipse.ant.core.antRunner -buildfile /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml -DbaseLocation=/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools/sdk-4.6/Eclipse.app/Contents/Eclipse/ -Dbuilder=/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config -DbuildDirectory=/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6 -DbuildLabel=dist -DforceContextQualifier=I20161120-1400 -DmajorVersion=3.0.0 -Dbuild.target=4.6 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
+Command-line arguments:  -consolelog -data /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/workspace -clean -application org.eclipse.ant.core.antRunner -buildfile /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml -DbaseLocation=/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools/sdk-4.6/Eclipse.app/Contents/Eclipse/ -Dbuilder=/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config -DbuildDirectory=/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/4.6 -DbuildLabel=dist -DforceContextQualifier=I20161120-1400 -DmajorVersion=3.0.0 -Dbuild.target=4.6 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
+
+!ENTRY org.eclipse.osgi 4 0 2016-11-20 15:31:29.890
+!MESSAGE Application error
+!STACK 1
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.ant.core.AntRunner.run(AntRunner.java:511)
+	at org.eclipse.ant.core.AntRunner.start(AntRunner.java:608)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1492)
+	at org.eclipse.core.launcher.Main.main(Main.java:34)
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:35: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:91: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1376)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.core.ant.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:705)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:568)
+	... 20 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:91: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 36 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 49 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 63 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.eclipse.pde.internal.build.tasks.BuildScriptGeneratorTask.execute(BuildScriptGeneratorTask.java:95)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 76 more
+Root exception:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:35: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:91: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1376)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.core.ant.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:705)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:568)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.ant.core.AntRunner.run(AntRunner.java:511)
+	at org.eclipse.ant.core.AntRunner.start(AntRunner.java:608)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1492)
+	at org.eclipse.core.launcher.Main.main(Main.java:34)
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/build.xml:91: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 36 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/customTargets.xml:13: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 49 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/config/allElements.xml:12: The following error occurred while executing this line:
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:568)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:443)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 63 more
+Caused by: /Users/lmaitre/Workspaces/Forge/connector-eclipse/tools/sdk-4.6/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts/genericTargets.xml:109: Processing inclusion from feature com.atlassian.connector.eclipse.dependencies: Unable to find plug-in: org.eclipse.mylyn.commons.core_0.0.0. Please check the error log for more details.
+	at org.eclipse.pde.internal.build.tasks.BuildScriptGeneratorTask.execute(BuildScriptGeneratorTask.java:95)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:293)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:435)
+	at org.apache.tools.ant.Target.performTasks(Target.java:456)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1405)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:38)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:441)
+	... 76 more
+An error has occurred. See the log file
+/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/build/workspace/.metadata/.log.
