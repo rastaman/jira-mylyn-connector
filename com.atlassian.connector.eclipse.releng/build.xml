@@ -255,23 +255,23 @@
 		</antcall>
 	</target>
 
-	   <target name="init-4.6">
+	   <target name="init-4.8">
 	        <antcall target="get-build-dependencies-helper">
-	            <param name="build.target" value="4.6" />
-	            <param name="eclipse.sdk.url" value="${eclipse.url.4.6}" />
-	            <param name="eclipse.sdk.version" value="${eclipse.sdk.4.6}" />
+	            <param name="build.target" value="4.8" />
+	            <param name="eclipse.sdk.url" value="${eclipse.url.4.8}" />
+	            <param name="eclipse.sdk.version" value="${eclipse.sdk.4.8}" />
 	        </antcall>
 	    </target>
 
 	<target name="mirror">
 		<!-- <antcall target="init-3.5" /> -->
-		<antcall target="init-4.6" />
+		<antcall target="init-4.8" />
 
 		<property name="publish.name" value="e${build.target}" />
 		<property name="publish.path" value="${build.publish.path}/${build.publish.postfix}" />
 
 		<property name="eclipse.org" value="http://eclipse.unixheads.org" />
-		<property name="to" value="${build.home}/mirror/e4.6" />
+		<property name="to" value="${build.home}/mirror/e4.8" />
 		<mkdir dir="${to}" />
 
 		<antcall target="mirror-helper">
@@ -310,11 +310,11 @@
 		<move file="${to}/mirror.xml" tofile="${to}/site.xml" />
 
 		<!-- <copy file="associates-e3.5.xml" todir="${to}" /> -->
-		<copy file="associates-e4.6.xml" todir="${to}" />
+		<copy file="associates-e4.8.xml" todir="${to}" />
 
 		<antcall target="generate-metadata-helper">
 			<param name="dir" value="${to}" />
-			<param name="name" value="${build.publish.name} 4.6" />
+			<param name="name" value="${build.publish.name} 4.8" />
 		</antcall>
 	</target>
 
@@ -347,7 +347,7 @@
 
 	<target name="composite">
 		<!-- <antcall target="init-3.5" /> -->
-		<antcall target="init-3.7" />
+		<antcall target="init-4.8" />
 		<antcall target="ant-helper">
 			<param name="buildfile" value="${basedir}/build.xml" />
 			<param name="targets" value="generate-composite-site" />

@@ -1,0 +1,221 @@
+Buildfile: C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml
+
+main:
+
+preBuild:
+     [echo] Build directory is set to C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
+
+preSetup:
+     [echo] Build directory is set to C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
+
+checkLocalMaps:
+
+getMapFiles:
+     [echo] Build directory is set to C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
+
+postSetup:
+     [echo] Build directory is set to C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
+
+checkLocalBase:
+
+getBaseComponents:
+
+processRepos:
+
+fetch:
+     [echo] Build directory is set to C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
+
+preFetch:
+     [echo] Fetching connector-commons
+   [delete] Deleting directory C:\Workspaces\EclipseConnector\connector-eclipse\connector-commons
+    [mkdir] Created dir: C:\Workspaces\EclipseConnector\connector-eclipse\connector-commons
+     [exec] requesting all changes
+     [exec] adding changesets
+     [exec] adding manifests
+     [exec] adding file changes
+     [exec] added 1468 changesets with 4768 changes to 1173 files (+6 heads)
+     [exec] new changesets 917ad94666d9:b5d12f51d752
+     [exec] updating to branch default
+     [exec] 532 files updated, 0 files merged, 0 files removed, 0 files unresolved
+     [exec] 64 files updated, 0 files merged, 14 files removed, 0 files unresolved
+     [echo] Fetching connector-commons done
+     [echo] Fetching Mylyn
+   [delete] Deleting directory C:\Workspaces\EclipseConnector\connector-eclipse\mylyn
+!SESSION 2018-08-11 14:07:57.111 -----------------------------------------------
+eclipse.buildId=4.8.0.I20180611-0500
+java.version=1.8.0_181
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Framework arguments:  -application org.eclipse.ant.core.antRunner -buildfile C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml -DbaseLocation=C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse -Dbuilder=C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config -DbuildDirectory=C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8 -DbuildLabel=dist -DforceContextQualifier=I20180811-1200 -DmajorVersion=4.0.0 -Dbuild.target=4.8 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
+Command-line arguments:  -consolelog -data C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/workspace -clean -application org.eclipse.ant.core.antRunner -buildfile C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml -DbaseLocation=C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse -Dbuilder=C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config -DbuildDirectory=C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8 -DbuildLabel=dist -DforceContextQualifier=I20180811-1200 -DmajorVersion=4.0.0 -Dbuild.target=4.8 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
+
+!ENTRY org.eclipse.osgi 4 0 2018-08-11 14:08:08.712
+!MESSAGE Application error
+!STACK 1
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.ant.core.AntRunner.run(AntRunner.java:511)
+	at org.eclipse.ant.core.AntRunner.start(AntRunner.java:608)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:656)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:592)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1498)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1471)
+	at org.eclipse.core.launcher.Main.main(Main.java:34)
+Caused by: C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:34: The following error occurred while executing this line:
+C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:76: The following error occurred while executing this line:
+C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:101: Unable to delete file C:\Workspaces\EclipseConnector\connector-eclipse\mylyn\org.eclipse.mylyn.commons\.git\objects\pack\pack-eab86511c3958df7fa8f9b4c63923d278f1ff229.pack
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
+	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:448)
+	at org.apache.tools.ant.Target.performTasks(Target.java:469)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1370)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.core.ant.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:712)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:573)
+	... 20 more
+Caused by: C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:76: The following error occurred while executing this line:
+C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:101: Unable to delete file C:\Workspaces\EclipseConnector\connector-eclipse\mylyn\org.eclipse.mylyn.commons\.git\objects\pack\pack-eab86511c3958df7fa8f9b4c63923d278f1ff229.pack
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:448)
+	at org.apache.tools.ant.Target.performTasks(Target.java:469)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:36)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
+	... 36 more
+Caused by: C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:101: Unable to delete file C:\Workspaces\EclipseConnector\connector-eclipse\mylyn\org.eclipse.mylyn.commons\.git\objects\pack\pack-eab86511c3958df7fa8f9b4c63923d278f1ff229.pack
+	at org.apache.tools.ant.taskdefs.Delete.handle(Delete.java:777)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:825)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.execute(Delete.java:641)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:448)
+	at org.apache.tools.ant.Target.performTasks(Target.java:469)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:36)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
+	... 49 more
+Root exception:
+C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:34: The following error occurred while executing this line:
+C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:76: The following error occurred while executing this line:
+C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:101: Unable to delete file C:\Workspaces\EclipseConnector\connector-eclipse\mylyn\org.eclipse.mylyn.commons\.git\objects\pack\pack-eab86511c3958df7fa8f9b4c63923d278f1ff229.pack
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
+	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:448)
+	at org.apache.tools.ant.Target.performTasks(Target.java:469)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1370)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.core.ant.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:712)
+	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:573)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.ant.core.AntRunner.run(AntRunner.java:511)
+	at org.eclipse.ant.core.AntRunner.start(AntRunner.java:608)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:656)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:592)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1498)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1471)
+	at org.eclipse.core.launcher.Main.main(Main.java:34)
+Caused by: C:\Workspaces\EclipseConnector\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:76: The following error occurred while executing this line:
+C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:101: Unable to delete file C:\Workspaces\EclipseConnector\connector-eclipse\mylyn\org.eclipse.mylyn.commons\.git\objects\pack\pack-eab86511c3958df7fa8f9b4c63923d278f1ff229.pack
+	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:448)
+	at org.apache.tools.ant.Target.performTasks(Target.java:469)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:36)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
+	... 36 more
+Caused by: C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:101: Unable to delete file C:\Workspaces\EclipseConnector\connector-eclipse\mylyn\org.eclipse.mylyn.commons\.git\objects\pack\pack-eab86511c3958df7fa8f9b4c63923d278f1ff229.pack
+	at org.apache.tools.ant.taskdefs.Delete.handle(Delete.java:777)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:825)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.removeDir(Delete.java:821)
+	at org.apache.tools.ant.taskdefs.Delete.execute(Delete.java:641)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:448)
+	at org.apache.tools.ant.Target.performTasks(Target.java:469)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.helper.SingleCheckExecutor.executeTargets(SingleCheckExecutor.java:36)
+	at org.eclipse.ant.internal.core.ant.EclipseSingleCheckExecutor.executeTargets(EclipseSingleCheckExecutor.java:34)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
+	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
+	... 49 more
+An error has occurred. See the log file
+C:\Workspaces\EclipseConnector\connector-eclipse\com.atlassian.connector.eclipse.releng\build\workspace\.metadata\.log.

@@ -33,9 +33,9 @@
 			<contains string="${targets}" substring="3.7" />
 		</not>
 	</condition>
-	<condition property="skip4.6">
+	<condition property="skip4.8">
 		<not>
-			<contains string="${targets}" substring="4.6" />
+			<contains string="${targets}" substring="4.8" />
 		</not>
 	</condition>
 
@@ -45,7 +45,7 @@
 		<antcall target="e3.5" />
 		<antcall target="e3.6" />
 		<antcall target="e3.7" />
-		<antcall target="e4.6" />
+		<antcall target="e4.8" />
 	</target>
 
 	<target name="e3.3" unless="skip3.3">
@@ -88,11 +88,11 @@
 		</antcall>
 	</target>
 
-	<target name="e4.6" unless="skip4.6">
+	<target name="e4.8" unless="skip4.8">
 		<antcall target="${call}">
-			<param name="build.target" value="4.6" />
-			<param name="eclipse.sdk.url" value="${eclipse.url.4.6}" />
-			<param name="eclipse.sdk.version" value="${eclipse.sdk.4.6}" />
+			<param name="build.target" value="4.8" />
+			<param name="eclipse.sdk.url" value="${eclipse.url.4.8}" />
+			<param name="eclipse.sdk.version" value="${eclipse.sdk.4.8}" />
 		</antcall>
 	</target>
 
@@ -331,10 +331,11 @@
 	<target name="build-helper-init">
 		<!--
 			<property name="eclipse.home" value="${eclipse.base}/sdk-${eclipse.sdk.version}/eclipse" />
+		<property name="eclipse.home" value="/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/Eclipse.app/Contents/Eclipse/"/>
 		-->
-		<property name="eclipse.home" value="/Users/lmaitre/Workspaces/Forge/connector-eclipse/com.atlassian.connector.eclipse.releng/../tools/sdk-4.6/Eclipse.app/Contents/Eclipse/"/>
+		<property name="eclipse.home" value="${eclipse.base}/sdk-${eclipse.sdk.version}/eclipse" />
 		<condition property="install.dir" value="${eclipse.home}" else="${eclipse.home}/dropins/eclipse">
-			<equals arg1="${build.target}" arg2="3.3" />
+			<equals arg1="${build.target}" arg2="4.8" />
 		</condition>
 
 		<copy todir="${build.home}/${build.target}/maps">
