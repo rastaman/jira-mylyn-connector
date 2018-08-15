@@ -3,6 +3,7 @@ tools
 com.atlassian.connector.eclipse.releng/build
 .*/bin
 com.atlassian.connector.eclipse.monitor.server/.idea
+com.atlassian.connector.eclipse.monitor.server/target/
 
 mylyn/
 connector-commons/

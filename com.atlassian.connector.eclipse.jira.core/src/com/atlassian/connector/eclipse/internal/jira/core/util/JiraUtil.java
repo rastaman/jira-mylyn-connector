@@ -30,8 +30,6 @@ import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import com.atlassian.connector.eclipse.internal.jira.core.IJiraConstants;
 import com.atlassian.connector.eclipse.internal.jira.core.JiraCorePlugin;
 import com.atlassian.connector.eclipse.internal.jira.core.JiraFieldType;
-import com.atlassian.connector.eclipse.internal.jira.core.JiraRepositoryConnector;
-import com.atlassian.connector.eclipse.internal.jira.core.model.JiraConfiguration;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.NamedFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.FilterDefinition;
@@ -57,11 +55,17 @@ public class JiraUtil {
 
 	private static final String FOLLOW_REDIRECTS_KEY = "jira.followRedirects"; //$NON-NLS-1$
 
-	private static final String KEY_FILTER_CUSTOM_URL = "FilterCustomUrl"; //$NON-NLS-1$
+	public static final String KEY_FILTER_CUSTOM_URL = "FilterCustomUrl"; //$NON-NLS-1$
+
+	private static final String KEY_FILTER_CUSTOM_JQL_URL = "FilterCustomJqlUrl"; //$NON-NLS-1$
 
 	private static final String KEY_FILTER_ID = "FilterID"; //$NON-NLS-1$
 
 	private static final String KEY_FILTER_NAME = "FilterName"; //$NON-NLS-1$
+
+	private static final String KEY_FILTER_JQL = "FilterJql"; //$NON-NLS-1$
+
+	private static final String KEY_FILTER_URL = "FilterUrl"; //$NON-NLS-1$
 
 	private static final String REFRESH_CONFIGURATION_KEY = "refreshConfiguration"; //$NON-NLS-1$
 
@@ -124,7 +128,7 @@ public class JiraUtil {
 		String customUrl = query.getAttribute(KEY_FILTER_CUSTOM_URL);
 		if (customUrl != null && customUrl.length() > 0) {
 			FilterDefinitionConverter converter = new FilterDefinitionConverter(taskRepository.getCharacterEncoding(),
-					JiraUtil.getLocalConfiguration(taskRepository).getDateFormat());
+					JiraUtil.getLocalConfiguration(taskRepository).getDateTimeFormat());
 			return converter.toFilter(client, customUrl, validate);
 		}
 		return null;
@@ -134,9 +138,14 @@ public class JiraUtil {
 			IRepositoryQuery query, boolean validate, IProgressMonitor monitor) throws JiraException {
 		String customUrl = query.getAttribute(KEY_FILTER_CUSTOM_URL);
 		if (customUrl != null && customUrl.length() > 0) {
-			FilterDefinitionConverter converter = new FilterDefinitionConverter(taskRepository.getCharacterEncoding(),
-					JiraUtil.getLocalConfiguration(taskRepository).getDateFormat());
-			return converter.toFilter(client, customUrl, validate, true, monitor);
+			try {
+				FilterDefinitionConverter converter = new FilterDefinitionConverter(
+						taskRepository.getCharacterEncoding(), JiraUtil.getLocalConfiguration(taskRepository)
+								.getDateTimeFormat());
+				return converter.toFilter(client, customUrl, validate, true, monitor);
+			} catch (UnsupportedEncodingException ex) {
+				throw new RuntimeException(ex);
+			}
 		}
 		return null;
 	}
@@ -178,6 +187,8 @@ public class JiraUtil {
 			NamedFilter namedFilter = new NamedFilter();
 			namedFilter.setId(id);
 			namedFilter.setName(query.getAttribute(KEY_FILTER_NAME));
+			namedFilter.setJql(query.getAttribute(KEY_FILTER_JQL));
+			namedFilter.setViewUrl(query.getAttribute(KEY_FILTER_URL));
 			return namedFilter;
 		}
 		return null;
@@ -214,12 +225,12 @@ public class JiraUtil {
 	}
 
 	public static int getWorkDaysPerWeek(JiraClient jiraClient) {
-		if (isUseServerTimeTrackingSettings(jiraClient.getLocalConfiguration())) {
-			JiraConfiguration conf = jiraClient.getCache().getConfiguration();
-			return conf != null ? conf.getTimeTrackingDaysPerWeek() : JiraLocalConfiguration.DEFAULT_WORK_DAYS_PER_WEEK;
-		} else {
-			return getWorkDaysPerWeekLocal(jiraClient.getLocalConfiguration());
-		}
+//		if (isUseServerTimeTrackingSettings(jiraClient.getLocalConfiguration())) {
+//			JiraConfiguration conf = jiraClient.getCache().getConfiguration();
+//			return conf != null ? conf.getTimeTrackingDaysPerWeek() : JiraLocalConfiguration.DEFAULT_WORK_DAYS_PER_WEEK;
+//		} else {
+		return getWorkDaysPerWeekLocal(jiraClient.getLocalConfiguration());
+//		}
 	}
 
 	public static int getWorkHoursPerDay(TaskRepository repository) {
@@ -228,12 +239,12 @@ public class JiraUtil {
 	}
 
 	public static int getWorkHoursPerDay(JiraClient jiraClient) {
-		if (isUseServerTimeTrackingSettings(jiraClient.getLocalConfiguration())) {
-			JiraConfiguration conf = jiraClient.getCache().getConfiguration();
-			return conf != null ? conf.getTimeTrackingHoursPerDay() : JiraLocalConfiguration.DEFAULT_WORK_HOURS_PER_DAY;
-		} else {
-			return getWorkHoursPerDayLocal(jiraClient.getLocalConfiguration());
-		}
+//		if (isUseServerTimeTrackingSettings(jiraClient.getLocalConfiguration())) {
+//			JiraConfiguration conf = jiraClient.getCache().getConfiguration();
+//			return conf != null ? conf.getTimeTrackingHoursPerDay() : JiraLocalConfiguration.DEFAULT_WORK_HOURS_PER_DAY;
+//		} else {
+		return getWorkHoursPerDayLocal(jiraClient.getLocalConfiguration());
+//		}
 	}
 
 	public static int getWorkDaysPerWeekLocal(TaskRepository repository) {
@@ -316,17 +327,25 @@ public class JiraUtil {
 
 	public static void setQuery(TaskRepository taskRepository, IRepositoryQuery query, JiraFilter filter) {
 		if (filter instanceof NamedFilter) {
-			NamedFilter namedFilter = (NamedFilter) filter;
+			final NamedFilter namedFilter = (NamedFilter) filter;
 			query.setAttribute(KEY_FILTER_ID, namedFilter.getId());
 			query.setAttribute(KEY_FILTER_NAME, namedFilter.getName());
-			query.setUrl(taskRepository.getRepositoryUrl() + JiraRepositoryConnector.FILTER_URL_PREFIX + "&requestId=" //$NON-NLS-1$
-					+ namedFilter.getId());
+			query.setAttribute(KEY_FILTER_JQL, namedFilter.getJql());
+			query.setAttribute(KEY_FILTER_URL, namedFilter.getViewUrl());
+			query.setUrl(namedFilter.getViewUrl());
 		} else if (filter instanceof FilterDefinition) {
-			FilterDefinitionConverter converter = new FilterDefinitionConverter(taskRepository.getCharacterEncoding(),
-					JiraUtil.getLocalConfiguration(taskRepository).getDateFormat());
-			String url = converter.toUrl(taskRepository.getRepositoryUrl(), (FilterDefinition) filter);
-			query.setAttribute(KEY_FILTER_CUSTOM_URL, url);
-			query.setUrl(url);
+			try {
+				final FilterDefinitionConverter converter = new FilterDefinitionConverter(
+						taskRepository.getCharacterEncoding(), JiraUtil.getLocalConfiguration(taskRepository)
+								.getDateTimeFormat());
+				final String classicUrl = converter.toUrl(taskRepository.getRepositoryUrl(), (FilterDefinition) filter);
+				query.setAttribute(KEY_FILTER_CUSTOM_URL, classicUrl);
+				final String jqlUrl = converter.toJqlUrl(taskRepository.getRepositoryUrl(), (FilterDefinition) filter);
+				query.setUrl(jqlUrl);
+				query.setAttribute(KEY_FILTER_CUSTOM_JQL_URL, jqlUrl);
+			} catch (UnsupportedEncodingException ex) {
+				throw new RuntimeException(ex);
+			}
 		}
 	}
 
@@ -340,7 +359,10 @@ public class JiraUtil {
 
 	public static void setUseServerTimeTrackingSettings(TaskRepository repository, boolean selection) {
 		repository.setProperty(TIME_TRACKING_SERVER_SETTINGS, String.valueOf(selection));
+	}
 
+	public static void setFollowRedirects(TaskRepository repository, boolean selection) {
+		repository.setProperty(FOLLOW_REDIRECTS_KEY, Boolean.toString(selection));
 	}
 
 	public static Date stringToDate(String dateString) {
@@ -396,6 +418,17 @@ public class JiraUtil {
 		configuration.setWorkDaysPerWeek(getWorkDaysPerWeekLocal(repository));
 		configuration.setDefaultCharacterEncoding(repository.getCharacterEncoding());
 		configuration.setUseServerTimeTrackingSettings(isUseServerTimeTrackingSettings(repository));
+
+		if (repository.getProperty(MAX_SEARCH_RESULTS) == null) {
+			configuration.setMaxSearchResults(DEFAULT_MAX_SEARCH_RESULTS);
+		} else {
+			try {
+				configuration.setMaxSearchResults(Integer.valueOf(repository.getProperty(MAX_SEARCH_RESULTS)));
+			} catch (NumberFormatException e) {
+				configuration.setMaxSearchResults(DEFAULT_MAX_SEARCH_RESULTS);
+			}
+		}
+
 		return configuration;
 	}
 
@@ -415,13 +448,22 @@ public class JiraUtil {
 		} else {
 			repository.setProperty(LOCALE_KEY, configuration.getLocale().toString());
 		}
-		repository.setProperty(FOLLOW_REDIRECTS_KEY, Boolean.toString(configuration.getFollowRedirects()));
 	}
 
 	public static boolean isCustomDateTimeAttribute(TaskAttribute attribute) {
 		if (attribute.getId().startsWith(IJiraConstants.ATTRIBUTE_CUSTOM_PREFIX)) {
 			String metaType = attribute.getMetaData().getValue(IJiraConstants.META_TYPE);
-			if (JiraFieldType.DATETIME.getKey().equals(metaType) || JiraFieldType.DATE.getKey().equals(metaType)) {
+			if (JiraFieldType.DATETIME.getKey().equals(metaType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isCustomDateAttribute(TaskAttribute attribute) {
+		if (attribute.getId().startsWith(IJiraConstants.ATTRIBUTE_CUSTOM_PREFIX)) {
+			String metaType = attribute.getMetaData().getValue(IJiraConstants.META_TYPE);
+			if (JiraFieldType.DATE.getKey().equals(metaType)) {
 				return true;
 			}
 		}

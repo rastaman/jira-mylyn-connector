@@ -2,7 +2,7 @@
 <feature
       id="com.atlassian.connector.eclipse.bamboo"
       label="%featureName"
-      version="3.0.8.qualifier"
+      version="3.2.5.qualifier"
       provider-name="%providerName"
       plugin="com.atlassian.connector.eclipse.branding.ui">
 
@@ -42,7 +42,6 @@
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.mylyn.monitor.ui"/>
       <import plugin="org.eclipse.mylyn.monitor.core"/>
-      <import plugin="com.atlassian.connector.eclipse.directclickthrough.ui"/>
    </requires>
 
    <plugin
@@ -110,13 +109,6 @@
 
    <plugin
          id="org.apache.commons.lang"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.atlassian.connector.eclipse.directclickthrough.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -13,6 +13,7 @@
 package com.atlassian.connector.eclipse.internal.jira.core.model;
 
 import java.io.Serializable;
+import java.net.URI;
 
 import org.eclipse.core.runtime.Assert;
 
@@ -43,16 +44,27 @@ public class Priority implements Serializable {
 
 	private String colour;
 
+	private URI self;
+
 	public Priority(String id) {
 		Assert.isNotNull(id);
 		this.id = id;
 	}
 
-	public Priority() {
+	public Priority(String id, String name, String description, String icon, String colour) {
+		this(id);
+		this.name = name;
+		this.description = description;
+		this.icon = icon;
+		this.colour = colour;
 	}
 
 	public String getColour() {
 		return this.colour;
+	}
+
+	public URI getSelf() {
+		return self;
 	}
 
 	public void setColour(String colour) {
@@ -114,5 +126,9 @@ public class Priority implements Serializable {
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	public void setSelf(URI self) {
+		this.self = self;
 	}
 }

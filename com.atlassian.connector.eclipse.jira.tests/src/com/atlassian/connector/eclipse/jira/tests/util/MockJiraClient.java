@@ -11,15 +11,14 @@
 
 package com.atlassian.connector.eclipse.jira.tests.util;
 
-import java.io.OutputStream;
+import java.io.InputStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.commons.net.WebLocation;
 
 import com.atlassian.connector.eclipse.internal.jira.core.model.Attachment;
-import com.atlassian.connector.eclipse.internal.jira.core.model.Comment;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Component;
-import com.atlassian.connector.eclipse.internal.jira.core.model.CustomField;
 import com.atlassian.connector.eclipse.internal.jira.core.model.IssueField;
 import com.atlassian.connector.eclipse.internal.jira.core.model.IssueType;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraAction;
@@ -27,7 +26,6 @@ import com.atlassian.connector.eclipse.internal.jira.core.model.JiraFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraIssue;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraStatus;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraVersion;
-import com.atlassian.connector.eclipse.internal.jira.core.model.JiraWorkLog;
 import com.atlassian.connector.eclipse.internal.jira.core.model.NamedFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Priority;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Project;
@@ -41,6 +39,7 @@ import com.atlassian.connector.eclipse.internal.jira.core.model.filter.IssueColl
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraClient;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraClientCache;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraException;
+import com.atlassian.connector.eclipse.internal.jira.core.service.JiraLocalConfiguration;
 
 public class MockJiraClient extends JiraClient {
 
@@ -52,18 +51,11 @@ public class MockJiraClient extends JiraClient {
 	}
 
 	public static IssueType createIssueType(String id, String name) {
-		IssueType issueType = new IssueType();
-		issueType.setId(id);
-		issueType.setName(name);
-		return issueType;
-
+		return new IssueType(id, name, null, null);
 	}
 
 	public static Priority createPriority(String id, String name) {
-		Priority priority = new Priority();
-		priority.setId(id);
-		priority.setName(name);
-		return priority;
+		return new Priority(id, name, null, null, null);
 	}
 
 	public static Project createProject() {
@@ -85,23 +77,27 @@ public class MockJiraClient extends JiraClient {
 	}
 
 	public static Version createVersion(String id, String name) {
-		Version version = new Version();
-		version.setId(id);
-		version.setName(name);
-		return version;
+		return new Version(id, name);
 	}
 
 	private JiraClientCache cache;
 
+	static class MockWebLocation extends WebLocation {
+		MockWebLocation(String baseUrl) {
+			super(baseUrl);
+			setCredentials(AuthenticationType.REPOSITORY, "username", "password");
+		}
+	}
+
 	public MockJiraClient(String baseUrl) {
-		super(new WebLocation(baseUrl));
+		super(new MockWebLocation(baseUrl), new JiraLocalConfiguration(), new MockJiraRestClientAdapter(baseUrl, null));
 		this.cache = super.getCache();
 	}
 
-	@Override
-	public void addCommentToIssue(String issueKey, Comment comment, IProgressMonitor monitor) throws JiraException {
-		// ignore
-	}
+//	@Override
+//	public void addCommentToIssue(String issueKey, Comment comment, IProgressMonitor monitor) throws JiraException {
+//		// ignore
+//	}
 
 	@Override
 	public void addCommentToIssue(String issueKey, String comment, IProgressMonitor monitor) throws JiraException {
@@ -115,7 +111,7 @@ public class MockJiraClient extends JiraClient {
 	}
 
 	@Override
-	public void assignIssueTo(JiraIssue issue, int assigneeType, String user, String comment, IProgressMonitor monitor)
+	public void assignIssueTo(JiraIssue issue, String user, String comment, IProgressMonitor monitor)
 			throws JiraException {
 		// ignore
 	}
@@ -133,21 +129,15 @@ public class MockJiraClient extends JiraClient {
 	}
 
 	@Override
-	public JiraIssue createSubTask(JiraIssue issue, IProgressMonitor monitor) throws JiraException {
-		// ignore
-		return null;
-	}
-
-	@Override
 	public void deleteIssue(JiraIssue issue, IProgressMonitor monitor) throws JiraException {
 		// ignore
 	}
 
-	@Override
-	public void executeNamedFilter(NamedFilter filter, IssueCollector collector, IProgressMonitor monitor)
-			throws JiraException {
-		// ignore
-	}
+//	@Override
+//	public void executeNamedFilter(NamedFilter filter, IssueCollector collector, IProgressMonitor monitor)
+//			throws JiraException {
+//		// ignore
+//	}
 
 	@Override
 	public void findIssues(FilterDefinition filterDefinition, IssueCollector collector, IProgressMonitor monitor)
@@ -156,12 +146,13 @@ public class MockJiraClient extends JiraClient {
 	}
 
 	@Override
-	public String[] getActionFields(String issueKey, String actionId, IProgressMonitor monitor) throws JiraException {
+	public Iterable<IssueField> getActionFields(String issueKey, String actionId, IProgressMonitor monitor)
+			throws JiraException {
 		return null;
 	}
 
 	@Override
-	public JiraAction[] getAvailableActions(String issueKey, IProgressMonitor monitor) throws JiraException {
+	public Iterable<JiraAction> getAvailableActions(String issueKey, IProgressMonitor monitor) throws JiraException {
 		return null;
 	}
 
@@ -170,20 +161,20 @@ public class MockJiraClient extends JiraClient {
 		return this.cache;
 	}
 
-	@Override
-	public Component[] getComponents(String key, IProgressMonitor monitor) throws JiraException {
-		return null;
-	}
+//	@Override
+//	public Component[] getComponents(String key, IProgressMonitor monitor) throws JiraException {
+//		return null;
+//	}
 
-	@Override
-	public CustomField[] getCustomAttributes(IProgressMonitor monitor) throws JiraException {
-		return null;
-	}
+//	@Override
+//	public CustomField[] getCustomAttributes(IProgressMonitor monitor) throws JiraException {
+//		return null;
+//	}
 
-	@Override
-	public IssueField[] getEditableAttributes(String issueKey, IProgressMonitor monitor) throws JiraException {
-		return null;
-	}
+//	@Override
+//	public IssueField[] getEditableAttributes(String issueKey, IProgressMonitor monitor) throws JiraException {
+//		return null;
+//	}
 
 	public JiraIssue getIssueById(String issue) throws JiraException {
 		return null;
@@ -200,10 +191,10 @@ public class MockJiraClient extends JiraClient {
 		return new IssueType[0];
 	}
 
-	@Override
-	public String getKeyFromId(String issueId, IProgressMonitor monitor) throws JiraException {
-		return null;
-	}
+//	@Override
+//	public String getKeyFromId(String issueId, IProgressMonitor monitor) throws JiraException {
+//		return null;
+//	}
 
 	@Override
 	public NamedFilter[] getNamedFilters(IProgressMonitor monitor) throws JiraException {
@@ -233,44 +224,45 @@ public class MockJiraClient extends JiraClient {
 		return new SecurityLevel[0];
 	}
 
-	@Override
-	public IssueType[] getSubTaskIssueTypes(final String projectId, IProgressMonitor monitor) throws JiraException {
-		return new IssueType[0];
-	}
+//	@Override
+//	public IssueType[] getSubTaskIssueTypes(final String projectId, IProgressMonitor monitor) throws JiraException {
+//		return new IssueType[0];
+//	}
+//
+//	@Override
+//	public IssueType[] getIssueTypes(String projectId, IProgressMonitor monitor) throws JiraException {
+//		return new IssueType[0];
+//	}
+//
+//	@Override
+//	public IssueType[] getSubTaskIssueTypes(IProgressMonitor monitor) throws JiraException {
+//		return new IssueType[0];
+//	}
 
-	@Override
-	public IssueType[] getIssueTypes(String projectId, IProgressMonitor monitor) throws JiraException {
-		return new IssueType[0];
-	}
+//	@Override
+//	public Version[] getVersions(String key, IProgressMonitor monitor) throws JiraException {
+//		return null;
+//	}
 
-	@Override
-	public IssueType[] getSubTaskIssueTypes(IProgressMonitor monitor) throws JiraException {
-		return new IssueType[0];
-	}
-
-	@Override
-	public Version[] getVersions(String key, IProgressMonitor monitor) throws JiraException {
-		return null;
-	}
-
-	@Override
-	public void login(IProgressMonitor monitor) throws JiraException {
-	}
+//	@Override
+//	public void login(IProgressMonitor monitor) throws JiraException {
+//	}
 
 	@Override
 	public void logout(IProgressMonitor monitor) {
 	}
 
-	@Override
-	public void quickSearch(String searchString, IssueCollector collector, IProgressMonitor monitor)
-			throws JiraException {
-		// ignore
-	}
+//	@Override
+//	public void quickSearch(String searchString, IssueCollector collector, IProgressMonitor monitor)
+//			throws JiraException {
+//		// ignore
+//	}
 
 	@Override
-	public void getAttachment(JiraIssue issue, Attachment attachment, OutputStream out, IProgressMonitor monitor)
+	public InputStream getAttachment(JiraIssue issue, Attachment attachment, IProgressMonitor monitor)
 			throws JiraException {
 		// ignore
+		return null;
 	}
 
 	@Override
@@ -283,14 +275,15 @@ public class MockJiraClient extends JiraClient {
 	}
 
 	@Override
-	public void updateIssue(JiraIssue issue, String comment, IProgressMonitor monitor) throws JiraException {
+	public void updateIssue(JiraIssue issue, String comment, boolean updateEstimate, IProgressMonitor monitor)
+			throws JiraException {
 		// ignore
 	}
 
-	@Override
-	public JiraWorkLog[] getWorklogs(String issueKey, IProgressMonitor monitor) throws JiraException {
-		return new JiraWorkLog[0];
-	}
+//	@Override
+//	public JiraWorkLog[] getWorklogs(String issueKey, IProgressMonitor monitor) throws JiraException {
+//		return new JiraWorkLog[0];
+//	}
 
 	@Override
 	public ProjectRole[] getProjectRoles(IProgressMonitor monitor) throws JiraException {

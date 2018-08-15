@@ -41,7 +41,6 @@ import org.eclipse.mylyn.internal.tasks.core.IRepositoryConstants;
 import org.eclipse.mylyn.tasks.core.RepositoryStatus;
 import org.eclipse.mylyn.tasks.core.RepositoryTemplate;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -83,6 +82,7 @@ import com.atlassian.connector.eclipse.internal.jira.ui.JiraUiPlugin;
  * 
  * @author Mik Kersten
  * @author Wesley Coelho (initial integration patch)
+ * @author Jacek Jaroczynski
  */
 public class JiraRepositorySettingsPage extends AbstractRepositorySettingsPage {
 
@@ -122,7 +122,7 @@ public class JiraRepositorySettingsPage extends AbstractRepositorySettingsPage {
 		super(Messages.JiraRepositorySettingsPage_JIRA_Repository_Settings,
 				Messages.JiraRepositorySettingsPage_Validate_server_settings, taskRepository);
 		setNeedsProxy(true);
-		setNeedsHttpAuth(true);
+		setNeedsHttpAuth(false);
 	}
 
 	@Override
@@ -372,7 +372,6 @@ public class JiraRepositorySettingsPage extends AbstractRepositorySettingsPage {
 		if (localeCombo.getSelectionIndex() != -1) {
 			configuration.setLocale(locales[localeCombo.getSelectionIndex()]);
 		}
-		configuration.setFollowRedirects(followRedirectsButton.getSelection());
 
 		JiraUtil.setConfiguration(repository, configuration);
 		JiraUtil.setCompression(repository, compressionButton.getSelection());
@@ -427,6 +426,9 @@ public class JiraRepositorySettingsPage extends AbstractRepositorySettingsPage {
 	public TaskRepository applyToValidate(TaskRepository repository) {
 		MigrateToSecureStorageJob.migrateToSecureStorage(repository);
 		super.applyTo(repository);
+
+		JiraUtil.setFollowRedirects(repository, followRedirectsButton.getSelection());
+
 		return repository;
 	}
 
@@ -529,7 +531,7 @@ public class JiraRepositorySettingsPage extends AbstractRepositorySettingsPage {
 						INVALID_REPOSITORY_URL, null));
 			}
 
-			AbstractWebLocation location = new TaskRepositoryLocationFactory().createWebLocation(repository);
+			AbstractWebLocation location = new JiraTaskRepositoryLocation(repository);
 			JiraLocalConfiguration configuration = JiraUtil.getLocalConfiguration(repository);
 			try {
 				this.serverInfo = JiraClientFactory.getDefault().validateConnection(location, configuration, monitor);
@@ -545,16 +547,17 @@ public class JiraRepositorySettingsPage extends AbstractRepositorySettingsPage {
 				throw new CoreException(RepositoryStatus.createStatus(repository.getRepositoryUrl(), IStatus.ERROR,
 						JiraUiPlugin.ID_PLUGIN, INVALID_LOGIN));
 			} catch (Exception e) {
+				StatusHandler.log(new Status(IStatus.ERROR, JiraUiPlugin.ID_PLUGIN, e.getMessage(), e));
 				throw new CoreException(JiraCorePlugin.toStatus(repository, e));
 			}
 
 			MultiStatus status = new MultiStatus(JiraUiPlugin.ID_PLUGIN, 0, NLS.bind("Validation results for {0}", //$NON-NLS-1$
 					repository.getRepositoryLabel()), null);
-			status.addAll(serverInfo.getStatistics().getStatus());
+//			status.addAll(serverInfo.getStatistics().getStatus());
 			status.add(new Status(IStatus.INFO, JiraUiPlugin.ID_PLUGIN, NLS.bind(
 					"Web base: {0}", serverInfo.getWebBaseUrl()))); //$NON-NLS-1$
-			status.add(new Status(IStatus.INFO, JiraUiPlugin.ID_PLUGIN, NLS.bind(
-					"Character encoding: {0}", serverInfo.getCharacterEncoding()))); //$NON-NLS-1$
+//			status.add(new Status(IStatus.INFO, JiraUiPlugin.ID_PLUGIN, NLS.bind(
+//					"Character encoding: {0}", serverInfo.getCharacterEncoding()))); //$NON-NLS-1$
 			status.add(new Status(IStatus.INFO, JiraUiPlugin.ID_PLUGIN, NLS.bind("Version: {0}", serverInfo.toString()))); //$NON-NLS-1$
 			StatusHandler.log(status);
 		}

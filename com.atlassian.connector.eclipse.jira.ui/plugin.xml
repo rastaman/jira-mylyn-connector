@@ -55,7 +55,7 @@
             repositoryKind="jira"
             label="Apache"
             urlRepository="https://issues.apache.org/jira"/>
-      <repository addAutomatically="true"
+      <repository addAutomatically="false"
 			label="Atlassian Integrations Support" 
 			repositoryKind="jira" 
 			urlRepository="https://studio.atlassian.com" />
@@ -102,6 +102,15 @@
          </property>
       </mapping>
    </extension>
+   
+   <extension
+          point="org.eclipse.mylyn.tasks.ui.taskRepositoryPageContribution">
+       <taskRepositoryPageContribution
+       		 id="com.atlassian.connector.eclipse.jira.ui.httpAuthExtensionSettings"
+             class="com.atlassian.connector.eclipse.internal.jira.ui.wizards.HttpAuthExtensionSettingsContribution"
+             connectorKind="jira">
+       </taskRepositoryPageContribution>
+    </extension>
    
    <extension
           point="org.eclipse.mylyn.tasks.ui.taskRepositoryPageContribution">

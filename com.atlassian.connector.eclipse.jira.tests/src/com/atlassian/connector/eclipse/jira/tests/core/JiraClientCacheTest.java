@@ -52,14 +52,9 @@ public class JiraClientCacheTest extends TestCase {
 			};
 
 			@Override
-			public Version[] getVersions(String key, IProgressMonitor monitor) throws JiraException {
-				switch (whatProject[0]) {
-				case 2:
-					return new Version[] { MockJiraClient.createVersion("1", "Version 1"),
-							MockJiraClient.createVersion("2", "Version 2") };
-				default:
-					return null;
-				}
+			public void getProjectDetails(Project project) throws JiraException {
+				project.setVersions(new Version[] { MockJiraClient.createVersion("1", "Version 1"),
+						MockJiraClient.createVersion("2", "Version 2") });
 			}
 		};
 

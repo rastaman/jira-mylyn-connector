@@ -111,7 +111,7 @@ public abstract class AbstractStartWorkAction extends AbstractJiraAction {
 		return false;
 	}
 
-	protected static boolean isInOpenState(TaskData taskData) {
+	private static boolean isInOpenState(TaskData taskData) {
 
 		if (taskData == null) {
 			return false;

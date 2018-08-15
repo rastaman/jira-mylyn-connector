@@ -13,32 +13,24 @@
 
 package com.atlassian.connector.eclipse.internal.jira.core.service;
 
-import java.io.OutputStream;
-import java.util.Arrays;
+import java.io.InputStream;
+import java.net.Proxy;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 
 import com.atlassian.connector.eclipse.internal.jira.core.JiraCorePlugin;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Attachment;
-import com.atlassian.connector.eclipse.internal.jira.core.model.Comment;
-import com.atlassian.connector.eclipse.internal.jira.core.model.Component;
-import com.atlassian.connector.eclipse.internal.jira.core.model.CustomField;
 import com.atlassian.connector.eclipse.internal.jira.core.model.IssueField;
 import com.atlassian.connector.eclipse.internal.jira.core.model.IssueType;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraAction;
-import com.atlassian.connector.eclipse.internal.jira.core.model.JiraConfiguration;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraIssue;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraStatus;
@@ -50,16 +42,11 @@ import com.atlassian.connector.eclipse.internal.jira.core.model.ProjectRole;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Resolution;
 import com.atlassian.connector.eclipse.internal.jira.core.model.SecurityLevel;
 import com.atlassian.connector.eclipse.internal.jira.core.model.ServerInfo;
-import com.atlassian.connector.eclipse.internal.jira.core.model.Version;
-import com.atlassian.connector.eclipse.internal.jira.core.model.WebServerInfo;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.FilterDefinition;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.IssueCollector;
-import com.atlassian.connector.eclipse.internal.jira.core.model.filter.SingleIssueCollector;
-import com.atlassian.connector.eclipse.internal.jira.core.model.filter.TextFilter;
-import com.atlassian.connector.eclipse.internal.jira.core.service.soap.JiraSoapClient;
-import com.atlassian.connector.eclipse.internal.jira.core.service.web.JiraWebClient;
-import com.atlassian.connector.eclipse.internal.jira.core.service.web.JiraWebSession;
-import com.atlassian.connector.eclipse.internal.jira.core.service.web.rss.JiraRssClient;
+import com.atlassian.connector.eclipse.internal.jira.core.service.rest.JiraRestClientAdapter;
+import com.atlassian.jira.rest.client.RestClientException;
+import com.atlassian.jira.rest.client.domain.SessionInfo;
 
 /**
  * JIRA server implementation that caches information that is unlikely to change during the session. This server uses a
@@ -70,8 +57,17 @@ import com.atlassian.connector.eclipse.internal.jira.core.service.web.rss.JiraRs
  * @author Brock Janiczak
  * @author Steffen Pingel
  * @author Thomas Ehrnhoefer
+ * @author Jacek Jaroczynski
  */
 public class JiraClient {
+
+	private static final String URL_REGEXP_HTTP = "http.*"; //$NON-NLS-1$
+
+	private static final String URL_REGEXP_HTTPS = "https.*"; //$NON-NLS-1$
+
+	private static final String PROXY_TYPE_HTTP = "HTTP"; //$NON-NLS-1$
+
+	private static final String PROXY_TYPE_HTTPS = "HTTPS"; //$NON-NLS-1$
 
 	/**
 	 * Leave the assignee field as is (this does not apply when performing an assign to action)
@@ -100,25 +96,26 @@ public class JiraClient {
 
 	public final static String DEFAULT_CHARSET = "UTF-8"; //$NON-NLS-1$
 
-	private boolean attemptedToDetermineCharacterEncoding;
+//	private boolean attemptedToDetermineCharacterEncoding;
 
 	private final String baseUrl;
 
 	private final JiraClientCache cache;
 
-	private final JiraRssClient rssClient;
+//	private final JiraRssClient rssClient;
 
-	private final JiraWebClient webClient;
+//	private final JiraWebClient webClient;
 
 	private final AbstractWebLocation location;
 
-	private final JiraSoapClient soapClient;
-
 	private JiraLocalConfiguration localConfiguration;
 
-	private final JiraWebSession webSession;
+//	private final JiraWebSession webSession;
 
-	public JiraClient(AbstractWebLocation location, JiraLocalConfiguration configuration) {
+	private JiraRestClientAdapter restClient = null;
+
+	public JiraClient(AbstractWebLocation location, JiraLocalConfiguration configuration,
+			JiraRestClientAdapter restClient) {
 		Assert.isNotNull(location);
 		Assert.isNotNull(configuration);
 		this.baseUrl = location.getUrl();
@@ -126,69 +123,148 @@ public class JiraClient {
 		this.localConfiguration = configuration;
 
 		this.cache = new JiraClientCache(this);
-		this.webSession = new JiraWebSession(this);
-		this.webClient = new JiraWebClient(this, webSession);
-		this.rssClient = new JiraRssClient(this, webSession);
-		this.soapClient = new JiraSoapClient(this);
+//		this.webSession = new JiraWebSession(this);
+//		this.webClient = new JiraWebClient(this, webSession);
+//		this.rssClient = new JiraRssClient(this, webSession);
+		this.restClient = restClient;
+
 	}
 
+	public JiraClient(AbstractWebLocation location, JiraLocalConfiguration configuration) {
+		this(location, configuration, null);
+		// lazy initialization of REST client so creating JIRA client does not trigger SecureStorage
+//		restClient = createRestClient(location, cache);
+	}
+
+	/**
+	 * Only for Tests purposes
+	 * 
+	 * @param location
+	 */
 	public JiraClient(AbstractWebLocation location) {
 		this(location, new JiraLocalConfiguration());
 	}
 
-	public void addCommentToIssue(String issueKey, Comment comment, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("addCommentToIssue", null); //$NON-NLS-1$
-		soapClient.addComment(issueKey, comment, monitor);
+	private JiraRestClientAdapter getRestClient() {
+		if (restClient == null) {
+			restClient = createRestClient(location, cache);
+		}
+
+		return restClient;
 	}
 
+	private JiraRestClientAdapter createRestClient(final AbstractWebLocation location, final JiraClientCache cache) {
+		Proxy proxy = null;
+		final String baseUrl = location.getUrl();
+		if (baseUrl.matches(URL_REGEXP_HTTPS)) {
+			proxy = location.getProxyForHost(baseUrl, PROXY_TYPE_HTTPS);
+		} else if (baseUrl.matches(URL_REGEXP_HTTP)) {
+			proxy = location.getProxyForHost(baseUrl, PROXY_TYPE_HTTP);
+		}
+
+		AuthenticationCredentials credentials = location.getCredentials(AuthenticationType.REPOSITORY);
+
+		String username = ""; //$NON-NLS-1$
+		String password = null;
+
+		if (credentials != null) {
+			username = credentials.getUserName();
+			password = credentials.getPassword();
+		}
+
+		return new JiraRestClientAdapter(baseUrl, username, password, proxy, cache,
+				localConfiguration.getFollowRedirects());
+	}
+
+//	public void addCommentToIssue(String issueKey, Comment comment, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("addCommentToIssue", null); //$NON-NLS-1$
+//		soapClient.addComment(issueKey, comment, monitor);
+//	}
+
 	public void addCommentToIssue(String issueKey, String comment, IProgressMonitor monitor) throws JiraException {
-		Comment cmnt = new Comment();
-		cmnt.setComment(comment);
-		addCommentToIssue(issueKey, cmnt, monitor);
+
+		try {
+			getRestClient().addComment(issueKey, comment);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		Comment cmnt = new Comment();
+//		cmnt.setComment(comment);
+//		addCommentToIssue(issueKey, cmnt, monitor);
 	}
 
 	public void advanceIssueWorkflow(JiraIssue issue, String actionKey, String comment, IProgressMonitor monitor)
 			throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("advanceIssueWorkflow", null); //$NON-NLS-1$
-		String[] fields = getActionFields(issue.getKey(), actionKey, monitor);
-		soapClient.progressWorkflowAction(issue, actionKey, fields, monitor);
 
-		if (!StringUtils.isEmpty(comment)) {
-			addCommentToIssue(issue.getKey(), comment, monitor);
+		try {
+			Iterable<IssueField> fields = getActionFields(issue.getKey(), actionKey, monitor);
+
+			getRestClient().transitionIssue(issue, actionKey, comment, fields);
+
+		} catch (RestClientException e) {
+			throw new JiraException(e);
 		}
+
+//		soapClient.progressWorkflowAction(issue, actionKey, fields, monitor);
+//
+//		if (!StringUtils.isEmpty(comment)) {
+//			addCommentToIssue(issue.getKey(), comment, monitor);
+//		}
 	}
 
-	public void assignIssueTo(JiraIssue issue, int assigneeType, String user, String comment, IProgressMonitor monitor)
+	public void assignIssueTo(JiraIssue issue, String user, String comment, IProgressMonitor monitor)
 			throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("assignIssueTo", null); //$NON-NLS-1$
 		/*PLE-1188
 		soapClient.assignIssueTo(issue.getKey(), getAssigneeParam(issue, assigneeType, user), monitor);
+		*/
 
-		if (!StringUtils.isEmpty(comment)) {
-			addCommentToIssue(issue.getKey(), comment, monitor);
-		}*/
-		webClient.assignIssueTo(issue, assigneeType, user, comment, monitor);
-	}
-
-	public void addAttachment(JiraIssue issue, String comment, String filename, byte[] content, IProgressMonitor monitor)
-			throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("addAttachment", null); //$NON-NLS-1$
-
-		String[] encodedContents = new String[] { new String(new Base64().encode(content)) };
-		String[] names = new String[] { filename };
+//		webClient.assignIssueTo(issue, assigneeType, user, comment, monitor);
 
 		try {
-			soapClient.addAttachmentsBase64EncodedToIssue(issue.getKey(), names, encodedContents, monitor);
-		} catch (Throwable e) {
-			if (e.toString().contains("java.lang.OutOfMemoryError")) { //$NON-NLS-1$
-				StatusHandler.log(new Status(IStatus.ERROR, JiraCorePlugin.ID_PLUGIN, e.getMessage()));
-				throw new JiraException(Messages.JiraClient_attachment_too_large, e);
-			}
-			throw new JiraException(e.toString(), e);
+			getRestClient().assignIssue(issue.getKey(), user, comment);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
 		}
 
 		if (!StringUtils.isEmpty(comment)) {
 			addCommentToIssue(issue.getKey(), comment, monitor);
+		}
+
+		// TODO rest: https://studio.atlassian.com/browse/JRJC-85 (single operation)
+	}
+
+	public void addAttachment(JiraIssue jiraIssue, String comment, String filename, byte[] content,
+			IProgressMonitor monitor) throws JiraException {
+		JiraCorePlugin.getMonitoring().logJob("addAttachment", null); //$NON-NLS-1$
+
+		if (content.length == 0) {
+			throw new JiraException("Cannot attach empty file");
+		}
+
+		try {
+			getRestClient().addAttachment(jiraIssue.getKey(), content, filename);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		String[] encodedContents = new String[] { new String(new Base64().encode(content)) };
+//		String[] names = new String[] { filename };
+//
+//		try {
+//			soapClient.addAttachmentsBase64EncodedToIssue(issue.getKey(), names, encodedContents, monitor);
+//		} catch (Throwable e) {
+//			if (e.toString().contains("java.lang.OutOfMemoryError")) { //$NON-NLS-1$
+//				StatusHandler.log(new Status(IStatus.ERROR, JiraCorePlugin.ID_PLUGIN, e.getMessage()));
+//				throw new JiraException(Messages.JiraClient_attachment_too_large, e);
+//			}
+//			throw new JiraException(e.toString(), e);
+//		}
+
+		if (!StringUtils.isEmpty(comment)) {
+			addCommentToIssue(jiraIssue.getKey(), comment, monitor);
 		}
 	}
 
@@ -225,24 +301,37 @@ public class JiraClient {
 				issue.getProject().setKey(project.getKey());
 			}
 		}
-		String issueKey = soapClient.createIssue(issue, monitor);
-		//String issueKey = webClient.createIssue(issue, monitor);
-		return getIssueByKey(issueKey, monitor);
+
+		try {
+
+			String issueKey = getRestClient().createIssue(issue);
+
+//		String issueKey = soapClient.createIssue(issue, monitor);
+			//String issueKey = webClient.createIssue(issue, monitor);
+			return getIssueByKey(issueKey, monitor);
+
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 	}
 
 	/**
 	 * See {@link #createIssue(JiraIssue)} for mandatory attributes of <code>issue</code>. Additionally the
 	 * <code>parentIssueId</code> must be set.
 	 */
-	public JiraIssue createSubTask(JiraIssue issue, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("createSubTask", null); //$NON-NLS-1$
-		String issueKey = webClient.createSubTask(issue, monitor);
-		return getIssueByKey(issueKey, monitor);
-	}
+//	public JiraIssue createSubTask(JiraIssue issue, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("createSubTask", null); //$NON-NLS-1$
+//		String issueKey = webClient.createSubTask(issue, monitor);
+//		return getIssueByKey(issueKey, monitor);
+//	}
 
+	// only for tests purposes
 	public void deleteIssue(JiraIssue issue, IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("deleteIssue", null); //$NON-NLS-1$
-		soapClient.deleteIssue(issue.getKey(), monitor);
+//		soapClient.deleteIssue(issue.getKey(), monitor);
+		restClient.deleteIssue(issue.getKey(), monitor);
+
+		// TODO rest: https://studio.atlassian.com/browse/JRJC-86
 	}
 
 	@Override
@@ -253,16 +342,43 @@ public class JiraClient {
 		return false;
 	}
 
-	public void executeNamedFilter(NamedFilter filter, IssueCollector collector, IProgressMonitor monitor)
-			throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("executeNamedFilter", null); //$NON-NLS-1$
-		rssClient.executeNamedFilter(filter, collector, monitor);
-	}
+//	public void executeNamedFilter(NamedFilter filter, IssueCollector collector, IProgressMonitor monitor)
+//			throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("executeNamedFilter", null); //$NON-NLS-1$
+//		rssClient.executeNamedFilter(filter, collector, monitor);
+//	}
 
 	public void findIssues(FilterDefinition filterDefinition, IssueCollector collector, IProgressMonitor monitor)
 			throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("findIssues", null); //$NON-NLS-1$
-		rssClient.findIssues(filterDefinition, collector, monitor);
+
+		FilterDefinitionConverter filterConverter = new FilterDefinitionConverter(DEFAULT_CHARSET,
+				getLocalConfiguration().getDateTimeFormat());
+
+		String jql = filterConverter.getJqlString(filterDefinition);
+
+		findIssues(jql, collector, monitor);
+
+//		rssClient.findIssues(filterDefinition, collector, monitor);
+	}
+
+	private void findIssues(String jql, IssueCollector collector, IProgressMonitor monitor) throws JiraException {
+		try {
+
+			List<JiraIssue> issues = getRestClient().getIssues(jql, localConfiguration.getMaxSearchResults(), monitor);
+
+			if (!collector.isCancelled()) {
+				collector.start();
+
+				for (JiraIssue issue : issues) {
+					collector.collectIssue(issue);
+				}
+
+				collector.done();
+			}
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 	}
 
 	/**
@@ -274,10 +390,21 @@ public class JiraClient {
 	 *            Unique id for action to get fields for
 	 * @return array of field ids for given actionId
 	 */
-	public String[] getActionFields(final String issueKey, final String actionId, IProgressMonitor monitor)
+	public Iterable<IssueField> getActionFields(final String issueKey, final String actionId, IProgressMonitor monitor)
 			throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getActionFields", null); //$NON-NLS-1$
-		return soapClient.getActionFields(issueKey, actionId, monitor);
+
+		Iterable<JiraAction> actions = getAvailableActions(issueKey, monitor);
+
+		for (JiraAction action : actions) {
+			if (action.getId().equals(actionId)) {
+				return action.getFields();
+			}
+		}
+
+		return Collections.emptyList();
+
+//		return soapClient.getActionFields(issueKey, actionId, monitor);
 	}
 
 	/**
@@ -287,9 +414,17 @@ public class JiraClient {
 	 *            Unique key of the issue to find
 	 * @return corresponding array of <code>RepositoryOperation</code> objects or <code>null</code>.
 	 */
-	public JiraAction[] getAvailableActions(final String issueKey, IProgressMonitor monitor) throws JiraException {
+	public Iterable<JiraAction> getAvailableActions(final String issueKey, IProgressMonitor monitor)
+			throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getAvailableActions", null); //$NON-NLS-1$
-		return soapClient.getAvailableActions(issueKey, monitor);
+
+		try {
+			return getRestClient().getTransitions(issueKey);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getAvailableActions(issueKey, monitor);
 	}
 
 	public String getBaseUrl() {
@@ -302,34 +437,32 @@ public class JiraClient {
 
 	public String getCharacterEncoding(IProgressMonitor monitor) throws JiraException {
 		if (localConfiguration.getCharacterEncoding() == null) {
-			String serverEncoding = getCache().getServerInfo(monitor).getCharacterEncoding();
-			if (serverEncoding != null) {
-				return serverEncoding;
-			} else if (!attemptedToDetermineCharacterEncoding) {
-				getCache().refreshServerInfo(monitor);
-				serverEncoding = getCache().getServerInfo(monitor).getCharacterEncoding();
-				if (serverEncoding != null) {
-					return serverEncoding;
-				}
-			}
+//			String serverEncoding = getCache().getServerInfo(monitor).getCharacterEncoding();
+//			if (serverEncoding != null) {
+//				return serverEncoding;
+//			} else if (!attemptedToDetermineCharacterEncoding) {
+//				getCache().refreshServerInfo(monitor);
+//				serverEncoding = getCache().getServerInfo(monitor).getCharacterEncoding();
+//				if (serverEncoding != null) {
+//					return serverEncoding;
+//				}
+//			}
 			// fallback
 			return DEFAULT_CHARSET;
 		}
 		return localConfiguration.getCharacterEncoding();
 	}
 
-	public Component[] getComponents(String projectKey, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getComponents", null); //$NON-NLS-1$
-		return soapClient.getComponents(projectKey, monitor);
-	}
+//	public Component[] getComponents(String projectKey, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getComponents", null); //$NON-NLS-1$
+//
+//		return restClient.getComponents(projectKey);
+//
+////		return soapClient.getComponents(projectKey, monitor);
+//	}
 
 	public synchronized JiraLocalConfiguration getLocalConfiguration() {
 		return localConfiguration;
-	}
-
-	public CustomField[] getCustomAttributes(IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getCustomAttributes", null); //$NON-NLS-1$
-		return soapClient.getCustomAttributes(monitor);
 	}
 
 	/**
@@ -339,10 +472,10 @@ public class JiraClient {
 	 *            Unique key of the issue to find
 	 * @return corresponding array of <code>RepositoryTaskAttribute</code> objects or <code>null</code>.
 	 */
-	public IssueField[] getEditableAttributes(final String issueKey, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getEditableAttributes", null); //$NON-NLS-1$
-		return soapClient.getEditableAttributes(issueKey, monitor);
-	}
+//	public IssueField[] getEditableAttributes(final String issueKey, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getEditableAttributes", null); //$NON-NLS-1$
+//		return soapClient.getEditableAttributes(issueKey, monitor);
+//	}
 
 	/**
 	 * Retrieve an issue using its unique key
@@ -353,24 +486,51 @@ public class JiraClient {
 	 */
 	public JiraIssue getIssueByKey(String issueKey, IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getIssueByKey", null); //$NON-NLS-1$
-		SingleIssueCollector collector = new SingleIssueCollector();
-		rssClient.getIssueByKey(issueKey, collector, monitor);
-		if (collector.getIssue() != null && collector.getIssue().getProject() == null) {
-			throw new JiraException("Repository returned an unknown project for issue '" //$NON-NLS-1$
-					+ collector.getIssue().getKey() + "'"); //$NON-NLS-1$
+
+		try {
+			return getRestClient().getIssueByKeyOrId(issueKey, monitor);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
 		}
-		return collector.getIssue();
+
+//		SingleIssueCollector collector = new SingleIssueCollector();
+//		rssClient.getIssueByKey(issueKey, collector, monitor);
+//		if (collector.getIssue() != null && collector.getIssue().getProject() == null) {
+//			throw new JiraException("Repository returned an unknown project for issue '" //$NON-NLS-1$
+//					+ collector.getIssue().getKey() + "'"); //$NON-NLS-1$
+//		}
+//		return collector.getIssue();
+	}
+
+	public JiraIssue getIssueById(String issueId, IProgressMonitor monitor) throws JiraException {
+		JiraCorePlugin.getMonitoring().logJob("getIssueByUrl", null); //$NON-NLS-1$
+
+		try {
+			return getRestClient().getIssueByKeyOrId(issueId, monitor);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 	}
 
 	public IssueType[] getIssueTypes(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getIssueTypes", null); //$NON-NLS-1$
-		return soapClient.getIssueTypes(monitor);
+
+		try {
+			return getRestClient().getIssueTypes();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getIssueTypes(monitor);
 	}
 
-	public IssueType[] getIssueTypes(String projectId, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getIssueTypesForProject", null); //$NON-NLS-1$
-		return soapClient.getIssueTypes(projectId, monitor);
-	}
+//	public IssueType[] getIssueTypes(String projectKey, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getIssueTypesForProject", null); //$NON-NLS-1$
+//
+//		return restClient.getIssueTypes(projectKey);
+//
+////		return soapClient.getIssueTypes(projectKey, monitor);
+//	}
 
 	/**
 	 * Returns the corresponding key for <code>issueId</code>.
@@ -379,10 +539,11 @@ public class JiraClient {
 	 *            unique id of the issue
 	 * @return corresponding key or <code>null</code> if the id was not found
 	 */
-	public String getKeyFromId(final String issueId, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getKeyFromId", null); //$NON-NLS-1$
-		return soapClient.getKeyFromId(issueId, monitor);
-	}
+//	public String getKeyFromId(final String issueId, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getKeyFromId", null); //$NON-NLS-1$
+//		// it is used only in tests
+//		return soapClient.getKeyFromId(issueId, monitor);
+//	}
 
 	public AbstractWebLocation getLocation() {
 		return location;
@@ -396,56 +557,117 @@ public class JiraClient {
 	 */
 	public NamedFilter[] getNamedFilters(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getNamedFilters", null); //$NON-NLS-1$
-		return soapClient.getNamedFilters(monitor);
+
+		try {
+			return getRestClient().getFavouriteFilters();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getNamedFilters(monitor);
 	}
 
 	public Priority[] getPriorities(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getPriorities", null); //$NON-NLS-1$
-		return soapClient.getPriorities(monitor);
+
+		try {
+			return getRestClient().getPriorities();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getPriorities(monitor);
 	}
 
 	public Project[] getProjects(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getProjects", null); //$NON-NLS-1$
-		return soapClient.getProjects(monitor);
+
+		try {
+			return getRestClient().getProjects();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getProjects(monitor);
 	}
 
 	public Resolution[] getResolutions(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getResolutions", null); //$NON-NLS-1$
-		return soapClient.getResolutions(monitor);
+
+		try {
+			return getRestClient().getResolutions();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getResolutions(monitor);
+	}
+
+	public SessionInfo getSessionInfo(IProgressMonitor monitor) throws JiraException {
+
+		// TODO add some aspect logging here
+		JiraCorePlugin.getMonitoring().logJob("getAuthInfo", null); //$NON-NLS-1$
+
+		try {
+			return getRestClient().getSessionInfo();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 	}
 
 	public ServerInfo getServerInfo(final IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getServerInfo", null); //$NON-NLS-1$
+
 		// get server information through SOAP
-		ServerInfo serverInfo = soapClient.getServerInfo(monitor);
+//		ServerInfo serverInfo = soapClient.getServerInfo(monitor);
+		try {
+			ServerInfo serverInfo = getRestClient().getServerInfo();
 
-		// get character encoding through web
-		WebServerInfo webServerInfo = webClient.getWebServerInfo(monitor);
-		serverInfo.setCharacterEncoding(webServerInfo.getCharacterEncoding());
-		serverInfo.setWebBaseUrl(webServerInfo.getBaseUrl());
+			// get character encoding through web
+//			WebServerInfo webServerInfo = webClient.getWebServerInfo(monitor);
+//			serverInfo.setCharacterEncoding(webServerInfo.getCharacterEncoding());
+			serverInfo.setCharacterEncoding(DEFAULT_CHARSET);
+//			serverInfo.setWebBaseUrl(webServerInfo.getBaseUrl());
 
-		serverInfo.getStatistics().getStatus().addAll(webServerInfo.getStatistics().getStatus());
+//			serverInfo.getStatistics().getStatus().addAll(webServerInfo.getStatistics().getStatus());
 
-		return serverInfo;
-	}
-
-	public JiraSoapClient getSoapClient() {
-		return soapClient;
+			return serverInfo;
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 	}
 
 	public JiraStatus[] getStatuses(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getStatuses", null); //$NON-NLS-1$
-		return soapClient.getStatuses(monitor);
+
+		try {
+			return getRestClient().getStatuses();
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.getStatuses(monitor);
 	}
 
-	public IssueType[] getSubTaskIssueTypes(IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getSubTaskIssueTypes", null); //$NON-NLS-1$
-		return soapClient.getSubTaskIssueTypes(monitor);
-	}
+//	public IssueType[] getSubTaskIssueTypes(IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getSubTaskIssueTypes", null); //$NON-NLS-1$
+//		return soapClient.getSubTaskIssueTypes(monitor);
+//	}
 
-	public IssueType[] getSubTaskIssueTypes(String projectId, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getSubTaskIssueTypesForProject", null); //$NON-NLS-1$
-		return soapClient.getSubTaskIssueTypes(projectId, monitor);
+//	public IssueType[] getSubTaskIssueTypes(String projectId, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getSubTaskIssueTypesForProject", null); //$NON-NLS-1$
+//		return soapClient.getSubTaskIssueTypes(projectId, monitor);
+//	}
+
+	public void getProjectDetails(Project project) throws JiraException {
+
+		JiraCorePlugin.getMonitoring().logJob("getProjectDetails", null); //$NON-NLS-1$
+
+		try {
+			getRestClient().getProjectDetails(project);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 	}
 
 	public String getUserName() {
@@ -459,16 +681,17 @@ public class JiraClient {
 	 * @param key
 	 *            the project key
 	 */
-	public Version[] getVersions(String key, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getVersions", null); //$NON-NLS-1$
-		List<Version> versions = Arrays.asList(soapClient.getVersions(key, monitor));
-		Collections.sort(versions, new Comparator<Version>() {
-			public int compare(Version o1, Version o2) {
-				return o1.getSequence() > o2.getSequence() ? -1 : (o1.getSequence() == o2.getSequence() ? 0 : 1);
-			}
-		});
-		return versions.toArray(new Version[0]);
-	}
+//	public Version[] getVersions(String key, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getVersions", null); //$NON-NLS-1$
+////		List<Version> versions = Arrays.asList(soapClient.getVersions(key, monitor));
+//		List<Version> versions = Arrays.asList(restClient.getVersions(key));
+//		Collections.sort(versions, new Comparator<Version>() {
+//			public int compare(Version o1, Version o2) {
+//				return o1.getSequence() > o2.getSequence() ? -1 : (o1.getSequence() == o2.getSequence() ? 0 : 1);
+//			}
+//		});
+//		return versions.toArray(new Version[0]);
+//	}
 
 	@Override
 	public int hashCode() {
@@ -480,31 +703,41 @@ public class JiraClient {
 	 * login when the session is about to expire. If you need to check if the credentials are valid, call
 	 * {@link com.atlassian.connector.eclipse.internal.jira.core.JiraClientManager#testConnection(String, String, String)}
 	 */
-	public void login(IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("login", null); //$NON-NLS-1$
-		soapClient.login(monitor);
-	}
+//	public void login(IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("login", null); //$NON-NLS-1$
+//		soapClient.login(monitor);
+//	}
 
 	/**
 	 * Force the current session to be closed. This method should only be called during application shutdown and then
 	 * only out of courtesy to the server. Jira will automatically expire sessions after a set amount of time.
 	 */
 	public void logout(IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("logout", null); //$NON-NLS-1$
-		soapClient.logout(monitor);
+//		JiraCorePlugin.getMonitoring().logJob("logout", null); //$NON-NLS-1$
+//		soapClient.logout(monitor);
+
+		// Nothing to do here as our REST client is stateless 
 	}
 
-	public void quickSearch(String searchString, IssueCollector collector, IProgressMonitor monitor)
-			throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("quickSearch", null); //$NON-NLS-1$
-		rssClient.quickSearch(searchString, collector, monitor);
+//	public void quickSearch(String searchString, IssueCollector collector, IProgressMonitor monitor)
+//			throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("quickSearch", null); //$NON-NLS-1$
+//		rssClient.quickSearch(searchString, collector, monitor);
+//
+//	}
 
-	}
-
-	public void getAttachment(JiraIssue issue, Attachment attachment, OutputStream out, IProgressMonitor monitor)
+	public InputStream getAttachment(JiraIssue jiraIssue, Attachment attachment, IProgressMonitor monitor)
 			throws JiraException {
+
 		JiraCorePlugin.getMonitoring().logJob("getAttachment", null); //$NON-NLS-1$
-		webClient.retrieveFile(issue, attachment, out, monitor);
+
+		try {
+			return getRestClient().getAttachment(attachment.getContent());
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		webClient.retrieveFile(jiraIssue, attachment, out, monitor);
 	}
 
 	/**
@@ -514,12 +747,15 @@ public class JiraClient {
 	 *            Reciever for the matching issues
 	 */
 	public void search(JiraFilter query, IssueCollector collector, IProgressMonitor monitor) throws JiraException {
-		if (query instanceof TextFilter) {
-			quickSearch(((TextFilter) query).getKeywords(), collector, monitor);
-		} else if (query instanceof FilterDefinition) {
+//		if (query instanceof TextFilter) {
+//			quickSearch(((TextFilter) query).getKeywords(), collector, monitor);
+//		} 
+
+		if (query instanceof FilterDefinition) {
 			findIssues((FilterDefinition) query, collector, monitor);
 		} else if (query instanceof NamedFilter) {
-			executeNamedFilter((NamedFilter) query, collector, monitor);
+			findIssues(((NamedFilter) query).getJql(), collector, monitor);
+//			executeNamedFilter((NamedFilter) query, collector, monitor);
 		} else {
 			throw new IllegalArgumentException("Unknown query type: " + query.getClass()); //$NON-NLS-1$
 		}
@@ -530,39 +766,62 @@ public class JiraClient {
 		return getBaseUrl();
 	}
 
-	public void updateIssue(JiraIssue issue, String comment, IProgressMonitor monitor) throws JiraException {
+	public void updateIssue(JiraIssue issue, String comment, boolean updateEstimate, IProgressMonitor monitor)
+			throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("updateIssue", null); //$NON-NLS-1$
-		soapClient.updateIssue(issue, monitor);
+//		soapClient.updateIssue(issue, monitor);
+
+		try {
+			getRestClient().updateIssue(issue, updateEstimate);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
 
 		if (!StringUtils.isEmpty(comment)) {
 			addCommentToIssue(issue.getKey(), comment, monitor);
 		}
 	}
 
-	public JiraWorkLog[] getWorklogs(String issueKey, IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getWorklogs", null); //$NON-NLS-1$
-		return soapClient.getWorkLogs(issueKey, monitor);
-	}
+//	public JiraWorkLog[] getWorklogs(String issueKey, IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getWorklogs", null); //$NON-NLS-1$
+//		return soapClient.getWorkLogs(issueKey, monitor);
+//	}
 
 	public SecurityLevel[] getAvailableSecurityLevels(String projectKey, IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getAvailableSecurityLevels", null); //$NON-NLS-1$
-		return soapClient.getAvailableSecurityLevels(projectKey, monitor);
+
+		return getRestClient().getSecurityLevels(projectKey);
+
+//		return soapClient.getAvailableSecurityLevels(projectKey, monitor);
 	}
 
-	public JiraWorkLog addWorkLog(String issueKey, JiraWorkLog log, IProgressMonitor monitor) throws JiraException {
+	public void addWorkLog(String issueKey, JiraWorkLog log, IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("addWorkLog", null); //$NON-NLS-1$
-		return soapClient.addWorkLog(issueKey, log, monitor);
+
+		try {
+			getRestClient().addWorklog(issueKey, log);
+		} catch (RestClientException e) {
+			throw new JiraException(e);
+		}
+
+//		return soapClient.addWorkLog(issueKey, log, monitor);
 	}
 
 	public ProjectRole[] getProjectRoles(IProgressMonitor monitor) throws JiraException {
 		JiraCorePlugin.getMonitoring().logJob("getProjectRoles", null); //$NON-NLS-1$
-		return soapClient.getProjectRoles(monitor);
+//		return soapClient.getProjectRoles(monitor);
+
+		// not used
+		// restClient.getProjectRolesRestClient().getRoles(projectUri, progressMonitor)
+		return new ProjectRole[0];
+
+		// TODO rest https://studio.atlassian.com/browse/JRJC-108
 	}
 
-	public JiraConfiguration getConfiguration(IProgressMonitor monitor) throws JiraException {
-		JiraCorePlugin.getMonitoring().logJob("getConfiguration", null); //$NON-NLS-1$
-		return soapClient.getConfiguration(monitor);
-	}
+//	public JiraConfiguration getConfiguration(IProgressMonitor monitor) throws JiraException {
+//		JiraCorePlugin.getMonitoring().logJob("getConfiguration", null); //$NON-NLS-1$
+//		return soapClient.getConfiguration(monitor);
+//	}
 
 	public synchronized void setLocalConfiguration(JiraLocalConfiguration configuration) {
 		Assert.isNotNull(configuration);
@@ -574,17 +833,9 @@ public class JiraClient {
 	}
 
 	public synchronized void purgeSession() {
-		webSession.purgeSession();
-		soapClient.purgeSession();
-	}
-
-	/**
-	 * For testing only.
-	 * 
-	 * @return
-	 */
-	public JiraWebSession getWebSession() {
-		return webSession;
+//		webSession.purgeSession();
+//		soapClient.purgeSession();
+		restClient = createRestClient(location, cache);
 	}
 
 	public String getAssigneeParam(JiraIssue issue, int assigneeType, String user) {
@@ -602,6 +853,14 @@ public class JiraClient {
 		default:
 			return user;
 		}
+	}
+
+	public SimpleDateFormat getDateTimeFormat() {
+		return JiraRestClientAdapter.getDateTimeFormat();
+	}
+
+	public SimpleDateFormat getDateFormat() {
+		return JiraRestClientAdapter.getDateFormat();
 	}
 
 }

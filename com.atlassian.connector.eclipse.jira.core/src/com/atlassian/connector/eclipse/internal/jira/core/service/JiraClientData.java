@@ -17,7 +17,6 @@ import java.util.Map;
 
 import com.atlassian.connector.eclipse.internal.jira.core.model.Group;
 import com.atlassian.connector.eclipse.internal.jira.core.model.IssueType;
-import com.atlassian.connector.eclipse.internal.jira.core.model.JiraConfiguration;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraStatus;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Priority;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Project;
@@ -45,6 +44,8 @@ public class JiraClientData implements Serializable {
 
 	Map<String, Priority> prioritiesById = new HashMap<String, Priority>();
 
+	Map<String, Priority> prioritiesByName = new HashMap<String, Priority>();
+
 	Project[] projects = new Project[0];
 
 	Map<String, Project> projectsById = new HashMap<String, Project>();
@@ -55,6 +56,8 @@ public class JiraClientData implements Serializable {
 
 	Map<String, Resolution> resolutionsById = new HashMap<String, Resolution>();
 
+	Map<String, Resolution> resolutionsByName = new HashMap<String, Resolution>();
+
 	volatile ServerInfo serverInfo;
 
 	JiraStatus[] statuses = new JiraStatus[0];
@@ -63,6 +66,8 @@ public class JiraClientData implements Serializable {
 
 	Map<String, JiraStatus> statusesById = new HashMap<String, JiraStatus>();
 
+	Map<String, JiraStatus> statusesByName = new HashMap<String, JiraStatus>();
+
 	// not used
 	User[] users = new User[0];
 
@@ -70,5 +75,6 @@ public class JiraClientData implements Serializable {
 
 	long lastUpdate;
 
-	JiraConfiguration configuration;
+//	JiraConfiguration configuration;
+
 }

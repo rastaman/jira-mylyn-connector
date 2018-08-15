@@ -14,6 +14,7 @@ package com.atlassian.connector.eclipse.internal.bamboo.ui;
 import com.atlassian.connector.eclipse.internal.bamboo.core.BambooClientManager;
 import com.atlassian.connector.eclipse.internal.bamboo.core.BambooCorePlugin;
 import com.atlassian.connector.eclipse.internal.bamboo.core.BambooUtil;
+import com.atlassian.connector.eclipse.internal.bamboo.core.PlanBranches;
 import com.atlassian.connector.eclipse.internal.bamboo.core.client.BambooClient;
 import com.atlassian.connector.eclipse.internal.bamboo.core.client.BambooClientData;
 import com.atlassian.connector.eclipse.internal.commons.ui.MigrateToSecureStorageJob;
@@ -28,6 +29,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.RowDataFactory;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -44,12 +46,15 @@ import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 
 import java.net.MalformedURLException;
@@ -64,6 +69,7 @@ import java.util.Set;
  * 
  * @author Shawn Minto
  * @author thomas
+ * @author Jacek Jaroczynski
  */
 public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage {
 
@@ -93,6 +99,9 @@ public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage
 					});
 					setStatus(new Status(IStatus.ERROR, BambooUiPlugin.PLUGIN_ID,
 							"Wrong credentials or you've been locked out from remote API."));
+				} else if (e.getMessage().contains("Server returned malformed response")) {
+					setStatus(new Status(e.getStatus().getSeverity(), e.getStatus().getPlugin(), e.getStatus()
+							.getMessage() + ". Server behind proxy?"));
 				} else {
 					setStatus(e.getStatus());
 				}
@@ -148,6 +157,10 @@ public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage
 
 	private Collection<BambooPlan> allPlans;
 
+	private Combo btnPlanBranches;
+
+	private Label planBranchesExplanationLabel;
+
 	public BambooRepositorySettingsPage(TaskRepository taskRepository) {
 		super("Bamboo Repository Settings", "Enter Bamboo server information", taskRepository);
 		setNeedsHttpAuth(true);
@@ -168,6 +181,7 @@ public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage
 		}
 
 		BambooUtil.setUseFavourites(repository, btnUseFavourites.getSelection());
+		BambooUtil.setPlanBranches(repository, PlanBranches.from(btnPlanBranches.getText()));
 
 		Object[] items = planViewer.getCheckedElements();
 		Collection<SubscribedPlan> plans = new ArrayList<SubscribedPlan>(items.length);
@@ -243,30 +257,6 @@ public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage
 		buttonLayout.fill = true;
 		buttonComposite.setLayout(buttonLayout);
 
-//		Button selectFavorites = new Button(buttonComposite, SWT.PUSH);
-//		selectFavorites.setText("&Favourites");
-//		selectFavorites.addSelectionListener(new SelectionAdapter() {
-//			@SuppressWarnings("unchecked")
-//			@Override
-//			public void widgetSelected(SelectionEvent event) {
-//				Object input = planViewer.getInput();
-//				// if there are no plans, let's call validate first
-//				if (!(input instanceof Collection<?>)) {
-//					validateSettings();
-//				}
-//				input = planViewer.getInput();
-//				if (input instanceof Collection<?>) {
-//					List<BambooPlan> favorites = new ArrayList<BambooPlan>();
-//					for (BambooPlan plan : (Collection<BambooPlan>) input) {
-//						if (plan.isFavourite()) {
-//							favorites.add(plan);
-//						}
-//					}
-//					planViewer.setCheckedElements(favorites.toArray());
-//				}
-//			}
-//		});
-
 		selectAllButton = new Button(buttonComposite, SWT.PUSH);
 		selectAllButton.setText("&Select All");
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
@@ -302,6 +292,49 @@ public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage
 			}
 		});
 
+		Composite planBranchesComposite = new Composite(composite, SWT.NONE);
+		GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.BEGINNING).applyTo(planBranchesComposite);
+		RowLayout planBranchesLayout = new RowLayout(SWT.HORIZONTAL);
+		planBranchesComposite.setLayout(planBranchesLayout);
+
+		// labelComposite is used only to correctly position label
+		Composite labelComposite = new Composite(planBranchesComposite, SWT.NONE);
+		RowDataFactory.swtDefaults().applyTo(labelComposite);
+		RowLayout labelLayout = new RowLayout();
+		labelLayout.marginLeft = 0;
+		labelComposite.setLayout(labelLayout);
+
+		Label planBranchesLabel = new Label(labelComposite, SWT.NONE);
+		planBranchesLabel.setText("Show Plan Branches: ");
+
+		btnPlanBranches = new Combo(planBranchesComposite, SWT.READ_ONLY);
+		btnPlanBranches.setItems(PlanBranches.stringValues());
+		btnPlanBranches.select(0);
+
+		// labelComposite is used only to correctly position label
+		Composite labelComposite2 = new Composite(planBranchesComposite, SWT.NONE);
+		RowDataFactory.swtDefaults().applyTo(labelComposite);
+		RowLayout labelLayout2 = new RowLayout();
+		labelComposite2.setLayout(labelLayout2);
+
+		planBranchesExplanationLabel = new Label(labelComposite2, SWT.NONE);
+		planBranchesExplanationLabel.setText(" (shows only branches where I am the last commiter)");
+		planBranchesExplanationLabel.setVisible(false);
+
+		btnPlanBranches.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				if (PlanBranches.values()[btnPlanBranches.getSelectionIndex()] == PlanBranches.MINE) {
+					planBranchesExplanationLabel.setVisible(true);
+				} else {
+					planBranchesExplanationLabel.setVisible(false);
+				}
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+
 		btnUseFavourites.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -316,6 +349,12 @@ public class BambooRepositorySettingsPage extends AbstractRepositorySettingsPage
 		if (BambooUtil.isUseFavourites(repository)) {
 			btnUseFavourites.setSelection(true);
 			favouritesSelected(true);
+		}
+
+		PlanBranches planBranches = BambooUtil.getPlanBranches(repository);
+		btnPlanBranches.select(planBranches.ordinal());
+		if (planBranches == PlanBranches.MINE) {
+			planBranchesExplanationLabel.setVisible(true);
 		}
 	}
 

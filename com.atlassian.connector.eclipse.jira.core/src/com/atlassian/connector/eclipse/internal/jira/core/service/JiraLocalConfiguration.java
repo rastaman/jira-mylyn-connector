@@ -15,6 +15,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import com.atlassian.connector.eclipse.internal.jira.core.util.JiraUtil;
+
 /**
  * @author Steffen Pingel
  */
@@ -49,6 +51,8 @@ public class JiraLocalConfiguration {
 	private String defaultCharacterEncoding;
 
 	private boolean useServerTimeTrackingSettings;
+
+	private int maxSearchResults;
 
 	public JiraLocalConfiguration() {
 		setDatePattern(DEFAULT_DATE_PATTERN);
@@ -115,6 +119,9 @@ public class JiraLocalConfiguration {
 		if (useServerTimeTrackingSettings != other.useServerTimeTrackingSettings) {
 			return false;
 		}
+		if (maxSearchResults != other.maxSearchResults) {
+			return false;
+		}
 		return true;
 	}
 
@@ -178,6 +185,7 @@ public class JiraLocalConfiguration {
 		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
 		result = prime * result + workDaysPerWeek;
 		result = prime * result + workHoursPerDay;
+		result = prime * result + maxSearchResults;
 		return result;
 	}
 
@@ -221,4 +229,15 @@ public class JiraLocalConfiguration {
 		this.useServerTimeTrackingSettings = useServerTimeTrackingSettings;
 	}
 
+	public void setMaxSearchResults(int maxSearchResults) {
+		if (maxSearchResults <= 0) {
+			this.maxSearchResults = JiraUtil.DEFAULT_MAX_SEARCH_RESULTS;
+		} else {
+			this.maxSearchResults = maxSearchResults;
+		}
+	}
+
+	public int getMaxSearchResults() {
+		return maxSearchResults;
+	}
 }

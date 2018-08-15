@@ -30,6 +30,7 @@ import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.repositories.core.auth.UserCredentials;
 import org.eclipse.mylyn.commons.sdk.util.CommonTestUtil;
 import org.eclipse.mylyn.commons.sdk.util.CommonTestUtil.PrivilegeLevel;
+import org.eclipse.osgi.util.NLS;
 
 import com.atlassian.connector.eclipse.internal.jira.core.model.Attachment;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Comment;
@@ -44,10 +45,10 @@ import com.atlassian.connector.eclipse.internal.jira.core.model.SecurityLevel;
 import com.atlassian.connector.eclipse.internal.jira.core.model.ServerInfo;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Version;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.FilterDefinition;
+import com.atlassian.connector.eclipse.internal.jira.core.service.JiraAuthenticationException;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraClient;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraException;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraRemoteMessageException;
-import com.atlassian.connector.eclipse.internal.jira.core.service.JiraServiceUnavailableException;
 import com.atlassian.connector.eclipse.jira.tests.util.JiraFixture;
 import com.atlassian.connector.eclipse.jira.tests.util.JiraTestUtil;
 import com.atlassian.connector.eclipse.jira.tests.util.MockIssueCollector;
@@ -58,6 +59,10 @@ import com.atlassian.connector.eclipse.jira.tests.util.MockIssueCollector;
  * @author Thomas Ehrnhoefer
  */
 public class JiraClientTest extends TestCase {
+
+	private final static String MESSAGE = "It seems that you have tried to perform a workflow operation ({0}) "
+			+ "that is not valid for the current state of this issue ({1}). "
+			+ "The likely cause is that somebody has changed the issue recently, please look at the issue history for details.";
 
 	private JiraClient client;
 
@@ -71,15 +76,15 @@ public class JiraClientTest extends TestCase {
 		JiraTestUtil.tearDown();
 	}
 
-	public void testLogin() throws Exception {
-		client.login(null);
-		client.logout(null);
-		// should automatically login
-		client.getCache().refreshDetails(new NullProgressMonitor());
-
-		client = JiraFixture.current().client(PrivilegeLevel.GUEST);
-		client.login(null);
-	}
+//	public void testLogin() throws Exception {
+//		client.login(null);
+//		client.logout(null);
+//		// should automatically login
+//		client.getCache().refreshDetails(new NullProgressMonitor());
+//
+//		client = JiraFixture.current().client(PrivilegeLevel.GUEST);
+//		client.login(null);
+//	}
 
 	public void testStartStopIssue() throws Exception {
 		JiraIssue issue = JiraTestUtil.createIssue(client, "testStartStopIssue");
@@ -91,7 +96,8 @@ public class JiraClientTest extends TestCase {
 			client.advanceIssueWorkflow(issue, startOperation, null, null);
 			fail("Expected JiraRemoteMessageException");
 		} catch (JiraException e) {
-			assertThat(e.getMessage(), containsString("Action 4 is invalid"));
+			assertTrue(e.getMessage().contains(NLS.bind(MESSAGE, "Start Progress", issue.getKey())));
+//			assertThat(e.getMessage(), containsString());
 		}
 
 		String stopOperation = JiraTestUtil.getOperation(client, issue.getKey(), "stop");
@@ -101,13 +107,14 @@ public class JiraClientTest extends TestCase {
 			client.advanceIssueWorkflow(issue, stopOperation, null, null);
 			fail("Expected JiraRemoteMessageException");
 		} catch (JiraException e) {
-			assertThat(e.getMessage(), containsString("Action 301 is invalid"));
+			assertTrue(e.getMessage().contains(NLS.bind(MESSAGE, "Stop Progress", issue.getKey())));
+//			assertThat(e.getMessage(), containsString("Action 301 is invalid"));
 		}
 		client.advanceIssueWorkflow(issue, startOperation, null, null);
 	}
 
 	public void testResolveCloseReopenIssue() throws Exception {
-		final String resolveMsg = "It seems that you have tried to perform a workflow operation (Resolve Issue) that is not valid for the current state of this issue ";
+
 		Resolution resolution = JiraTestUtil.getFixedResolution(client);
 		JiraIssue issue = JiraTestUtil.createIssue(client, "testStartStopIssue");
 
@@ -125,7 +132,8 @@ public class JiraClientTest extends TestCase {
 			client.advanceIssueWorkflow(issue, resolveOperation, "comment", null);
 			fail("Expected JiraRemoteMessageException");
 		} catch (JiraException e) {
-			assertThat(e.getMessage(), containsString("Action 5 is invalid"));
+			assertTrue(e.getMessage().contains(NLS.bind(MESSAGE, "Resolve Issue", issue.getKey())));
+//			assertThat(e.getMessage(), containsString("Action 5 is invalid"));
 		}
 
 		// have to get "close" operation after resolving issue
@@ -139,14 +147,16 @@ public class JiraClientTest extends TestCase {
 			client.advanceIssueWorkflow(issue, resolveOperation, "comment", null);
 			fail("Expected JiraRemoteMessageException");
 		} catch (JiraException e) {
-			assertThat(e.getMessage(), containsString("Action 5 is invalid"));
+			assertTrue(e.getMessage().contains(NLS.bind(MESSAGE, "Resolve Issue", issue.getKey())));
+//			assertThat(e.getMessage(), containsString("Action 5 is invalid"));
 		}
 
 		try {
 			client.advanceIssueWorkflow(issue, closeOperation, "comment", null);
 			fail("Expected JiraRemoteMessageException");
 		} catch (JiraException e) {
-			assertThat(e.getMessage(), containsString("Action 701 is invalid"));
+			assertTrue(e.getMessage().contains(NLS.bind(MESSAGE, "Close Issue", issue.getKey())));
+//			assertThat(e.getMessage(), containsString("Action 701 is invalid"));
 		}
 
 		String reopenOperation = JiraTestUtil.getOperation(client, issue.getKey(), "reopen");
@@ -156,32 +166,32 @@ public class JiraClientTest extends TestCase {
 		assertEquals("Reopened", issue.getStatus().getName());
 	}
 
-	public void testGetIdFromKey() throws Exception {
-		JiraIssue issue = JiraTestUtil.createIssue(client, "getIdFromKey");
-
-		String key = client.getKeyFromId(issue.getId(), null);
-		assertEquals(issue.getKey(), key);
-
-		try {
-			key = client.getKeyFromId("invalid", null);
-			fail("Expected JiraException, got: " + key);
-		} catch (JiraException e) {
-		}
-
-		try {
-			key = client.getKeyFromId("1", null);
-			fail("Expected JiraException, got: " + key);
-		} catch (JiraException e) {
-		}
-
-	}
+//	public void testGetIdFromKey() throws Exception {
+//		JiraIssue issue = JiraTestUtil.createIssue(client, "getIdFromKey");
+//
+//		String key = client.getKeyFromId(issue.getId(), null);
+//		assertEquals(issue.getKey(), key);
+//
+//		try {
+//			key = client.getKeyFromId("invalid", null);
+//			fail("Expected JiraException, got: " + key);
+//		} catch (JiraException e) {
+//		}
+//
+//		try {
+//			key = client.getKeyFromId("1", null);
+//			fail("Expected JiraException, got: " + key);
+//		} catch (JiraException e) {
+//		}
+//
+//	}
 
 	public void testReassign() throws Exception {
 		JiraIssue issue = JiraTestUtil.createIssue(client, "testReassign");
 
 		issue.setAssignee("nonexistantuser");
 		try {
-			client.updateIssue(issue, "comment", null);
+			client.updateIssue(issue, "comment", true, null);
 			fail("Expected JiraException");
 		} catch (JiraException e) {
 			assertThat(
@@ -192,39 +202,48 @@ public class JiraClientTest extends TestCase {
 		}
 
 		try {
-			client.assignIssueTo(issue, JiraClient.ASSIGNEE_NONE, "", "", null);
+			client.assignIssueTo(issue, "", "", null);
 			fail("Expected JiraException");
 		} catch (JiraRemoteMessageException e) {
 			assertThat(e.getHtmlMessage(), containsString("Issues must be assigned."));
+		} catch (JiraException e) {
+			assertThat(e.getMessage(), containsString("Issues must be assigned."));
 		}
 
 		try {
-			client.assignIssueTo(issue, JiraClient.ASSIGNEE_SELF, "", "", null);
+			client.assignIssueTo(issue, client.getUserName(), "", null);
 		} catch (JiraRemoteMessageException e) {
 			assertEquals("Issue already assigned to Developer (" + client.getUserName() + ").", e.getHtmlMessage());
+		} catch (JiraException e) {
+			assertEquals("Issue already assigned to (" + client.getUserName() + ").", e.getMessage());
 		}
 
 		String guestUsername = CommonTestUtil.getCredentials(PrivilegeLevel.GUEST).getUserName();
 		try {
-			client.assignIssueTo(issue, JiraClient.ASSIGNEE_USER, guestUsername, "", null);
+			client.assignIssueTo(issue, guestUsername, "", null);
 		} catch (JiraRemoteMessageException e) {
 			assertThat(
 					e.getHtmlMessage(),
 					either(containsString("User 'guest@mylyn.eclipse.org' cannot be assigned issues.")).or(
 							equalTo("User &#39;guest@mylyn.eclipse.org&#39; cannot be assigned issues.")));
+		} catch (JiraException e) {
+			assertThat(
+					e.getMessage(),
+					either(containsString("User 'guest@mylyn.eclipse.org' cannot be assigned issues.")).or(
+							equalTo("User &#39;guest@mylyn.eclipse.org&#39; cannot be assigned issues.")));
 		}
 
-		client.assignIssueTo(issue, JiraClient.ASSIGNEE_DEFAULT, "", "", null);
+		client.assignIssueTo(issue, "admin@mylyn.eclipse.org", "", null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals("admin@mylyn.eclipse.org", issue.getAssignee());
 
-		client.assignIssueTo(issue, JiraClient.ASSIGNEE_SELF, "", "", null);
+		client.assignIssueTo(issue, client.getUserName(), "", null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals(client.getUserName(), issue.getAssignee());
 
 		client = JiraFixture.current().client(PrivilegeLevel.GUEST);
 		try {
-			client.assignIssueTo(issue, JiraClient.ASSIGNEE_SELF, "", "", null);
+			client.assignIssueTo(issue, issue.getAssignee(), "", null);
 			fail("Expected JiraException");
 		} catch (JiraException e) {
 		}
@@ -273,6 +292,7 @@ public class JiraClientTest extends TestCase {
 			client.addAttachment(issue, "", "testAttachEmptyFile.txt", new byte[0], null);
 			fail("Expected JiraException");
 		} catch (JiraException e) {
+			assertTrue(e.getMessage().contains("Cannot attach empty file"));
 		}
 
 		client.addAttachment(issue, "comment", "my.filename.1", new byte[] { 'M', 'y', 'l', 'y', 'n' }, null);
@@ -318,6 +338,7 @@ public class JiraClientTest extends TestCase {
 		issue.setType(client.getCache().getIssueTypes()[0]);
 		issue.setSummary("testCreateIssue");
 		issue.setAssignee(client.getUserName());
+		issue.setPriority(client.getCache().getPriorities()[0]);
 
 		JiraIssue createdIssue = JiraTestUtil.createIssue(client, issue);
 		assertEquals(issue.getProject(), createdIssue.getProject());
@@ -325,12 +346,15 @@ public class JiraClientTest extends TestCase {
 		assertEquals(issue.getSummary(), createdIssue.getSummary());
 		assertEquals(issue.getAssignee(), createdIssue.getAssignee());
 		assertEquals(client.getUserName(), createdIssue.getReporter());
+		assertEquals(issue.getPriority(), createdIssue.getPriority());
 		// TODO why are these null?
 		// assertNotNull(issue.getCreated());
 		// assertNotNull(issue.getUpdated());
 
 		// change privilege level
 		client = JiraFixture.current().client(PrivilegeLevel.GUEST);
+		issue.setAssignee(null);
+		issue.setFixVersions(null);
 
 		createdIssue = JiraTestUtil.createIssue(client, issue);
 		assertEquals(issue.getProject(), createdIssue.getProject());
@@ -345,7 +369,7 @@ public class JiraClientTest extends TestCase {
 		JiraIssue parentIssue = JiraTestUtil.createIssue(client, issue);
 
 		issue = JiraTestUtil.newSubTask(client, parentIssue, "testCreateSubTaskParent");
-		JiraIssue childIssue = client.createSubTask(issue, null);
+		JiraIssue childIssue = client.createIssue(issue, null);
 		assertEquals(parentIssue.getId(), childIssue.getParentId());
 
 		parentIssue = client.getIssueByKey(parentIssue.getKey(), null);
@@ -369,7 +393,7 @@ public class JiraClientTest extends TestCase {
 		assertEquals(summary, issue.getSummary());
 
 		issue.setDescription(issue.getDescription());
-		client.updateIssue(issue, "", null);
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals(description, issue.getDescription());
 	}
@@ -382,10 +406,11 @@ public class JiraClientTest extends TestCase {
 		issue.setType(client.getCache().getIssueTypes()[0]);
 		issue.setSummary("testUpdateIssue");
 		issue.setAssignee(client.getUserName());
+		issue.setPriority(client.getCache().getPriorities()[0]);
 
 		issue = JiraTestUtil.createIssue(client, issue);
 		issue.setSummary("testUpdateIssueChanged");
-		client.updateIssue(issue, "", null);
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals("testUpdateIssueChanged", issue.getSummary());
 		assertNotNull(issue.getUpdated());
@@ -396,16 +421,18 @@ public class JiraClientTest extends TestCase {
 		// change privilege level
 		client = JiraFixture.current().client(PrivilegeLevel.GUEST);
 		try {
-			client.updateIssue(issue, "", null);
+			client.updateIssue(issue, "", true, null);
 			fail("Expected JiraException");
 		} catch (JiraException e) {
 		}
 
 		issue.setSummary("testUpdateIssueGuest");
+		issue.setAssignee(null);
+		issue.setFixVersions(null);
 		issue = JiraTestUtil.createIssue(client, issue);
 		issue.setSummary("testUpdateIssueGuestChanged");
 		try {
-			client.updateIssue(issue, "", null);
+			client.updateIssue(issue, "", true, null);
 			fail("Expected JiraException");
 		} catch (JiraException e) {
 		}
@@ -423,7 +450,7 @@ public class JiraClientTest extends TestCase {
 		issue.setDescription(description);
 		assertEquals(summary, issue.getSummary());
 
-		client.updateIssue(issue, "comment: \u00C4\u00D6\u00DC", null);
+		client.updateIssue(issue, "comment: \u00C4\u00D6\u00DC", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals(summary, issue.getSummary());
 		assertEquals(description, issue.getDescription());
@@ -440,7 +467,7 @@ public class JiraClientTest extends TestCase {
 
 			issue = client.getIssueByKey(issue.getKey(), null);
 			assertEquals(summary, issue.getSummary());
-		} catch (JiraServiceUnavailableException e) {
+		} catch (JiraException e) {
 			assertTrue(e.getMessage().contains("The summary is invalid because it contains newline characters."));
 		}
 	}
@@ -453,7 +480,7 @@ public class JiraClientTest extends TestCase {
 		issue.setDescription(description);
 		assertEquals(summary, issue.getSummary());
 
-		client.updateIssue(issue, "", null);
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals(summary, issue.getSummary());
 		assertEquals(description, issue.getDescription());
@@ -467,7 +494,7 @@ public class JiraClientTest extends TestCase {
 		issue.setDescription(description);
 		assertEquals(summary, issue.getSummary());
 
-		client.updateIssue(issue, "", null);
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals(description, issue.getDescription());
 	}
@@ -480,30 +507,35 @@ public class JiraClientTest extends TestCase {
 		issue.setDescription(description);
 		assertEquals(summary, issue.getSummary());
 
-		client.updateIssue(issue, "", null);
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 		assertEquals(summary, issue.getSummary());
 		assertEquals(description, issue.getDescription());
 	}
 
 	public void testBasicAuth() throws Exception {
-		basicAuth(JiraFixture.ENTERPRISE_3_13_BASIC_AUTH.getRepositoryUrl());
+		basicAuth(JiraFixture.SNAPSHOT.getRepositoryUrl());
 	}
 
 	private void basicAuth(String url) throws Exception {
-		UserCredentials credentials = CommonTestUtil.getCredentials(PrivilegeLevel.GUEST);
+
+		// test case that BasicAuth credentials by Mylyn does not override Repository Credentials (sent as BasicAuth by REST client)
+		UserCredentials credentials = CommonTestUtil.getCredentials(PrivilegeLevel.ANONYMOUS);
 		UserCredentials httpCredentials = CommonTestUtil.getCredentials(PrivilegeLevel.USER);
 		WebLocation location = new WebLocation(url, credentials.getUserName(), credentials.getPassword());
 		location.setCredentials(AuthenticationType.HTTP, httpCredentials.getUserName(), httpCredentials.getPassword());
 		client = new JiraClient(location);
-		assertNotNull(client.getCache().getServerInfo(null));
 
-		client = new JiraClient(new WebLocation(url, credentials.getUserName(), credentials.getPassword()));
 		try {
 			assertNotNull(client.getCache().getServerInfo(null));
-			fail("Expected JiraServiceUnavailableException");
-		} catch (JiraServiceUnavailableException expected) {
+			fail("Expected JiraAuthenticationException");
+		} catch (JiraAuthenticationException expected) {
 		}
+
+		// test credentials to make sure that above exception does not happen
+		credentials = CommonTestUtil.getCredentials(PrivilegeLevel.USER);
+		client = new JiraClient(new WebLocation(url, credentials.getUserName(), credentials.getPassword()));
+		assertNotNull(client.getCache().getServerInfo(null));
 	}
 
 	public void testCharacterEncoding() throws Exception {
@@ -526,7 +558,8 @@ public class JiraClientTest extends TestCase {
 	public void testGetEditableFields() throws Exception {
 		JiraIssue issue = JiraTestUtil.createIssue(client, "getEditableFields");
 
-		IssueField[] fields = client.getEditableAttributes(issue.getKey(), null);
+//		IssueField[] fields = client.getEditableAttributes(issue.getKey(), null);
+		IssueField[] fields = issue.getEditableFields();
 		Set<String> ids = new HashSet<String>();
 		for (IssueField field : fields) {
 			ids.add(field.getId());
@@ -536,21 +569,21 @@ public class JiraClientTest extends TestCase {
 		assertTrue("Missing 'fixVersions': " + ids, ids.contains("fixVersions"));
 	}
 
-	public void testGetWorkLogs() throws Exception {
-		JiraIssue issue = JiraTestUtil.createIssue(client, "getWorklogs");
-
-		JiraWorkLog[] logs = client.getWorklogs(issue.getKey(), null);
-		assertEquals(0, logs.length);
-
-		JiraWorkLog log = new JiraWorkLog();
-		log.setTimeSpent(5287);
-		log.setStartDate(new Date());
-		client.addWorkLog(issue.getKey(), log, null);
-
-		logs = client.getWorklogs(issue.getKey(), null);
-		assertEquals(1, logs.length);
-		assertEquals(5280, logs[0].getTimeSpent());
-	}
+//	public void testGetWorkLogs() throws Exception {
+//		JiraIssue issue = JiraTestUtil.createIssue(client, "getWorklogs");
+//
+//		JiraWorkLog[] logs = client.getWorklogs(issue.getKey(), null);
+//		assertEquals(0, logs.length);
+//
+//		JiraWorkLog log = new JiraWorkLog();
+//		log.setTimeSpent(5287);
+//		log.setStartDate(new Date());
+//		client.addWorkLog(issue.getKey(), log, null);
+//
+//		logs = client.getWorklogs(issue.getKey(), null);
+//		assertEquals(1, logs.length);
+//		assertEquals(5280, logs[0].getTimeSpent());
+//	}
 
 	/**
 	 * Tests soap retrieval of the SecurityLevels
@@ -576,10 +609,10 @@ public class JiraClientTest extends TestCase {
 	public void testAddWorkLog() throws Exception {
 		JiraIssue issue = JiraTestUtil.createIssue(client, "getWorklogs");
 		issue.setEstimate(1200);
-		client.updateIssue(issue, "", null);
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 
-		assertEquals(1200, issue.getEstimate());
+		assertEquals(Long.valueOf(1200), issue.getEstimate());
 
 		JiraWorkLog worklog1 = new JiraWorkLog();
 		worklog1.setAdjustEstimate(AdjustEstimateMethod.LEAVE);
@@ -588,11 +621,12 @@ public class JiraClientTest extends TestCase {
 		worklog1.setStartDate(time);
 		worklog1.setTimeSpent(120);
 
-		JiraWorkLog receivedWorklog = client.addWorkLog(issue.getKey(), worklog1, null);
-		client.updateIssue(issue, "", null);
+		client.addWorkLog(issue.getKey(), worklog1, null);
+		JiraWorkLog receivedWorklog = client.getIssueByKey(issue.getKey(), null).getWorklogs()[0];
+		client.updateIssue(issue, "", true, null);
 		issue = client.getIssueByKey(issue.getKey(), null);
 
-		assertEquals(1200, issue.getEstimate());
+		assertEquals(Long.valueOf(1200), issue.getEstimate());
 		assertEquals("comment", receivedWorklog.getComment());
 		assertEquals(120, receivedWorklog.getTimeSpent());
 		assertEquals(time, receivedWorklog.getStartDate());
@@ -604,10 +638,11 @@ public class JiraClientTest extends TestCase {
 		worklog1.setStartDate(time);
 		worklog1.setTimeSpent(240);
 
-		receivedWorklog = client.addWorkLog(issue.getKey(), worklog1, null);
+		client.addWorkLog(issue.getKey(), worklog1, null);
+		receivedWorklog = client.getIssueByKey(issue.getKey(), null).getWorklogs()[1];
 		issue = client.getIssueByKey(issue.getKey(), null);
 
-		assertEquals(1200 - 240, issue.getEstimate());
+		assertEquals(Long.valueOf(1200 - 240), issue.getEstimate());
 		assertEquals("comment2", receivedWorklog.getComment());
 		assertEquals(240, receivedWorklog.getTimeSpent());
 		assertEquals(time, receivedWorklog.getStartDate());
@@ -622,6 +657,9 @@ public class JiraClientTest extends TestCase {
 
 	public void testProjectSecurityLevelAccessible() throws Exception {
 		Project project = client.getCache().getProjectById("10050");
+		if (!project.hasDetails()) {
+			client.getCache().refreshProjectDetails(project, null);
+		}
 		assertNotNull(project.getSecurityLevels());
 	}
 }

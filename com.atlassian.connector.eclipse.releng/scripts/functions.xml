@@ -50,14 +50,14 @@
 	</macrodef>
 
 	<macrodef name="init-basebuilder">
-		<sequential>
-			<!--        	<property name="base.builder.home" value="${tools.home}/basebuilder-${basebuilder.version}"/> -->
-			<property name="base.builder.home" value="${tools.home}/sdk-${eclipse.sdk.version}" />
-			<!--			<available file="${base.builder.home}/.provisioned" property="base.builder.exists"/> -->
-			<property name="base.builder.exists" value="true" />
-			<antcall target="provision-basebuilder" />
-		</sequential>
-	</macrodef>
+        <sequential>
+<!--        	<property name="base.builder.home" value="${tools.home}/basebuilder-${basebuilder.version}"/> -->
+        	<property name="base.builder.home" value="${tools.home}/sdk-${eclipse.sdk.version}"/>
+<!--			<available file="${base.builder.home}/.provisioned" property="base.builder.exists"/> -->
+			<property name="base.builder.exists" value="true"/>
+			<antcall target="provision-basebuilder"/>
+        </sequential>
+    </macrodef>
 
 	<macrodef name="exec-eclipse">
 		<attribute name="activity" />
@@ -97,6 +97,8 @@
 					</sort>
 				</first>
 			</pathconvert>
+			
+			<echo message="lanuncher set to: ${@{application}.launcher}" />
 
 			<echo message="lanuncher set to: ${@{application}.launcher}" />
 

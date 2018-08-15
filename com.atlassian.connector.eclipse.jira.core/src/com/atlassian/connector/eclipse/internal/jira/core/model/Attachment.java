@@ -12,6 +12,7 @@
 package com.atlassian.connector.eclipse.internal.jira.core.model;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Date;
 
 /**
@@ -30,6 +31,13 @@ public class Attachment implements Serializable {
 	private String author;
 
 	private Date created;
+
+	private URI content;
+
+	private String authorDisplayName;
+
+	public Attachment() {
+	}
 
 	public Attachment(String id, String name, long size, String author, Date created) {
 		this.id = id;
@@ -82,6 +90,22 @@ public class Attachment implements Serializable {
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	public URI getContent() {
+		return content;
+	}
+
+	public void setContent(URI content) {
+		this.content = content;
+	}
+
+	public void setAuthorDisplayName(String authorDisplayName) {
+		this.authorDisplayName = authorDisplayName;
+	}
+
+	public String getAuthorDisplayName() {
+		return authorDisplayName;
 	}
 
 }

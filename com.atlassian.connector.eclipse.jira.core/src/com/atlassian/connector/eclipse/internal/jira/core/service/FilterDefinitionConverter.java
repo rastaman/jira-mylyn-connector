@@ -17,16 +17,21 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -39,14 +44,20 @@ import com.atlassian.connector.eclipse.internal.jira.core.model.Priority;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Project;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Resolution;
 import com.atlassian.connector.eclipse.internal.jira.core.model.Version;
+import com.atlassian.connector.eclipse.internal.jira.core.model.filter.ClassicFilterDataExtractor;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.ComponentFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.ContentFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.CurrentUserFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.DateFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.DateRangeFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.EstimateVsActualFilter;
+import com.atlassian.connector.eclipse.internal.jira.core.model.filter.FilterDataExtractor;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.FilterDefinition;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.IssueTypeFilter;
+import com.atlassian.connector.eclipse.internal.jira.core.model.filter.JQLFilterDataExtractor;
+import com.atlassian.connector.eclipse.internal.jira.core.model.filter.JiraFieldSpecialValue;
+import com.atlassian.connector.eclipse.internal.jira.core.model.filter.JiraFields;
+import com.atlassian.connector.eclipse.internal.jira.core.model.filter.JiraFieldsNames;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.NobodyFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.Order;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.PriorityFilter;
@@ -58,127 +69,96 @@ import com.atlassian.connector.eclipse.internal.jira.core.model.filter.StatusFil
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.UserFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.UserInGroupFilter;
 import com.atlassian.connector.eclipse.internal.jira.core.model.filter.VersionFilter;
-import com.atlassian.connector.eclipse.internal.jira.core.model.filter.RelativeDateRangeFilter.RangeType;
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 
 /**
  * A JiraCustomQuery represents a custom query for issues from a Jira repository.
- * 
- * @author Mik Kersten
- * @author Eugene Kuleshov
- * @author Steffen Pingel
- * @author Thomas Ehrnhoefer (multiple projects selection)
  */
 public class FilterDefinitionConverter {
 
-	private static final String PROJECT_KEY = "pid"; //$NON-NLS-1$
+	/** JQL descending sort order */
+	private static final String JQL_SORT_DESCENDING = "DESC"; //$NON-NLS-1$
 
-	private static final String COMPONENT_KEY = "component"; //$NON-NLS-1$
+	/** JQL ascending sort order */
+	private static final String JQL_SORT_ASCENDING = "ASC"; //$NON-NLS-1$
 
-	private static final String TYPE_KEY = "type"; //$NON-NLS-1$
+	/** JQL ordering */
+	private static final String JQL_ORDER_BY = " ORDER BY "; //$NON-NLS-1$
 
-	private static final String PRIORITY_KEY = "priority"; //$NON-NLS-1$
-
-	private static final String STATUS_KEY = "status"; //$NON-NLS-1$
-
-	private static final String RESOLUTION_KEY = "resolution"; //$NON-NLS-1$
-
-	private static final String FIXFOR_KEY = "fixfor"; //$NON-NLS-1$
-
-	private static final String VERSION_KEY = "version"; //$NON-NLS-1$
-
+	/** Field name containing text to be searched for classic queries */
 	private static final String QUERY_KEY = "query"; //$NON-NLS-1$
 
-	private static final String ENVIRONMENT_KEY = "environment"; //$NON-NLS-1$
+	/** Date format used for JQL queries */
+	public static final DateFormat JQL_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm"); //$NON-NLS-1$
 
-	private static final String BODY_KEY = "body"; //$NON-NLS-1$
-
-	private static final String DESCRIPTION_KEY = "description"; //$NON-NLS-1$
-
-	private static final String SUMMARY_KEY = "summary"; //$NON-NLS-1$
-
-	private static final String ASSIGNEE_KEY = "assignee"; //$NON-NLS-1$
-
-	private static final String REPORTER_KEY = "reporter"; //$NON-NLS-1$
-
-	private static final String CREATED_KEY = "created"; //$NON-NLS-1$
-
-	private static final String UPDATED_KEY = "updated"; //$NON-NLS-1$
-
-	private static final String DUEDATE_KEY = "duedate"; //$NON-NLS-1$
-
-	private static final String ISSUE_SPECIFIC_GROUP = "specificgroup"; //$NON-NLS-1$
-
-	private static final String ISSUE_SPECIFIC_USER = "specificuser"; //$NON-NLS-1$
-
-	private static final String ISSUE_CURRENT_USER = "issue_current_user"; //$NON-NLS-1$
-
-	private static final String ISSUE_NO_REPORTER = "issue_no_reporter"; //$NON-NLS-1$
-
-	private static final String UNASSIGNED = "unassigned"; //$NON-NLS-1$
-
-	private static final String VERSION_NONE = "-1"; //$NON-NLS-1$
-
-	private static final String VERSION_RELEASED = "-3"; //$NON-NLS-1$
-
-	private static final String VERSION_UNRELEASED = "-2"; //$NON-NLS-1$
-
-	private static final String UNRESOLVED = "-1"; //$NON-NLS-1$
-
-	private static final String COMPONENT_NONE = "-1"; //$NON-NLS-1$
+	/** Date format used for JQL queries */
+	public static final DateFormat JQL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 
 	private final String encoding;
 
-	private final DateFormat dateFormat;
+	/** Date format used for classic queries */
+	private final DateFormat classicQueryDateTimeFormat;
 
+	/**
+	 * @param encoding
+	 * @param dateFormat
+	 *            date format which has to be used for classic queries; should match the one configured in JIRA; in case
+	 *            of JQL format is hard-coded and independent from user settings
+	 */
 	public FilterDefinitionConverter(String encoding, DateFormat dateFormat) {
 		Assert.isNotNull(dateFormat);
 		Assert.isNotNull(encoding);
 		this.encoding = encoding;
-		this.dateFormat = dateFormat;
+		this.classicQueryDateTimeFormat = dateFormat;
 	}
 
 	public String toUrl(String repositoryUrl, FilterDefinition filter) {
 		return repositoryUrl + JiraRepositoryConnector.FILTER_URL_PREFIX + "&reset=true" + getQueryParams(filter); //$NON-NLS-1$
 	}
 
-	public FilterDefinition toFilter(JiraClient client, String url, boolean validate) {
+	public String toJqlUrl(String repositoryUrl, FilterDefinition filter) throws UnsupportedEncodingException {
+		return repositoryUrl + JiraRepositoryConnector.FILTER_URL_PREFIX_NEW
+				+ URLEncoder.encode(getJqlString(filter), encoding);
+	}
+
+	public FilterDefinition toFilter(JiraClient client, String classicUrl, boolean validate) {
 		try {
-			return toFilter(client, url, validate, false, null);
-		} catch (JiraException e) {
+			return toFilter(client, classicUrl, validate, false, null);
+		} catch (JiraException ex) {
 			// can never happen since update parameter is false
-			throw new RuntimeException(e);
+			throw new RuntimeException(ex);
+		} catch (UnsupportedEncodingException ex) {
+			throw new RuntimeException(ex);
 		}
 	}
 
-	public FilterDefinition toFilter(JiraClient client, String url, boolean validate, boolean update,
-			IProgressMonitor monitor) throws JiraException {
-		FilterDefinition filter = new FilterDefinition();
+	public FilterDefinition toFilter(JiraClient client, String classicUrl, boolean validate, boolean update,
+			IProgressMonitor monitor) throws JiraException, UnsupportedEncodingException {
+		final FilterDefinition filter = new FilterDefinition();
 
-		int n = url.indexOf('?');
+		final int n = classicUrl.indexOf('?');
 		if (n == -1) {
 			return filter;
 		}
 
-		HashMap<String, List<String>> params = new HashMap<String, List<String>>();
-		for (String pair : url.substring(n + 1).split("&")) { //$NON-NLS-1$
+		final HashMap<String, List<String>> params = new HashMap<String, List<String>>();
+		for (String pair : classicUrl.substring(n + 1).split("&")) { //$NON-NLS-1$
 			String[] tokens = pair.split("="); //$NON-NLS-1$
 			if (tokens.length > 1) {
-				try {
-					String key = tokens[0];
-					String value = tokens.length == 1 ? "" : URLDecoder.decode(tokens[1], encoding); //$NON-NLS-1$
-					List<String> values = params.get(key);
-					if (values == null) {
-						values = new ArrayList<String>();
-						params.put(key, values);
-					}
-					values.add(value);
-				} catch (UnsupportedEncodingException ex) {
-					// ignore
+				String key = tokens[0];
+				String value = tokens.length == 1 ? "" : URLDecoder.decode(tokens[1], encoding); //$NON-NLS-1$
+				List<String> values = params.get(key);
+				if (values == null) {
+					values = new ArrayList<String>();
+					params.put(key, values);
 				}
+				values.add(value);
 			}
 		}
 
-		List<String> projectIds = getIds(params, PROJECT_KEY);
+		JiraFieldsNames jiraField = JiraFieldsNames.createClassic();
+		List<String> projectIds = getIds(params, jiraField.PROJECT());
 		List<Project> projects = new ArrayList<Project>();
 		for (String projectId : projectIds) {
 			Project project = client.getCache().getProjectById(projectId);
@@ -199,7 +179,7 @@ public class FilterDefinitionConverter {
 		if (projects.size() > 0) {
 			filter.setProjectFilter(new ProjectFilter(projects.toArray(new Project[projects.size()])));
 
-			List<String> componentIds = getIds(params, COMPONENT_KEY);
+			List<String> componentIds = getIds(params, jiraField.COMPONENT());
 			Set<Component> components = new LinkedHashSet<Component>();
 			Set<Version> versions = new LinkedHashSet<Version>();
 
@@ -217,7 +197,7 @@ public class FilterDefinitionConverter {
 						}
 					}
 
-					if (componentId.equals(COMPONENT_NONE)) {
+					if (componentId.equals(JiraFieldSpecialValue.COMPONENT_NONE.getClassic())) {
 						hasNoComponent = true;
 					}
 				}
@@ -229,11 +209,12 @@ public class FilterDefinitionConverter {
 			}
 
 			Version[] projectVersions = versions.toArray(new Version[versions.size()]);
-			filter.setFixForVersionFilter(getVersionFilter(filter, getIds(params, FIXFOR_KEY), projectVersions));
-			filter.setReportedInVersionFilter(getVersionFilter(filter, getIds(params, VERSION_KEY), projectVersions));
+			filter.setFixForVersionFilter(createVersionFilter(getIds(params, jiraField.FIX_VERSION()), projectVersions));
+			filter.setReportedInVersionFilter(createVersionFilter(getIds(params, jiraField.AFFECTED_VERSION()),
+					projectVersions));
 		}
 
-		List<String> typeIds = getIds(params, TYPE_KEY);
+		List<String> typeIds = getIds(params, JiraFields.ISSUE_TYPE.getClassic());
 		List<IssueType> issueTypes = new ArrayList<IssueType>();
 		for (String typeId : typeIds) {
 			IssueType issueType = null;
@@ -261,7 +242,7 @@ public class FilterDefinitionConverter {
 			filter.setIssueTypeFilter(new IssueTypeFilter(issueTypes.toArray(new IssueType[issueTypes.size()])));
 		}
 
-		List<String> statusIds = getIds(params, STATUS_KEY);
+		List<String> statusIds = getIds(params, JiraFields.STATUS.getClassic());
 		List<JiraStatus> statuses = new ArrayList<JiraStatus>();
 		for (String statusId : statusIds) {
 			JiraStatus status = client.getCache().getStatusById(statusId);
@@ -275,11 +256,11 @@ public class FilterDefinitionConverter {
 			filter.setStatusFilter(new StatusFilter(statuses.toArray(new JiraStatus[statuses.size()])));
 		}
 
-		List<String> resolutionIds = getIds(params, RESOLUTION_KEY);
+		List<String> resolutionIds = getIds(params, JiraFields.RESOLUTION.getClassic());
 		List<Resolution> resolutions = new ArrayList<Resolution>();
 		boolean unresolved = false;
 		for (String resolutionId : resolutionIds) {
-			if (!UNRESOLVED.equals(resolutionId)) {
+			if (!JiraFieldSpecialValue.UNRESOLVED.getClassic().equals(resolutionId)) {
 				Resolution resolution = client.getCache().getResolutionById(resolutionId);
 				if (resolution != null) {
 					resolutions.add(resolution);
@@ -296,7 +277,7 @@ public class FilterDefinitionConverter {
 			filter.setResolutionFilter(new ResolutionFilter(new Resolution[0]));
 		}
 
-		List<String> priorityIds = getIds(params, PRIORITY_KEY);
+		List<String> priorityIds = getIds(params, JiraFields.PRIORITY.getClassic());
 		List<Priority> priorities = new ArrayList<Priority>();
 		for (String priorityId : priorityIds) {
 			Priority priority = client.getCache().getPriorityById(priorityId);
@@ -312,25 +293,195 @@ public class FilterDefinitionConverter {
 
 		List<String> queries = getIds(params, QUERY_KEY);
 		for (String query : queries) {
-			boolean searchSummary = getIds(params, SUMMARY_KEY).contains("true"); //$NON-NLS-1$
-			boolean searchDescription = getIds(params, DESCRIPTION_KEY).contains("true"); //$NON-NLS-1$
-			boolean searchEnvironment = getIds(params, ENVIRONMENT_KEY).contains("true"); //$NON-NLS-1$
-			boolean searchComments = getIds(params, BODY_KEY).contains("true"); //$NON-NLS-1$
+			boolean searchSummary = getIds(params, jiraField.SUMMARY()).contains("true"); //$NON-NLS-1$
+			boolean searchDescription = getIds(params, jiraField.DESCRIPTION()).contains("true"); //$NON-NLS-1$
+			boolean searchEnvironment = getIds(params, jiraField.ENVIRONMENT()).contains("true"); //$NON-NLS-1$
+			boolean searchComments = getIds(params, jiraField.COMMENT()).contains("true"); //$NON-NLS-1$
 			filter.setContentFilter(new ContentFilter(query, searchSummary, searchDescription, searchEnvironment,
 					searchComments));
 		}
 
-		filter.setReportedByFilter(createUserFilter(params, REPORTER_KEY));
-		filter.setAssignedToFilter(createUserFilter(params, ASSIGNEE_KEY));
+		filter.setReportedByFilter(createUserFilter(params, JiraFields.REPORTER.getClassic()));
+		filter.setAssignedToFilter(createUserFilter(params, JiraFields.ASSIGNEE.getClassic()));
 
-		filter.setCreatedDateFilter(createDateFilter(params, CREATED_KEY));
-		filter.setUpdatedDateFilter(createDateFilter(params, UPDATED_KEY));
-		filter.setDueDateFilter(createDateFilter(params, DUEDATE_KEY));
+		filter.setCreatedDateFilter(createDateFilter(params, JiraFields.CREATED.getClassic()));
+		filter.setUpdatedDateFilter(createDateFilter(params, JiraFields.UPDATED.getClassic()));
+		filter.setDueDateFilter(createDateFilter(params, JiraFields.DUE_DATE.getClassic()));
 
 		return filter;
 	}
 
-	private VersionFilter getVersionFilter(FilterDefinition filter, List<String> fixForIds, Version[] projectVersions) {
+	public String getQueryParams(FilterDefinition filter) {
+		final StringBuilder sb = new StringBuilder();
+		final JiraFieldsNames jiraField = JiraFieldsNames.createClassic();
+		final FilterDataExtractor classicFilter = new ClassicFilterDataExtractor();
+
+		// project
+		addParameters(sb, jiraField.PROJECT(), classicFilter.extractProjects(filter.getProjectFilter()));
+
+		// component
+		addParameters(sb, jiraField.COMPONENT(), classicFilter.extractComponents(filter.getComponentFilter()));
+
+		// fix version
+		addParameters(sb, jiraField.FIX_VERSION(), classicFilter.extractVersions(filter.getFixForVersionFilter()));
+
+		// affects version
+		addParameters(sb, jiraField.AFFECTED_VERSION(),
+				classicFilter.extractVersions(filter.getReportedInVersionFilter()));
+
+		// issue type
+		addParameters(sb, jiraField.ISSUE_TYPE(), classicFilter.extractIssueTypes(filter.getIssueTypeFilter()));
+
+		// status
+		addParameters(sb, jiraField.STATUS(), classicFilter.extractStatuses(filter.getStatusFilter()));
+
+		// resolution
+		addParameters(sb, jiraField.RESOLUTION(), classicFilter.extractResolutions(filter.getResolutionFilter()));
+
+		// priority
+		addParameters(sb, jiraField.PRIORITY(), classicFilter.extractPriorities(filter.getPriorityFilter()));
+
+		// content (summary, description, comments, environment)
+		final ContentFilter contentFilter = filter.getContentFilter();
+		if (contentFilter != null) {
+			String queryString = contentFilter.getQueryString();
+			if (queryString != null) {
+				addParameter(sb, QUERY_KEY, queryString);
+			}
+			if (contentFilter.isSearchingSummary()) {
+				addParameter(sb, jiraField.SUMMARY(), "true"); //$NON-NLS-1$
+			}
+			if (contentFilter.isSearchingDescription()) {
+				addParameter(sb, jiraField.DESCRIPTION(), "true"); //$NON-NLS-1$
+			}
+			if (contentFilter.isSearchingComments()) {
+				addParameter(sb, jiraField.COMMENT(), "true"); //$NON-NLS-1$
+			}
+			if (contentFilter.isSearchingEnvironment()) {
+				addParameter(sb, jiraField.ENVIRONMENT(), "true"); //$NON-NLS-1$
+			}
+		}
+
+		// reporter and assignee
+		addUserFilter(sb, filter.getReportedByFilter(), JiraFields.REPORTER.getClassic(),
+				JiraFieldSpecialValue.ISSUE_NO_REPORTER.getClassic());
+		addUserFilter(sb, filter.getAssignedToFilter(), JiraFields.ASSIGNEE.getClassic(),
+				JiraFieldSpecialValue.UNASSIGNED.getClassic());
+
+		// created, updated, due dates
+		addDateFilter(sb, filter.getCreatedDateFilter(), JiraFields.CREATED.getClassic());
+		addDateFilter(sb, filter.getUpdatedDateFilter(), JiraFields.UPDATED.getClassic());
+		addDateFilter(sb, filter.getDueDateFilter(), JiraFields.DUE_DATE.getClassic());
+
+		// column sorting
+		addOrdering(sb, filter.getOrdering());
+
+		// estimation
+		EstimateVsActualFilter estimateFilter = filter.getEstimateVsActualFilter();
+		if (estimateFilter != null) {
+			long min = estimateFilter.getMinVariation();
+			if (min != 0L) {
+				addParameter(sb, "minRatioLimit", Long.toString(min)); //$NON-NLS-1$
+			}
+			long max = estimateFilter.getMaxVariation();
+			if (max != 0L) {
+				addParameter(sb, "maxRatioLimit", Long.toString(max)); //$NON-NLS-1$
+			}
+		}
+
+		return sb.toString();
+	}
+
+	public String getJqlString(FilterDefinition filter) {
+		final List<String> searchParams = new ArrayList<String>();
+		final JiraFieldsNames jiraField = JiraFieldsNames.createJql();
+		final FilterDataExtractor jqlFilter = new JQLFilterDataExtractor();
+
+		// project
+		addJqlInExpression(searchParams, jiraField.PROJECT(), Collections2.transform(
+				jqlFilter.extractProjects(filter.getProjectFilter()), new Function<String, String>() {
+					public String apply(String arg) {
+						// quote every project key with quotation marks (avoid hitting JQL reserved word, e.g. TRANS)
+						return "\"" + arg + "\""; //$NON-NLS-1$//$NON-NLS-2$
+					}
+				}));
+
+		// component
+		addJqlInExpression(searchParams, jiraField.COMPONENT(),
+				jqlFilter.extractComponents(filter.getComponentFilter()));
+
+		// fix version 
+		addJqlInExpression(searchParams, jiraField.FIX_VERSION(),
+				jqlFilter.extractVersions(filter.getFixForVersionFilter()));
+
+		// affects version
+		addJqlInExpression(searchParams, jiraField.AFFECTED_VERSION(),
+				jqlFilter.extractVersions(filter.getReportedInVersionFilter()));
+
+		// issue type
+		addJqlInExpression(searchParams, jiraField.ISSUE_TYPE(),
+				jqlFilter.extractIssueTypes(filter.getIssueTypeFilter()));
+
+		// status
+		addJqlInExpression(searchParams, jiraField.STATUS(), jqlFilter.extractStatuses(filter.getStatusFilter()));
+
+		// resolution
+		addJqlInExpression(searchParams, jiraField.RESOLUTION(),
+				jqlFilter.extractResolutions(filter.getResolutionFilter()));
+
+		// priority
+		addJqlInExpression(searchParams, jiraField.PRIORITY(), jqlFilter.extractPriorities(filter.getPriorityFilter()));
+
+		// content (summary, description, environment, comments)
+		final ContentFilter contentFilter = filter.getContentFilter();
+		if ((contentFilter != null) && (contentFilter.getQueryString() != null)
+				&& (contentFilter.getQueryString().length() > 0)) {
+			final String searchedString = " ~ \"" + contentFilter.getQueryString() + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+			final List<String> jqlOrQueryParts = new ArrayList<String>(4);
+			if (contentFilter.isSearchingSummary()) {
+				jqlOrQueryParts.add(jiraField.SUMMARY() + searchedString);
+			}
+			if (contentFilter.isSearchingDescription()) {
+				jqlOrQueryParts.add(jiraField.DESCRIPTION() + searchedString);
+			}
+			if (contentFilter.isSearchingComments()) {
+				jqlOrQueryParts.add(jiraField.COMMENT() + searchedString);
+			}
+			if (contentFilter.isSearchingEnvironment()) {
+				jqlOrQueryParts.add(jiraField.ENVIRONMENT() + searchedString);
+			}
+
+			// query like: (summary ~ "boo" OR comment ~ "boo")
+			addJqlOrExpression(searchParams, jqlOrQueryParts);
+		}
+
+		// reporter
+		addJqlInExpression(searchParams, jiraField.REPORTER(),
+				jqlFilter.extractReportedBy(filter.getReportedByFilter()));
+
+		// assignee
+		addJqlInExpression(searchParams, jiraField.ASSIGNEE(),
+				jqlFilter.extractAssignedTo(filter.getAssignedToFilter()));
+
+		// created, updated, due dates
+		addJqlAndExpression(searchParams, jiraField.CREATED(),
+				jqlFilter.extractDates(filter.getCreatedDateFilter(), JQL_DATE_TIME_FORMAT));
+		addJqlAndExpression(searchParams, jiraField.UPDATED(),
+				jqlFilter.extractDates(filter.getUpdatedDateFilter(), JQL_DATE_TIME_FORMAT));
+		addJqlAndExpression(searchParams, jiraField.DUE_DATE(),
+				jqlFilter.extractDates(filter.getDueDateFilter(), JQL_DATE_FORMAT));
+
+		// estimations
+		addJqlAndExpression(searchParams, jiraField.WORK_RATIO(),
+				jqlFilter.extractWorkRatios(filter.getEstimateVsActualFilter()));
+
+		String whereClause = StringUtils.join(searchParams, " AND "); //$NON-NLS-1$
+		String orderByClause = getJqlOrdering(filter.getOrdering());
+
+		return whereClause + " " + orderByClause; //$NON-NLS-1$
+	}
+
+	private VersionFilter createVersionFilter(List<String> fixForIds, Version[] projectVersions) {
 		if (fixForIds.isEmpty()) {
 			return null;
 		}
@@ -340,13 +491,13 @@ public class FilterDefinitionConverter {
 		boolean hasUnreleasedVersions = false;
 		List<Version> fixForversions = new ArrayList<Version>();
 		for (String fixForId : fixForIds) {
-			if (fixForId.equals(VERSION_NONE)) {
+			if (fixForId.equals(JiraFieldSpecialValue.VERSION_NONE.getClassic())) {
 				hasNoVersions = true;
 			}
-			if (fixForId.equals(VERSION_RELEASED)) {
+			if (fixForId.equals(JiraFieldSpecialValue.VERSION_RELEASED.getClassic())) {
 				hasReleasedVersions = true;
 			}
-			if (fixForId.equals(VERSION_UNRELEASED)) {
+			if (fixForId.equals(JiraFieldSpecialValue.VERSION_UNRELEASED.getClassic())) {
 				hasUnreleasedVersions = true;
 			}
 
@@ -366,17 +517,21 @@ public class FilterDefinitionConverter {
 		String after = getId(params, key + ":after"); //$NON-NLS-1$
 		String before = getId(params, key + ":before"); //$NON-NLS-1$
 
-		Date afterDate;
+		Date afterDate = null;
 		try {
-			afterDate = dateFormat.parse(after);
-		} catch (Exception ex) {
-			afterDate = null;
+			if (after != null) {
+				afterDate = classicQueryDateTimeFormat.parse(after);
+			}
+		} catch (ParseException ex) {
+			// swallow
 		}
-		Date beforeDate;
+		Date beforeDate = null;
 		try {
-			beforeDate = dateFormat.parse(before);
-		} catch (Exception ex) {
-			beforeDate = null;
+			if (before != null) {
+				beforeDate = classicQueryDateTimeFormat.parse(before);
+			}
+		} catch (ParseException ex) {
+			// swallow
 		}
 
 		String previous = getId(params, key + ":previous"); //$NON-NLS-1$
@@ -388,16 +543,17 @@ public class FilterDefinitionConverter {
 
 	private UserFilter createUserFilter(Map<String, List<String>> params, String key) {
 		String type = getId(params, key + "Select"); //$NON-NLS-1$
-		if (ISSUE_NO_REPORTER.equals(type) || UNASSIGNED.equals(type)) {
+		if (JiraFieldSpecialValue.ISSUE_NO_REPORTER.getClassic().equals(type)
+				|| JiraFieldSpecialValue.UNASSIGNED.getClassic().equals(type)) {
 			return new NobodyFilter();
-		} else if (ISSUE_CURRENT_USER.equals(type)) {
+		} else if (JiraFieldSpecialValue.ISSUE_CURRENT_USER.getClassic().equals(type)) {
 			return new CurrentUserFilter();
 		} else {
 			String reporter = getId(params, key);
 			if (reporter != null) {
-				if (ISSUE_SPECIFIC_USER.equals(type)) {
+				if (JiraFieldSpecialValue.ISSUE_SPECIFIC_USER.getClassic().equals(type)) {
 					return new SpecificUserFilter(reporter);
-				} else if (ISSUE_SPECIFIC_GROUP.equals(type)) {
+				} else if (JiraFieldSpecialValue.ISSUE_SPECIFIC_GROUP.getClassic().equals(type)) {
 					return new UserInGroupFilter(reporter);
 				}
 			}
@@ -418,160 +574,49 @@ public class FilterDefinitionConverter {
 		return ids;
 	}
 
-	public String getQueryParams(FilterDefinition filter) {
-		StringBuilder sb = new StringBuilder();
-
-		ProjectFilter projectFilter = filter.getProjectFilter();
-		if (projectFilter != null) {
-			for (Project project : projectFilter.getProjects()) {
-				addParameter(sb, PROJECT_KEY, project.getId());
-			}
-		}
-
-		ComponentFilter componentFilter = filter.getComponentFilter();
-		if (componentFilter != null) {
-			if (componentFilter.hasNoComponent()) {
-				addParameter(sb, COMPONENT_KEY, COMPONENT_NONE);
-			}
-			if (componentFilter.getComponents() != null) {
-				for (Component component : componentFilter.getComponents()) {
-					addParameter(sb, COMPONENT_KEY, component.getId());
+	private String getJqlOrdering(Order[] ordering) {
+		if (ordering.length == 0) {
+			return ""; //$NON-NLS-1$
+		} else {
+			StringBuilder sb = new StringBuilder(JQL_ORDER_BY);
+			for (int i = 0; i < ordering.length; i++) {
+				sb.append(ordering[i].getField().getJql());
+				sb.append(" "); //$NON-NLS-1$
+				sb.append(ordering[i].isAscending() ? JQL_SORT_ASCENDING : JQL_SORT_DESCENDING);
+				if (i < ordering.length - 1) {
+					sb.append(", "); //$NON-NLS-1$
 				}
 			}
+
+			return sb.toString();
 		}
-
-		VersionFilter fixForVersionFilter = filter.getFixForVersionFilter();
-		if (fixForVersionFilter != null) {
-			if (fixForVersionFilter.hasNoVersion()) {
-				addParameter(sb, FIXFOR_KEY, VERSION_NONE);
-			}
-			if (fixForVersionFilter.isReleasedVersions()) {
-				addParameter(sb, FIXFOR_KEY, VERSION_RELEASED);
-			}
-			if (fixForVersionFilter.isUnreleasedVersions()) {
-				addParameter(sb, FIXFOR_KEY, VERSION_UNRELEASED);
-			}
-			if (fixForVersionFilter.getVersions() != null) {
-				for (Version fixVersion : fixForVersionFilter.getVersions()) {
-					addParameter(sb, FIXFOR_KEY, fixVersion.getId());
-				}
-			}
-		}
-
-		VersionFilter reportedInVersionFilter = filter.getReportedInVersionFilter();
-		if (reportedInVersionFilter != null) {
-			if (reportedInVersionFilter.hasNoVersion()) {
-				addParameter(sb, VERSION_KEY, VERSION_NONE);
-			}
-			if (reportedInVersionFilter.isReleasedVersions()) {
-				addParameter(sb, VERSION_KEY, VERSION_RELEASED);
-			}
-			if (reportedInVersionFilter.isUnreleasedVersions()) {
-				addParameter(sb, VERSION_KEY, VERSION_UNRELEASED);
-			}
-			if (reportedInVersionFilter.getVersions() != null) {
-				for (Version reportedVersion : reportedInVersionFilter.getVersions()) {
-					addParameter(sb, VERSION_KEY, reportedVersion.getId());
-				}
-			}
-		}
-
-		IssueTypeFilter issueTypeFilter = filter.getIssueTypeFilter();
-		if (issueTypeFilter != null) {
-			for (IssueType issueType : issueTypeFilter.getIsueTypes()) {
-				addParameter(sb, TYPE_KEY, issueType.getId());
-			}
-		}
-
-		StatusFilter statusFilter = filter.getStatusFilter();
-		if (statusFilter != null) {
-			for (JiraStatus status : statusFilter.getStatuses()) {
-				addParameter(sb, STATUS_KEY, status.getId());
-			}
-		}
-
-		ResolutionFilter resolutionFilter = filter.getResolutionFilter();
-		if (resolutionFilter != null) {
-			Resolution[] resolutions = resolutionFilter.getResolutions();
-			if (resolutions.length == 0) {
-				addParameter(sb, RESOLUTION_KEY, UNRESOLVED); // Unresolved
-			} else {
-				for (Resolution resolution : resolutions) {
-					addParameter(sb, RESOLUTION_KEY, resolution.getId());
-				}
-			}
-		}
-
-		PriorityFilter priorityFilter = filter.getPriorityFilter();
-		if (priorityFilter != null) {
-			for (Priority priority : priorityFilter.getPriorities()) {
-				addParameter(sb, PRIORITY_KEY, priority.getId());
-			}
-		}
-
-		ContentFilter contentFilter = filter.getContentFilter();
-		if (contentFilter != null) {
-			String queryString = contentFilter.getQueryString();
-			if (queryString != null) {
-				addParameter(sb, QUERY_KEY, queryString);
-			}
-			if (contentFilter.isSearchingSummary()) {
-				addParameter(sb, SUMMARY_KEY, "true"); //$NON-NLS-1$
-			}
-			if (contentFilter.isSearchingDescription()) {
-				addParameter(sb, DESCRIPTION_KEY, "true"); //$NON-NLS-1$
-			}
-			if (contentFilter.isSearchingComments()) {
-				addParameter(sb, BODY_KEY, "true"); //$NON-NLS-1$
-			}
-			if (contentFilter.isSearchingEnvironment()) {
-				addParameter(sb, ENVIRONMENT_KEY, "true"); //$NON-NLS-1$
-			}
-		}
-
-		addUserFilter(sb, filter.getReportedByFilter(), REPORTER_KEY, ISSUE_NO_REPORTER);
-		addUserFilter(sb, filter.getAssignedToFilter(), ASSIGNEE_KEY, UNASSIGNED);
-
-		addDateFilter(sb, filter.getCreatedDateFilter(), CREATED_KEY);
-		addDateFilter(sb, filter.getUpdatedDateFilter(), UPDATED_KEY);
-		addDateFilter(sb, filter.getDueDateFilter(), DUEDATE_KEY);
-
-		addOrdering(sb, filter.getOrdering());
-
-		EstimateVsActualFilter estimateFilter = filter.getEstimateVsActualFilter();
-		if (estimateFilter != null) {
-			float min = estimateFilter.getMinVariation();
-			if (min != 0L) {
-				addParameter(sb, "minRatioLimit", Float.toString(min)); //$NON-NLS-1$
-			}
-			float max = estimateFilter.getMaxVariation();
-			if (max != 0L) {
-				addParameter(sb, "maxRatioLimit", Float.toString(max)); //$NON-NLS-1$
-			}
-		}
-
-		return sb.toString();
 	}
 
-	private void addOrdering(StringBuilder sb, Order[] ordering) {
+	private String getOrdering(Order[] ordering) {
+		StringBuilder sb = new StringBuilder();
 		for (Order order : ordering) {
-			String fieldName = getNameFromField(order.getField());
+			String fieldName = order.getField().getClassic();
 			if (fieldName == null) {
 				continue;
 			}
 			addParameter(sb, "sorter/field", fieldName); //$NON-NLS-1$
 			addParameter(sb, "sorter/order", order.isAscending() ? "ASC" : "DESC"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
+		return sb.toString();
+	}
+
+	private void addOrdering(StringBuilder sb, Order[] ordering) {
+		sb.append(getOrdering(ordering));
 	}
 
 	private void addDateFilter(StringBuilder sb, DateFilter filter, String type) {
 		if (filter instanceof DateRangeFilter) {
 			DateRangeFilter rangeFilter = (DateRangeFilter) filter;
 			if (rangeFilter.getFromDate() != null) {
-				addParameter(sb, type + ":after", dateFormat.format(rangeFilter.getFromDate())); //$NON-NLS-1$
+				addParameter(sb, type + ":after", classicQueryDateTimeFormat.format(rangeFilter.getFromDate())); //$NON-NLS-1$
 			}
 			if (rangeFilter.getToDate() != null) {
-				addParameter(sb, type + ":before", dateFormat.format(rangeFilter.getToDate())); //$NON-NLS-1$
+				addParameter(sb, type + ":before", classicQueryDateTimeFormat.format(rangeFilter.getToDate())); //$NON-NLS-1$
 			}
 			if (rangeFilter.getFrom() != null && rangeFilter.getFrom().length() > 0) {
 				addParameter(sb, type + ":previous", rangeFilter.getFrom()); //$NON-NLS-1$
@@ -582,81 +627,136 @@ public class FilterDefinitionConverter {
 		} else if (filter instanceof RelativeDateRangeFilter) {
 			RelativeDateRangeFilter rangeFilter = (RelativeDateRangeFilter) filter;
 			if (rangeFilter.previousMilliseconds() != 0L) {
-				addParameter(sb, type + ":previous", createRelativeDateString(rangeFilter.getPreviousRangeType(), //$NON-NLS-1$
-						rangeFilter.getPreviousCount()));
+				addParameter(
+						sb,
+						type + ":previous", FilterDataExtractor.createRelativeDateString(rangeFilter.getPreviousRangeType(), //$NON-NLS-1$
+								rangeFilter.getPreviousCount()));
 			}
 			if (rangeFilter.nextMilliseconds() != 0L) {
-				addParameter(sb, type + ":next", createRelativeDateString(rangeFilter.getNextRangeType(), //$NON-NLS-1$
-						rangeFilter.getNextCount()));
+				addParameter(sb,
+						type + ":next", FilterDataExtractor.createRelativeDateString(rangeFilter.getNextRangeType(), //$NON-NLS-1$
+								rangeFilter.getNextCount()));
 			}
 		}
-	}
-
-	private String createRelativeDateString(RelativeDateRangeFilter.RangeType rangeType, long count) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(Long.toString(count));
-		if (RangeType.MINUTE.equals(rangeType)) {
-			sb.append('m');
-		} else if (RangeType.HOUR.equals(rangeType)) {
-			sb.append('h');
-		} else if (RangeType.DAY.equals(rangeType)) {
-			sb.append('d');
-		} else if (RangeType.WEEK.equals(rangeType)) {
-			sb.append('w');
-		}
-		return sb.toString();
 	}
 
 	private void addUserFilter(StringBuilder sb, UserFilter filter, String type, String nobodyText) {
 		if (filter instanceof NobodyFilter) {
 			addParameter(sb, type + "Select", nobodyText); //$NON-NLS-1$
 		} else if (filter instanceof CurrentUserFilter) {
-			addParameter(sb, type + "Select", ISSUE_CURRENT_USER); //$NON-NLS-1$
+			addParameter(sb, type + "Select", JiraFieldSpecialValue.ISSUE_CURRENT_USER.getClassic()); //$NON-NLS-1$
 		} else if (filter instanceof SpecificUserFilter) {
-			addParameter(sb, type + "Select", ISSUE_SPECIFIC_USER); //$NON-NLS-1$
+			addParameter(sb, type + "Select", JiraFieldSpecialValue.ISSUE_SPECIFIC_USER.getClassic()); //$NON-NLS-1$
 			addParameter(sb, type, ((SpecificUserFilter) filter).getUser());
 		} else if (filter instanceof UserInGroupFilter) {
-			addParameter(sb, type + "Select", ISSUE_SPECIFIC_GROUP); //$NON-NLS-1$
+			addParameter(sb, type + "Select", JiraFieldSpecialValue.ISSUE_SPECIFIC_GROUP.getClassic()); //$NON-NLS-1$
 			addParameter(sb, type, ((UserInGroupFilter) filter).getGroup());
 		}
 	}
 
+	/**
+	 * Adds list of parameters to classic query, using the same <code>name</code> key for all <code>values</code>.
+	 * Something like: <code>&name=values[0]&name=values[1]...</code>. It applies URL encoding on values.
+	 * 
+	 * @param sb
+	 *            output string
+	 * @param name
+	 * @param values
+	 */
+	private void addParameters(StringBuilder sb, String name, Collection<String> values) {
+		// ignore
+		for (String value : values) {
+			addParameter(sb, name, value);
+		}
+	}
+
+	/**
+	 * Adds a single parameter to classic query, like <code>&name=value</code>. It applies URL encoding on the value.
+	 * 
+	 * @param sb
+	 *            output string
+	 * @param name
+	 * @param value
+	 */
 	private void addParameter(StringBuilder sb, String name, String value) {
 		try {
 			sb.append('&').append(name).append('=').append(URLEncoder.encode(value, encoding));
 		} catch (UnsupportedEncodingException ex) {
-			// ignore
+			throw new RuntimeException(ex);
 		}
 	}
 
-	// TODO there should be an easier way of doing this
-	// Would it be so bad to have the field name in the field?
-	private String getNameFromField(Order.Field field) {
-		if (Order.Field.ISSUE_TYPE == field) {
-			return "issuetype"; //$NON-NLS-1$
-		} else if (Order.Field.ISSUE_KEY == field) {
-			return "issuekey"; //$NON-NLS-1$
-		} else if (Order.Field.SUMMARY == field) {
-			return "summary"; //$NON-NLS-1$
-		} else if (Order.Field.ASSIGNEE == field) {
-			return "assignee"; //$NON-NLS-1$
-		} else if (Order.Field.REPORTER == field) {
-			return "reporter"; //$NON-NLS-1$
-		} else if (Order.Field.PRIORITY == field) {
-			return "priority"; //$NON-NLS-1$
-		} else if (Order.Field.STATUS == field) {
-			return "status"; //$NON-NLS-1$
-		} else if (Order.Field.RESOLUTION == field) {
-			return "resolution"; //$NON-NLS-1$
-		} else if (Order.Field.CREATED == field) {
-			return "created"; //$NON-NLS-1$
-		} else if (Order.Field.UPDATED == field) {
-			return "updated"; //$NON-NLS-1$
-		} else if (Order.Field.DUE_DATE == field) {
-			return "duedate"; //$NON-NLS-1$
+	/**
+	 * Appends new part of JQL query with a "key in (value1, value2, ... )" expression. Example:
+	 * 
+	 * <pre>
+	 *    priority in ( Blocker, Critical, Major )
+	 * </pre>
+	 * 
+	 * @param searchParams
+	 *            output list where new expression will be added
+	 * @param field
+	 *            name of the jira field
+	 * @param values
+	 *            list of key values we search for, list can be empty
+	 */
+	private void addJqlInExpression(Collection<String> searchParams, String key, Collection<String> values) {
+		// don't append expression if there are no values
+		if (values.size() == 0) {
+			return;
 		}
 
-		return null;
+		// create "key in (value1, value2, ... )" query
+		StringBuilder param = new StringBuilder();
+		param.append(key);
+		param.append(" in ("); //$NON-NLS-1$
+		param.append(StringUtils.join(values, ",")); //$NON-NLS-1$
+		param.append(")"); //$NON-NLS-1$
+		// add to output list
+		searchParams.add(param.toString());
+	}
+
+	/**
+	 * Appends new part of JQL query with expressions concatenated with OR operator. Example:
+	 * 
+	 * <pre>
+	 *    ( expression1 OR expression2 OR expression3 )
+	 * </pre>
+	 * 
+	 * @param searchParams
+	 * @param expressions
+	 */
+	private void addJqlOrExpression(Collection<String> searchParams, Collection<String> expressions) {
+		if (expressions.size() > 0) {
+			searchParams.add("(" + StringUtils.join(expressions, " OR ") + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
+	}
+
+	/**
+	 * Appends new part of JQL query with expressions concatenated with AND operator. Example:
+	 * 
+	 * <pre>
+	 *    ( field operatorAndValue1 AND field operatorAndValue2 AND field operatorAndValue3 )
+	 * </pre>
+	 * 
+	 * @param searchParams
+	 * @param expressions
+	 */
+	private void addJqlAndExpression(Collection<String> searchParams, String field, Collection<String> operatorAndValue) {
+		if (operatorAndValue.size() > 0) {
+			StringBuilder buffer = new StringBuilder("("); //$NON-NLS-1$
+			for (Iterator<String> valueIter = operatorAndValue.iterator(); valueIter.hasNext();) {
+				buffer.append(field);
+				buffer.append(" "); //$NON-NLS-1$
+				buffer.append(valueIter.next());
+				if (valueIter.hasNext()) {
+					buffer.append(" AND "); //$NON-NLS-1$
+				}
+			}
+			buffer.append(")"); //$NON-NLS-1$
+
+			searchParams.add(buffer.toString());
+		}
 	}
 
 }

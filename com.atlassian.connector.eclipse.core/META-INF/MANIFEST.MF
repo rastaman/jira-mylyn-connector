@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Atlassian Connector for Eclipse Core
 Bundle-SymbolicName: com.atlassian.connector.eclipse.core;singleton:=true
-Bundle-Version: 3.0.8.qualifier
+Bundle-Version: 3.2.5.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
@@ -17,23 +17,14 @@ Require-Bundle:
 Export-Package: com.atlassian.connector.eclipse.internal.core;
   x-friends:="com.atlassian.connector.eclipse.bamboo.core,
    com.atlassian.connector.eclipse.bamboo.ui,
-   com.atlassian.connector.eclipse.fisheye.core,
-   com.atlassian.connector.eclipse.fisheye.ui,
-   com.atlassian.connector.eclipse.ui,
-   com.atlassian.connector.eclipse.directclickthrough.ui",
- com.atlassian.connector.eclipse.internal.core.client;
-  x-friends:="com.atlassian.connector.eclipse.bamboo.core,
-   com.atlassian.connector.eclipse.bamboo.ui,
-   com.atlassian.connector.eclipse.fisheye.core,
-   com.atlassian.connector.eclipse.fisheye.ui,
+   com.atlassian.connector.eclipse.directclickthrough.ui,
    com.atlassian.connector.eclipse.ui",
+ com.atlassian.connector.eclipse.internal.core.client;x-friends:="com.atlassian.connector.eclipse.bamboo.core,com.atlassian.connector.eclipse.bamboo.ui,com.atlassian.connector.eclipse.ui",
  com.atlassian.connector.eclipse.internal.core.jobs;
   x-friends:="com.atlassian.connector.eclipse.bamboo.core,
    com.atlassian.connector.eclipse.bamboo.ui,
-   com.atlassian.connector.eclipse.fisheye.core,
-   com.atlassian.connector.eclipse.fisheye.ui,
-   com.atlassian.connector.eclipse.ui,
-   com.atlassian.connector.eclipse.directclickthrough.ui"
+   com.atlassian.connector.eclipse.directclickthrough.ui,
+   com.atlassian.connector.eclipse.ui"
 Bundle-Activator: com.atlassian.connector.eclipse.internal.core.AtlassianCorePlugin
 Bundle-ClassPath: .
 Bundle-Vendor: Atlassian

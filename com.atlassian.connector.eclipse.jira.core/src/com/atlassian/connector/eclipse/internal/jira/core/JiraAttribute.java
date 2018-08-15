@@ -18,6 +18,7 @@ import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
  * @author Eugene Kuleshov
  * @author Steffen Pingel
  * @author Thomas Ehrnhoefer
+ * @author Jacek Jaroczynski
  */
 public enum JiraAttribute {
 
@@ -100,7 +101,11 @@ public enum JiraAttribute {
 	PROJECT_ROLES(IJiraConstants.ATTRIBUTE_PROJECT_ROLES, JiraFieldType.SELECT, Messages.JiraAttribute_Viewable_by,
 			true, false),
 
-	VOTES(IJiraConstants.ATTRIBUTE_VOTES, JiraFieldType.TEXTFIELD, Messages.JiraAttribute_Votes, true, true);
+	VOTES(IJiraConstants.ATTRIBUTE_VOTES, JiraFieldType.TEXTFIELD, Messages.JiraAttribute_Votes, true, true),
+
+	LABELS(IJiraConstants.ATTRIBUTE_LABELS, JiraFieldType.LABELS, Messages.JiraAttribute_Labels, false, false),
+
+	RANK(TaskAttribute.RANK, JiraFieldType.RANK, Messages.JiraAttribute_unknown, true, true);
 
 	public static JiraAttribute valueById(String id) {
 		for (JiraAttribute attribute : values()) {

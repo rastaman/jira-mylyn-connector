@@ -46,7 +46,6 @@ import org.eclipse.mylyn.tests.util.TestUtil.PrivilegeLevel;
 
 import com.atlassian.connector.eclipse.internal.jira.core.JiraClientFactory;
 import com.atlassian.connector.eclipse.internal.jira.core.JiraCorePlugin;
-import com.atlassian.connector.eclipse.internal.jira.core.model.CustomField;
 import com.atlassian.connector.eclipse.internal.jira.core.model.IssueType;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraAction;
 import com.atlassian.connector.eclipse.internal.jira.core.model.JiraFilter;
@@ -73,18 +72,24 @@ public class JiraTestUtil {
 	}
 
 	public static JiraIssue createIssue(JiraClient client, JiraIssue issue) throws JiraException {
-		issue = client.createIssue(issue, null);
+		JiraIssue createdIssue = client.createIssue(issue, null);
 		List<JiraIssue> list = testIssues.get(client);
 		if (list == null) {
 			list = new ArrayList<JiraIssue>();
 			testIssues.put(client, list);
 		}
-		list.add(issue);
-		return issue;
+		list.add(createdIssue);
+		return createdIssue;
 	}
 
 	public static JiraIssue createIssue(JiraClient client, String summary) throws JiraException {
 		JiraIssue issue = newIssue(client, summary);
+		return createIssue(client, issue);
+	}
+
+	public static JiraIssue createIssueWithoutAssignee(JiraClient client, String summary) throws JiraException {
+		JiraIssue issue = newIssue(client, summary);
+		issue.setAssignee(null);
 		return createIssue(client, issue);
 	}
 
@@ -100,18 +105,6 @@ public class JiraTestUtil {
 		ITask task = TasksUi.getRepositoryModel().createTask(taskRepository, taskData.getTaskId());
 		TasksUiPlugin.getTaskDataManager().putUpdatedTaskData(task, taskData, true);
 		return task;
-	}
-
-	public static String getCustomField(JiraClient server, String name) throws JiraException {
-		refreshDetails(server);
-
-		CustomField[] fields = server.getCustomAttributes(null);
-		for (CustomField field : fields) {
-			if (field.getName().toLowerCase().startsWith(name.toLowerCase())) {
-				return field.getId();
-			}
-		}
-		return null;
 	}
 
 	public static Resolution getFixedResolution(JiraClient server) throws JiraException {
@@ -130,7 +123,7 @@ public class JiraTestUtil {
 		refreshDetails(server);
 
 		ArrayList<String> names = new ArrayList<String>();
-		JiraAction[] actions = server.getAvailableActions(issueKey, null);
+		Iterable<JiraAction> actions = server.getAvailableActions(issueKey, null);
 		for (JiraAction action : actions) {
 			names.add(action.getName());
 			if (action.getName().toLowerCase().startsWith(name)) {
@@ -208,6 +201,7 @@ public class JiraTestUtil {
 		issue.setType(client.getCache().getIssueTypes()[0]);
 		issue.setSummary(summary);
 		issue.setAssignee(client.getUserName());
+		issue.setPriority(client.getCache().getPriorities()[0]);
 		return issue;
 	}
 
@@ -220,6 +214,7 @@ public class JiraTestUtil {
 		issue.setParentId(parent.getId());
 		issue.setSummary(summary);
 		issue.setAssignee(client.getUserName());
+		issue.setPriority(client.getCache().getPriorities()[0]);
 		for (IssueType type : project.getIssueTypes()) {
 			if (type.isSubTaskType()) {
 				issue.setType(type);

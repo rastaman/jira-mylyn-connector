@@ -48,7 +48,15 @@ public class JiraAttributeMapper extends TaskAttributeMapper implements ITaskAtt
 	public Date getDateValue(TaskAttribute attribute) {
 		if (JiraUtil.isCustomDateTimeAttribute(attribute)) {
 			try {
-				return JiraRssHandler.getDateTimeFormat().parse(attribute.getValue());
+//				return JiraRssHandler.getDateTimeFormat().parse(attribute.getValue());
+				return client.getDateTimeFormat().parse(attribute.getValue());
+			} catch (ParseException e) {
+				return null;
+			}
+		} else if (JiraUtil.isCustomDateAttribute(attribute)) {
+			try {
+//				return JiraRssHandler.getDateTimeFormat().parse(attribute.getValue());
+				return client.getDateFormat().parse(attribute.getValue());
 			} catch (ParseException e) {
 				return null;
 			}
@@ -60,7 +68,7 @@ public class JiraAttributeMapper extends TaskAttributeMapper implements ITaskAtt
 	@Override
 	public void setDateValue(TaskAttribute attribute, Date date) {
 		if (JiraUtil.isCustomDateTimeAttribute(attribute)) {
-			attribute.setValue(JiraRssHandler.getDateTimeFormat().format(date));
+			attribute.setValue(date != null ? JiraRssHandler.getDateTimeFormat().format(date) : "");
 		} else {
 			super.setDateValue(attribute, date);
 		}
@@ -125,8 +133,9 @@ public class JiraAttributeMapper extends TaskAttributeMapper implements ITaskAtt
 				}
 				return options;
 			} else {
-				TaskAttribute projectAttribute = attribute.getTaskData().getRoot().getMappedAttribute(
-						JiraAttribute.PROJECT.id());
+				TaskAttribute projectAttribute = attribute.getTaskData()
+						.getRoot()
+						.getMappedAttribute(JiraAttribute.PROJECT.id());
 				if (projectAttribute != null) {
 					Project project = client.getCache().getProjectById(projectAttribute.getValue());
 					if (project != null && project.hasDetails()) {
@@ -137,12 +146,16 @@ public class JiraAttributeMapper extends TaskAttributeMapper implements ITaskAtt
 							return options;
 						} else if (JiraAttribute.AFFECTSVERSIONS.id().equals(attribute.getId())) {
 							for (Version version : project.getVersions()) {
-								options.put(version.getId(), version.getName());
+								if (!version.isArchived() || attribute.getValues().contains(version.getId())) {
+									options.put(version.getId(), version.getName());
+								}
 							}
 							return options;
 						} else if (JiraAttribute.FIXVERSIONS.id().equals(attribute.getId())) {
 							for (Version version : project.getVersions()) {
-								options.put(version.getId(), version.getName());
+								if (!version.isArchived() || attribute.getValues().contains(version.getId())) {
+									options.put(version.getId(), version.getName());
+								}
 							}
 							return options;
 						} else if (JiraAttribute.TYPE.id().equals(attribute.getId())) {

@@ -25,6 +25,8 @@ public class Resolution implements Serializable {
 
 	public static final String FIXED_ID = "1"; //$NON-NLS-1$
 
+	public static final String FIXED_NAME = "Fixed"; //$NON-NLS-1$
+
 	public static final String WONT_FIX_ID = "2"; //$NON-NLS-1$
 
 	public static final String DUPLICATE_ID = "3"; //$NON-NLS-1$
@@ -41,12 +43,17 @@ public class Resolution implements Serializable {
 
 	private String icon;
 
-	public Resolution(String id) {
+	public Resolution(String id, String name) {
 		Assert.isNotNull(id);
+		Assert.isNotNull(name);
 		this.id = id;
+		this.name = name;
 	}
 
-	public Resolution() {
+	public Resolution(String id, String name, String description, String icon) {
+		this(id, name);
+		this.description = description;
+		this.icon = icon;
 	}
 
 	public String getDescription() {

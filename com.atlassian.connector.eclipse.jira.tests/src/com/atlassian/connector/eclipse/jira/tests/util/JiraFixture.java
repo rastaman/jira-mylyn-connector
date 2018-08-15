@@ -26,8 +26,7 @@ public class JiraFixture extends TestFixture {
 
 	// ecit.atlassian.com = atlassian-dacj-staging-vm.managed.contegix.com
 //	public static final String SERVER = System.getProperty("mylyn.jira.server", "ecit.atlassian.com");
-	public static final String SERVER = System.getProperty("mylyn.jira.server",
-			"atlassian-dacj-staging-vm.managed.contegix.com");
+	public static final String SERVER = System.getProperty("mylyn.jira.server", "dacj.stg.inf.atlassian.com");
 
 	private static final String getServerUrl(String version) {
 		return "http://" + SERVER + "/" + version;
@@ -45,7 +44,7 @@ public class JiraFixture extends TestFixture {
 //	public static JiraFixture SNAPSHOT = new JiraFixture(getServerUrl("jira-enterprise-snapshot"), //
 //			"4.4-SNAPSHOT", "649", "Enterprise");
 	public static JiraFixture SNAPSHOT = new JiraFixture(getServerUrl("jira-enterprise-snapshot"), //
-			"6.0-SNAPSHOT", "6093", "Enterprise");
+			"6.3.9-SNAPSHOT", "6339", "Enterprise");
 
 	public static final JiraFixture[] ALL = new JiraFixture[] { ENTERPRISE_3_13, ENTERPRISE_4_0, SNAPSHOT };
 

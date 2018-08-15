@@ -14,16 +14,18 @@
 package com.atlassian.connector.eclipse.internal.jira.core.model;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import com.atlassian.jira.rest.client.domain.Issue;
 
 /**
  * @author Brock Janiczak
  * @author Steffen Pingel
  * @author Eugene Kuleshov
+ * @author Jacek Jaroczynski
  */
 public class JiraIssue implements Serializable {
 
@@ -79,9 +81,9 @@ public class JiraIssue implements Serializable {
 
 	private Comment[] comments = new Comment[0];
 
-	private long initialEstimate;
+	private Long initialEstimate;
 
-	private long estimate;
+	private Long estimate;
 
 	private long actual;
 
@@ -95,16 +97,32 @@ public class JiraIssue implements Serializable {
 
 	private CustomField[] customFields = new CustomField[0];
 
+	private IssueField[] editableFields = new IssueField[0];
+
 	private Subtask[] subtasks = new Subtask[0];
 
 	private IssueLink[] issueLinks = new IssueLink[0];
+
+	private JiraWorkLog[] worklogs = new JiraWorkLog[0];
 
 	private SecurityLevel securityLevel;
 
 	private boolean markupDetected;
 
+	private URI self;
+
+	private Long rank = null;
+
+	private String[] labels = new String[0];
+
+	private Issue rawIssue;
+
 	public String getId() {
 		return id;
+	}
+
+	public URI getSelf() {
+		return self;
 	}
 
 	public void setId(String id) {
@@ -292,7 +310,7 @@ public class JiraIssue implements Serializable {
 		this.actual = actual;
 	}
 
-	public long getInitialEstimate() {
+	public Long getInitialEstimate() {
 		return this.initialEstimate;
 	}
 
@@ -300,7 +318,7 @@ public class JiraIssue implements Serializable {
 		this.initialEstimate = initialEstimate;
 	}
 
-	public long getEstimate() {
+	public Long getEstimate() {
 		return this.estimate;
 	}
 
@@ -405,6 +423,10 @@ public class JiraIssue implements Serializable {
 		this.issueLinks = issueLinks;
 	}
 
+	/**
+	 * @param field
+	 * @return list of field actual values without faked "none" value for combo and radio buttons
+	 */
 	public String[] getFieldValues(String field) {
 		if ("summary".equals(field)) { //$NON-NLS-1$
 			return new String[] { getSummary() };
@@ -460,6 +482,10 @@ public class JiraIssue implements Serializable {
 			}
 		} else if ("timetracking".equals(field)) { //$NON-NLS-1$
 			return new String[] { Long.toString(getEstimate() / 60) + "m" }; //$NON-NLS-1$
+		} else if ("labels".equals(field)) { //$NON-NLS-1$
+			return getLabels();
+		} else if ("security".equals(field)) { //$NON-NLS-1$
+			return new String[] { getSecurityLevel().getId() };
 		}
 
 		// TODO add other fields
@@ -468,6 +494,7 @@ public class JiraIssue implements Serializable {
 			for (CustomField customField : customFields) {
 				if (customField.getId().equals(field)) {
 					List<String> values = customField.getValues();
+					values.remove(CustomField.NONE_ALLOWED_VALUE);
 					return values.toArray(new String[values.size()]);
 				}
 			}
@@ -477,37 +504,36 @@ public class JiraIssue implements Serializable {
 	}
 
 	// TODO refactor RSS parser to use this call
-	public void setValue(String field, String value) {
-		if ("resolution".equals(field)) { //$NON-NLS-1$
-			if (value != null) {
-				resolution = new Resolution();
-				resolution.setId(value);
-			}
-		} else if ("assignee".equals(field)) { //$NON-NLS-1$
-			assignee = value;
-
-			// TODO add other fields
-		} else if (field.startsWith("customfield_")) { //$NON-NLS-1$
-			boolean found = false;
-
-			for (int i = 0; i < customFields.length; i++) {
-				CustomField customField = customFields[i];
-				if (customField.getId().equals(field)) {
-					customFields[i] = new CustomField(customField.getId(), customField.getKey(), customField.getKey(),
-							Collections.singletonList(value));
-					found = true;
-					break;
-				}
-
-			}
-
-			if (!found) {
-				List<CustomField> list = Arrays.asList(customFields);
-				list.add(new CustomField(field, "", "", Collections.singletonList(value))); //$NON-NLS-1$ //$NON-NLS-2$
-				customFields = list.toArray(new CustomField[list.size()]);
-			}
-		}
-	}
+//	public void setValue(String field, String value) {
+//		if ("resolution".equals(field)) { //$NON-NLS-1$
+//			if (value != null) {
+//				resolution = new Resolution(value, value);
+//			}
+//		} else if ("assignee".equals(field)) { //$NON-NLS-1$
+//			assignee = value;
+//
+//			// TODO add other fields
+//		} else if (field.startsWith("customfield_")) { //$NON-NLS-1$
+//			boolean found = false;
+//
+//			for (int i = 0; i < customFields.length; i++) {
+//				CustomField customField = customFields[i];
+//				if (customField.getId().equals(field)) {
+//					customFields[i] = new CustomField(customField.getId(), customField.getKey(), customField.getKey(),
+//							Collections.singletonList(value));
+//					found = true;
+//					break;
+//				}
+//
+//			}
+//
+//			if (!found) {
+//				List<CustomField> list = Arrays.asList(customFields);
+//				list.add(new CustomField(field, "", "", Collections.singletonList(value))); //$NON-NLS-1$ //$NON-NLS-2$
+//				customFields = list.toArray(new CustomField[list.size()]);
+//			}
+//		}
+//	}
 
 	public SecurityLevel getSecurityLevel() {
 		return securityLevel;
@@ -533,12 +559,56 @@ public class JiraIssue implements Serializable {
 		this.reporterName = reporterName;
 	}
 
-	public String getAssigneeName() {
+	public String getAssigneeDisplayName() {
 		return assigneeName;
 	}
 
 	public void setAssigneeName(String assigneeName) {
 		this.assigneeName = assigneeName;
+	}
+
+	public void setSelf(URI self) {
+		this.self = self;
+	}
+
+	public JiraWorkLog[] getWorklogs() {
+		return worklogs;
+	}
+
+	public void setWorklogs(JiraWorkLog[] worklogs) {
+		this.worklogs = worklogs;
+	}
+
+	public void setRank(Long rank) {
+		this.rank = rank;
+	}
+
+	public Long getRank() {
+		return this.rank;
+	}
+
+	public IssueField[] getEditableFields() {
+		return editableFields;
+	}
+
+	public void setEditableFields(IssueField[] editableFields) {
+		this.editableFields = editableFields;
+	}
+
+	public void setLabels(String[] strings) {
+		this.labels = strings;
+	}
+
+	public String[] getLabels() {
+		return labels;
+	}
+
+	public void setRawIssue(Issue rawIssue) {
+		this.rawIssue = rawIssue;
+	}
+
+	public Issue getRawIssue() {
+		return rawIssue;
 	}
 
 }

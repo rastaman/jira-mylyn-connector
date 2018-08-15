@@ -23,11 +23,11 @@ public enum JiraFieldType {
 
 	DATE("com.atlassian.jira.plugin.system.customfieldtypes:datepicker", TaskAttribute.TYPE_DATE), //$NON-NLS-1$
 
-	DATETIME("com.atlassian.jira.plugin.system.customfieldtypes:datetime", TaskAttribute.TYPE_DATE), //$NON-NLS-1$
+	DATETIME("com.atlassian.jira.plugin.system.customfieldtypes:datetime", TaskAttribute.TYPE_DATETIME), //$NON-NLS-1$
 
 	FLOATFIELD("com.atlassian.jira.plugin.system.customfieldtypes:float", IJiraConstants.TYPE_NUMBER), //$NON-NLS-1$
 
-	GROUPPICKER("com.atlassian.jira.plugin.system.customfieldtypes:grouppicker"), //$NON-NLS-1$
+	GROUPPICKER("com.atlassian.jira.plugin.system.customfieldtypes:grouppicker", TaskAttribute.TYPE_SHORT_TEXT), //$NON-NLS-1$
 
 	// field that has link to a single issue
 	ISSUELINK("org.mylar.jira.issuelink", TaskAttribute.TYPE_TASK_DEPENDENCY), //$NON-NLS-1$
@@ -36,10 +36,13 @@ public enum JiraFieldType {
 	ISSUELINKS("org.mylar.jira.issuelinks", TaskAttribute.TYPE_TASK_DEPENDENCY), //$NON-NLS-1$
 
 	LABELS("com.atlassian.jira.plugin.labels:labels", TaskAttribute.TYPE_SHORT_TEXT), //$NON-NLS-1$
+	LABELSS("com.atlassian.jira.plugin.system.customfieldtypes:labels", TaskAttribute.TYPE_SHORT_TEXT), //$NON-NLS-1$
 
-	MULTICHECKBOXES("com.atlassian.jira.plugin.system.customfieldtypes:multicheckboxes"), //$NON-NLS-1$
+	MULTICHECKBOXES(
+			"com.atlassian.jira.plugin.system.customfieldtypes:multicheckboxes", TaskAttribute.TYPE_MULTI_SELECT), //$NON-NLS-1$
 
-	MULTIGROUPPICKER("com.atlassian.jira.plugin.system.customfieldtypes:multigrouppicker"), //$NON-NLS-1$
+	MULTIGROUPPICKER(
+			"com.atlassian.jira.plugin.system.customfieldtypes:multigrouppicker", TaskAttribute.TYPE_SHORT_TEXT), //$NON-NLS-1$
 
 	MULTISELECT("com.atlassian.jira.plugin.system.customfieldtypes:multiselect", TaskAttribute.TYPE_MULTI_SELECT), //$NON-NLS-1$
 
@@ -49,7 +52,7 @@ public enum JiraFieldType {
 
 	PROJECT("com.atlassian.jira.plugin.system.customfieldtypes:project", TaskAttribute.TYPE_SINGLE_SELECT), //$NON-NLS-1$
 
-	RADIOBUTTONS("com.atlassian.jira.plugin.system.customfieldtypes:radiobuttons"), //$NON-NLS-1$
+	RADIOBUTTONS("com.atlassian.jira.plugin.system.customfieldtypes:radiobuttons", TaskAttribute.TYPE_SINGLE_SELECT), //$NON-NLS-1$
 
 	READONLYFIELD("com.atlassian.jira.plugin.system.customfieldtypes:readonlyfield"), //$NON-NLS-1$
 
@@ -97,11 +100,15 @@ public enum JiraFieldType {
 
 	UNKNOWN(null),
 
+	RANK("com.pyxis.greenhopper.jira:gh-global-rank"), //$NON-NLS-1$
+
 	URL("com.atlassian.jira.plugin.system.customfieldtypes:url", TaskAttribute.TYPE_URL), //$NON-NLS-1$
 
 	USERPICKER("com.atlassian.jira.plugin.system.customfieldtypes:userpicker", TaskAttribute.TYPE_PERSON), //$NON-NLS-1$
 
-	VERSION("com.atlassian.jira.plugin.system.customfieldtypes:version"); //$NON-NLS-1$
+	VERSION("com.atlassian.jira.plugin.system.customfieldtypes:version"), //$NON-NLS-1$
+
+	EPIC_LABEL("com.pyxis.greenhopper.jira:gh-epic-label", TaskAttribute.TYPE_SHORT_TEXT); //$NON-NLS-1$
 
 	public static JiraFieldType fromKey(String key) {
 		if (key != null) {
