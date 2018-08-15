@@ -2,7 +2,8 @@
 
 	<import file="site-helper.xml" />
 	<echo message="Build directory is set to ${buildDirectory}" />
-
+	<available file="${buildDirectory}/../../../connector-commons" type="dir" property="dependencies.already.donwloaded" />
+	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
 	<!-- Add on <ant> task for each top level element being built. -->
@@ -26,9 +27,10 @@
 
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
-	<!-- Replace values for mapsCheckoutTag as desired. -->
+	<!-- Replace values for mapsCheckoutTag as desired.  -->  	
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
+		<echo>Get map files</echo>
 		<property name="mapsCheckoutTag" value="HEAD" />
 		<cvs cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
 	</target>
@@ -77,7 +79,7 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before fetching the build elements -->
 	<!-- ===================================================================== -->
-	<target name="preFetch">
+	<target name="preFetch" unless="dependencies.already.donwloaded">
 		<echo message="Fetching connector-commons" />
 		<delete dir="${buildDirectory}/../../../connector-commons" failonerror="true"/>
 		<mkdir dir="${buildDirectory}/../../../connector-commons" />

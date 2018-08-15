@@ -69,7 +69,7 @@
 	<target name="pack" depends="init">
 		<!-- make sure Eclipse 3.5 is available -->
 		<!-- <antcall target="init-3.5" /> -->
-		<antcall target="init-3.7" />
+		<antcall target="init-${build.target}" />
 
 		<antcall target="for-each-target">
 			<param name="call" value="pack-sites" />
@@ -101,8 +101,7 @@
 
 		<move file="${build.site}/mirror.xml" tofile="${build.site}/site.xml" />
 
-		<!-- <copy file="associates-e3.5.xml" todir="${build.site}" /> -->
-		<copy file="associates-e3.7.xml" todir="${build.site}" />
+		<copy file="associates-e${build.target}.xml" todir="${build.site}" />
 
 		<zip destfile="${build.site}/../e${build.target}-site-all.zip" basedir="${build.site}" />
 	</target>
@@ -110,24 +109,24 @@
 	<target name="generate-metadata-common" depends="init">
 		<!-- make sure Eclipse 3.5 is available -->
 		<!-- <antcall target="init-3.5" /> -->
-		<antcall target="init-3.7" />
+		<antcall target="init-${build.target}" />
 
 		<!-- create generic site without associate sites -->
-		<property name="site.common.dir" value="${build.home}/3.7/site" />
+		<property name="site.common.dir" value="${build.home}/${build.target}/site" />
 		<copy todir="${build.home}/site">
 			<fileset dir="${site.common.dir}" />
 		</copy>
 		<antcall target="generate-metadata-helper">
 			<param name="dir" value="${build.home}/site" />
 			<param name="name" value="${build.publish.name}" />
-			<param name="eclipse.sdk.version" value="${eclipse.sdk.3.7}" />
+			<param name="eclipse.sdk.version" value="${eclipse.sdk.4.8}" />
 		</antcall>
 	</target>
 
 	<target name="generate-metadata" depends="init">
 		<!-- make sure Eclipse 3.5 is available -->
 		<!-- <antcall target="init-3.5" /> -->
-		<antcall target="init-3.7" />
+		<antcall target="init-${build.target}" />
 
 		<!-- handle Eclipse version specific sites -->
 		<antcall target="for-each-target">
@@ -157,7 +156,7 @@
 
 	<target name="publish" depends="init">
 		<!-- <antcall target="init-3.5" /> -->
-		<antcall target="init-3.7" />
+		<antcall target="init-${build.target}" />
 
 		<fail message="Required property build.publish.user is not set" unless="build.publish.user" />
 		<fail message="Required property build.publish.host is not set" unless="build.publish.host" />

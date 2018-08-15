@@ -6,11 +6,14 @@ preBuild:
      [echo] Build directory is set to C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
 
 preSetup:
+     [echo] Calling getMapFile in custom targets (C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config/customTargets.xml / C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8)
      [echo] Build directory is set to C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
 
 checkLocalMaps:
 
 getMapFiles:
+     [echo] Replace slash by antislash in C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8/directory.txt
+  [replace] Replaced 216 occurrences in 1 files.
      [echo] Build directory is set to C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
 
 postSetup:
@@ -26,76 +29,6 @@ fetch:
      [echo] Build directory is set to C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
 
 preFetch:
-     [echo] Fetching connector-commons
-   [delete] Deleting directory C:\connector-eclipse\connector-commons
-    [mkdir] Created dir: C:\connector-eclipse\connector-commons
-     [exec] requesting all changes
-     [exec] adding changesets
-     [exec] adding manifests
-     [exec] adding file changes
-     [exec] added 1468 changesets with 4768 changes to 1173 files (+6 heads)
-     [exec] new changesets 917ad94666d9:b5d12f51d752
-     [exec] updating to branch default
-     [exec] 532 files updated, 0 files merged, 0 files removed, 0 files unresolved
-     [exec] 64 files updated, 0 files merged, 14 files removed, 0 files unresolved
-     [echo] Fetching connector-commons done
-     [echo] Fetching Mylyn
-   [delete] Deleting directory C:\connector-eclipse\mylyn
-    [mkdir] Created dir: C:\connector-eclipse\mylyn
-    [mkdir] Created dir: C:\connector-eclipse\mylyn\org.eclipse.mylyn.commons
-    [mkdir] Created dir: C:\connector-eclipse\mylyn\org.eclipse.mylyn.context
-    [mkdir] Created dir: C:\connector-eclipse\mylyn\org.eclipse.mylyn.tasks
-    [mkdir] Created dir: C:\connector-eclipse\mylyn\org.eclipse.mylyn.docs
-     [exec] Cloning into 'C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8/../../../mylyn/org.eclipse.mylyn.commons'...
-     [exec] Checking out files:  51% (660/1278)   
-     [exec] Checking out files:  52% (665/1278)   Checking out files:  53% (678/1278)   Checking out files:  54% (691/1278)   Checking out files:  55% (703/1278)   Checking out files:  56% (716/1278)   Checking out files:  57% (729/1278)   Checking out files:  58% (742/1278)   Checking out files:  59% (755/1278)   Checking out files:  60% (767/1278)   Checking out files:  61% (780/1278)   Checking out files:  62% (793/1278)   Checking out files:  63% (806/1278)   Checking out files:  64% (818/1278)   Checking out files:  65% (831/1278)   Checking out files:  66% (844/1278)   Checking out files:  67% (857/1278)   Checking out files:  68% (870/1278)   Checking out files:  69% (882/1278)   Checking out files:  70% (895/1278)   Checking out files:  71% (908/1278)   Checking out files:  72% (921/1278)   Checking out files:  73% (933/1278)   Checking out files:  74% (946/1278)   Checking out files:  75% (959/1278)   Checking out files:  76% (972/1278)   Checking out files:  77% (985/1278)   Checking out files:  78% (997/1278)   Checking out files:  79% (1010/1278)   Checking out files:  80% (1023/1278)   Checking out files:  81% (1036/1278)   Checking out files:  82% (1048/1278)   Checking out files:  83% (1061/1278)   Checking out files:  84% (1074/1278)   Checking out files:  85% (1087/1278)   Checking out files:  86% (1100/1278)   Checking out files:  87% (1112/1278)   Checking out files:  88% (1125/1278)   Checking out files:  89% (1138/1278)   Checking out files:  90% (1151/1278)   Checking out files:  91% (1163/1278)   Checking out files:  92% (1176/1278)   Checking out files:  93% (1189/1278)   Checking out files:  94% (1202/1278)   Checking out files:  95% (1215/1278)   Checking out files:  96% (1227/1278)   Checking out files:  97% (1240/1278)   Checking out files:  98% (1253/1278)   Checking out files:  99% (1266/1278)   Checking out files: 100% (1278/1278)   Checking out files: 100% (1278/1278), done.
-     [exec] Note: checking out 'refs/remotes/origin/e_4_8_m_3_24_x'.
-     [exec] 
-     [exec] You are in 'detached HEAD' state. You can look around, make experimental
-     [exec] changes and commit them, and you can discard any commits you make in this
-     [exec] state without impacting any branches by performing another checkout.
-     [exec] 
-     [exec] If you want to create a new branch to retain commits you create, you may
-     [exec] do so (now or later) by using -b with the checkout command again. Example:
-     [exec] 
-     [exec]   git checkout -b <new-branch-name>
-     [exec] 
-     [exec] HEAD is now at edcdc3c6 536060: update org.eclipse.mylyn.commons versions to 3.24.1
-     [exec] Cloning into 'C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8/../../../mylyn/org.eclipse.mylyn.context'...
-     [exec] Checking out files:  66% (659/984)   
-     [exec] Checking out files:  67% (660/984)   Checking out files:  68% (670/984)   Checking out files:  69% (679/984)   Checking out files:  70% (689/984)   Checking out files:  71% (699/984)   Checking out files:  72% (709/984)   Checking out files:  73% (719/984)   Checking out files:  74% (729/984)   Checking out files:  75% (738/984)   Checking out files:  76% (748/984)   Checking out files:  77% (758/984)   Checking out files:  78% (768/984)   Checking out files:  79% (778/984)   Checking out files:  80% (788/984)   Checking out files:  81% (798/984)   Checking out files:  82% (807/984)   Checking out files:  83% (817/984)   Checking out files:  84% (827/984)   Checking out files:  85% (837/984)   Checking out files:  86% (847/984)   Checking out files:  87% (857/984)   Checking out files:  88% (866/984)   Checking out files:  89% (876/984)   Checking out files:  90% (886/984)   Checking out files:  91% (896/984)   Checking out files:  92% (906/984)   Checking out files:  93% (916/984)   Checking out files:  94% (925/984)   Checking out files:  95% (935/984)   Checking out files:  96% (945/984)   Checking out files:  97% (955/984)   Checking out files:  98% (965/984)   Checking out files:  99% (975/984)   Checking out files: 100% (984/984)   Checking out files: 100% (984/984), done.
-     [exec] Note: checking out 'refs/remotes/origin/e_4_8_m_3_24_x'.
-     [exec] 
-     [exec] You are in 'detached HEAD' state. You can look around, make experimental
-     [exec] changes and commit them, and you can discard any commits you make in this
-     [exec] state without impacting any branches by performing another checkout.
-     [exec] 
-     [exec] If you want to create a new branch to retain commits you create, you may
-     [exec] do so (now or later) by using -b with the checkout command again. Example:
-     [exec] 
-     [exec]   git checkout -b <new-branch-name>
-     [exec] 
-     [exec] HEAD is now at eafc41de0 536060: update org.eclipse.mylyn.context versions to 3.24.1
-     [exec] Cloning into 'C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8/../../../mylyn/org.eclipse.mylyn.tasks'...
-     [exec] Checking out files:  32% (694/2167)   
-     [exec] Checking out files:  33% (716/2167)   Checking out files:  34% (737/2167)   Checking out files:  35% (759/2167)   Checking out files:  36% (781/2167)   Checking out files:  37% (802/2167)   Checking out files:  38% (824/2167)   Checking out files:  39% (846/2167)   Checking out files:  40% (867/2167)   Checking out files:  41% (889/2167)   Checking out files:  42% (911/2167)   Checking out files:  43% (932/2167)   Checking out files:  44% (954/2167)   Checking out files:  45% (976/2167)   Checking out files:  46% (997/2167)   Checking out files:  47% (1019/2167)   Checking out files:  48% (1041/2167)   Checking out files:  49% (1062/2167)   Checking out files:  50% (1084/2167)   Checking out files:  51% (1106/2167)   Checking out files:  52% (1127/2167)   Checking out files:  53% (1149/2167)   Checking out files:  54% (1171/2167)   Checking out files:  55% (1192/2167)   Checking out files:  56% (1214/2167)   Checking out files:  57% (1236/2167)   Checking out files:  58% (1257/2167)   Checking out files:  59% (1279/2167)   Checking out files:  60% (1301/2167)   Checking out files:  61% (1322/2167)   Checking out files:  62% (1344/2167)   Checking out files:  63% (1366/2167)   Checking out files:  64% (1387/2167)   Checking out files:  64% (1393/2167)   Checking out files:  65% (1409/2167)   Checking out files:  66% (1431/2167)   Checking out files:  67% (1452/2167)   Checking out files:  68% (1474/2167)   Checking out files:  69% (1496/2167)   Checking out files:  70% (1517/2167)   Checking out files:  71% (1539/2167)   Checking out files:  72% (1561/2167)   Checking out files:  73% (1582/2167)   Checking out files:  74% (1604/2167)   Checking out files:  75% (1626/2167)   Checking out files:  76% (1647/2167)   Checking out files:  77% (1669/2167)   Checking out files:  78% (1691/2167)   Checking out files:  79% (1712/2167)   Checking out files:  80% (1734/2167)   Checking out files:  81% (1756/2167)   Checking out files:  82% (1777/2167)   Checking out files:  83% (1799/2167)   Checking out files:  84% (1821/2167)   Checking out files:  85% (1842/2167)   Checking out files:  86% (1864/2167)   Checking out files:  87% (1886/2167)   Checking out files:  88% (1907/2167)   Checking out files:  89% (1929/2167)   Checking out files:  90% (1951/2167)   Checking out files:  91% (1972/2167)   Checking out files:  92% (1994/2167)   Checking out files:  93% (2016/2167)   Checking out files:  94% (2037/2167)   Checking out files:  95% (2059/2167)   Checking out files:  96% (2081/2167)   Checking out files:  96% (2096/2167)   Checking out files:  97% (2102/2167)   Checking out files:  98% (2124/2167)   Checking out files:  99% (2146/2167)   Checking out files: 100% (2167/2167)   Checking out files: 100% (2167/2167), done.
-     [exec] Note: checking out 'refs/remotes/origin/e_4_8_m_3_24_x'.
-     [exec] 
-     [exec] You are in 'detached HEAD' state. You can look around, make experimental
-     [exec] changes and commit them, and you can discard any commits you make in this
-     [exec] state without impacting any branches by performing another checkout.
-     [exec] 
-     [exec] If you want to create a new branch to retain commits you create, you may
-     [exec] do so (now or later) by using -b with the checkout command again. Example:
-     [exec] 
-     [exec]   git checkout -b <new-branch-name>
-     [exec] 
-     [exec] HEAD is now at 566c107ef 537208: Task data filename can get too long
-     [exec] Cloning into 'C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8/../../../mylyn/org.eclipse.mylyn.docs'...
-     [exec] Checking out files:  27% (628/2309)   
-     [exec] Checking out files:  28% (647/2309)   Checking out files:  29% (670/2309)   Checking out files:  30% (693/2309)   Checking out files:  31% (716/2309)   Checking out files:  32% (739/2309)   Checking out files:  33% (762/2309)   Checking out files:  34% (786/2309)   Checking out files:  35% (809/2309)   Checking out files:  36% (832/2309)   Checking out files:  37% (855/2309)   Checking out files:  38% (878/2309)   Checking out files:  39% (901/2309)   Checking out files:  40% (924/2309)   Checking out files:  41% (947/2309)   Checking out files:  42% (970/2309)   Checking out files:  43% (993/2309)   Checking out files:  44% (1016/2309)   Checking out files:  45% (1040/2309)   Checking out files:  46% (1063/2309)   Checking out files:  47% (1086/2309)   Checking out files:  48% (1109/2309)   Checking out files:  49% (1132/2309)   Checking out files:  50% (1155/2309)   Checking out files:  51% (1178/2309)   Checking out files:  52% (1201/2309)   Checking out files:  53% (1224/2309)   Checking out files:  53% (1242/2309)   Checking out files:  54% (1247/2309)   Checking out files:  55% (1270/2309)   Checking out files:  56% (1294/2309)   Checking out files:  57% (1317/2309)   Checking out files:  58% (1340/2309)   Checking out files:  59% (1363/2309)   Checking out files:  60% (1386/2309)   Checking out files:  61% (1409/2309)   Checking out files:  62% (1432/2309)   Checking out files:  63% (1455/2309)   Checking out files:  64% (1478/2309)   Checking out files:  65% (1501/2309)   Checking out files:  66% (1524/2309)   Checking out files:  67% (1548/2309)   Checking out files:  68% (1571/2309)   Checking out files:  69% (1594/2309)   Checking out files:  70% (1617/2309)   Checking out files:  71% (1640/2309)   Checking out files:  72% (1663/2309)   Checking out files:  73% (1686/2309)   Checking out files:  74% (1709/2309)   Checking out files:  75% (1732/2309)   Checking out files:  76% (1755/2309)   Checking out files:  77% (1778/2309)   Checking out files:  78% (1802/2309)   Checking out files:  79% (1825/2309)   Checking out files:  80% (1848/2309)   Checking out files:  81% (1871/2309)   Checking out files:  81% (1874/2309)   Checking out files:  82% (1894/2309)   Checking out files:  83% (1917/2309)   Checking out files:  84% (1940/2309)   Checking out files:  85% (1963/2309)   Checking out files:  86% (1986/2309)   Checking out files:  87% (2009/2309)   Checking out files:  88% (2032/2309)   Checking out files:  89% (2056/2309)   Checking out files:  90% (2079/2309)   Checking out files:  91% (2102/2309)   Checking out files:  92% (2125/2309)   Checking out files:  93% (2148/2309)   Checking out files:  94% (2171/2309)   Checking out files:  95% (2194/2309)   Checking out files:  96% (2217/2309)   Checking out files:  97% (2240/2309)   Checking out files:  98% (2263/2309)   Checking out files:  99% (2286/2309)   Checking out files: 100% (2309/2309)   Checking out files: 100% (2309/2309), done.
-     [exec] Your branch is up to date with 'origin/master'.
-     [exec] Already on 'master'
      [echo] Build directory is set to C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8
 
 allElements:
@@ -106,19 +39,27 @@ allElementsDelegator:
 init:
 
 fetchElement:
-    [mkdir] Created dir: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\build\4.8\features
-    [mkdir] Created dir: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\build\4.8\plugins
+     [echo] *, *, *
+     [echo] 
+     [echo] 		elements="feature@com.atlassian.connector.eclipse.dependencies"
+     [echo] 		buildDirectory="C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8"
+     [echo] 		directory="C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8/directory.txt"
+     [echo] 		fetchTag=""
+     [echo] 		configInfo="*, *, *"
+     [echo] 		baseLocation="C:\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse"
+     [echo] 		pluginPath=";"		
+     [echo] 	
 
 main:
-!SESSION 2018-08-11 15:22:59.591 -----------------------------------------------
+!SESSION 2018-08-15 09:17:59.089 -----------------------------------------------
 eclipse.buildId=4.8.0.I20180611-0500
 java.version=1.8.0_181
 java.vendor=Oracle Corporation
 BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
-Framework arguments:  -application org.eclipse.ant.core.antRunner -buildfile C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml -DbaseLocation=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse -Dbuilder=C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config -DbuildDirectory=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8 -DbuildLabel=dist -DforceContextQualifier=I20180811-1300 -DmajorVersion=4.0.0 -Dbuild.target=4.8 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
-Command-line arguments:  -consolelog -data C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/workspace -clean -application org.eclipse.ant.core.antRunner -buildfile C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml -DbaseLocation=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse -Dbuilder=C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config -DbuildDirectory=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8 -DbuildLabel=dist -DforceContextQualifier=I20180811-1300 -DmajorVersion=4.0.0 -Dbuild.target=4.8 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
+Framework arguments:  -application org.eclipse.ant.core.antRunner -buildfile C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml -DbaseLocation=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse -Dbuilder=C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config -DbuildDirectory=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8 -DbuildLabel=dist -DforceContextQualifier=I20180813-0600 -DmajorVersion=4.0.0 -Dbuild.target=4.8 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
+Command-line arguments:  -consolelog -data C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/workspace -clean -application org.eclipse.ant.core.antRunner -buildfile C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml -DbaseLocation=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/../tools/sdk-4.8/eclipse -Dbuilder=C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config -DbuildDirectory=C:\connector-eclipse\com.atlassian.connector.eclipse.releng/build/4.8 -DbuildLabel=dist -DforceContextQualifier=I20180813-0600 -DmajorVersion=4.0.0 -Dbuild.target=4.8 -Dbuild.publish.name=Atlassian Connector Nightly for Eclipse -DskipBuildWithClover=true -Dclover.license.path=${clover.license.path} -DnoSkipFetch=true -Dnoextrabuildargs=true
 
-!ENTRY org.eclipse.osgi 4 0 2018-08-11 15:25:00.258
+!ENTRY org.eclipse.osgi 4 0 2018-08-15 09:18:03.873
 !MESSAGE Application error
 !STACK 1
 java.lang.reflect.InvocationTargetException
@@ -143,10 +84,10 @@ java.lang.reflect.InvocationTargetException
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1471)
 	at org.eclipse.core.launcher.Main.main(Main.java:34)
 Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:34: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:78: The following error occurred while executing this line:
-C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:13: The following error occurred while executing this line:
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:84: The following error occurred while executing this line:
+C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:14: The following error occurred while executing this line:
 C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
@@ -166,10 +107,10 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:712)
 	at org.eclipse.ant.internal.core.ant.InternalAntRunner.run(InternalAntRunner.java:573)
 	... 20 more
-Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:78: The following error occurred while executing this line:
-C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:13: The following error occurred while executing this line:
+Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:84: The following error occurred while executing this line:
+C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:14: The following error occurred while executing this line:
 C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
@@ -186,9 +127,9 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
 	... 36 more
-Caused by: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:13: The following error occurred while executing this line:
+Caused by: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:14: The following error occurred while executing this line:
 C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
@@ -207,7 +148,7 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
 	... 49 more
 Caused by: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
@@ -224,7 +165,7 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
 	... 63 more
-Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.eclipse.pde.internal.build.tasks.FetchTask.execute(FetchTask.java:112)
 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
 	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
@@ -242,10 +183,10 @@ Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.bu
 	... 76 more
 Root exception:
 C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:34: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:78: The following error occurred while executing this line:
-C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:13: The following error occurred while executing this line:
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:84: The following error occurred while executing this line:
+C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:14: The following error occurred while executing this line:
 C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
@@ -284,10 +225,10 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1498)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1471)
 	at org.eclipse.core.launcher.Main.main(Main.java:34)
-Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:78: The following error occurred while executing this line:
-C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:13: The following error occurred while executing this line:
+Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\build.xml:84: The following error occurred while executing this line:
+C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:14: The following error occurred while executing this line:
 C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
@@ -304,9 +245,9 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
 	... 36 more
-Caused by: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:13: The following error occurred while executing this line:
+Caused by: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\customTargets.xml:14: The following error occurred while executing this line:
 C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.taskdefs.CallTarget.execute(CallTarget.java:105)
@@ -325,7 +266,7 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
 	... 49 more
 Caused by: C:\connector-eclipse\com.atlassian.connector.eclipse.releng\config\allElements.xml:12: The following error occurred while executing this line:
-C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.apache.tools.ant.ProjectHelper.addLocationToBuildException(ProjectHelper.java:581)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:449)
 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
@@ -342,7 +283,7 @@ C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.
 	at org.apache.tools.ant.Project.executeTargets(Project.java:1260)
 	at org.apache.tools.ant.taskdefs.Ant.execute(Ant.java:446)
 	... 63 more
-Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:55: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
+Caused by: C:\connector-eclipse\tools\sdk-4.8\eclipse\plugins\org.eclipse.pde.build_3.10.0.v20180512-1217\scripts\genericTargets.xml:65: Could not retrieve feature.xml or build.properties for feature com.atlassian.connector.eclipse.dependencies.
 	at org.eclipse.pde.internal.build.tasks.FetchTask.execute(FetchTask.java:112)
 	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
 	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
