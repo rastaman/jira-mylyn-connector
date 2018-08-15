@@ -43,6 +43,7 @@ import org.eclipse.mylyn.tasks.core.ITaskAttachment;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
+import org.eclipse.mylyn.tasks.ui.editors.AttributeEditorToolkit;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -157,16 +158,17 @@ public class JiraTaskEditorAttachmentsPart extends AbstractTaskEditorPart {
 			attachmentList.add(taskAttachment);
 		}
 		attachmentsViewer.setContentProvider(new ArrayContentProvider());
-		attachmentsViewer.setLabelProvider(new AttachmentTableLabelProvider(getModel(),
-				getTaskEditorPage().getAttributeEditorToolkit()) {
-			@Override
+		AttributeEditorToolkit attributeEditorToolkit = getTaskEditorPage().getAttributeEditorToolkit();
+		AttachmentTableLabelProvider attachmentTableLabelProvider = new AttachmentTableLabelProvider(/*getModel(), attributeEditorToolkit*/) {
+			/*@Override
 			public String getColumnText(Object element, int columnIndex) {
 				if (!useDescriptionColumn && columnIndex >= 1) {
 					columnIndex++;
 				}
 				return super.getColumnText(element, columnIndex);
-			}
-		});
+			}*/
+		};
+		attachmentsViewer.setLabelProvider(attachmentTableLabelProvider);
 		attachmentsViewer.addOpenListener(new IOpenListener() {
 			public void open(OpenEvent event) {
 				if (!event.getSelection().isEmpty()) {
@@ -221,7 +223,8 @@ public class JiraTaskEditorAttachmentsPart extends AbstractTaskEditorPart {
 		final CLabel dndHintLabel = new CLabel(attachmentControlsComposite, SWT.LEFT);
 		dndHintLabel.setImage(JiraImages.getImage(JiraImages.LIGHTBULB));
 		GridDataFactory.fillDefaults().align(SWT.LEFT, SWT.CENTER).grab(true, false).applyTo(dndHintLabel);
-		dndHintLabel.setText(com.atlassian.connector.eclipse.internal.jira.ui.editor.Messages.JiraTaskEditorSummaryPart_Attachements_Drag_and_Drop_Hint);
+		dndHintLabel.setText(
+				com.atlassian.connector.eclipse.internal.jira.ui.editor.Messages.JiraTaskEditorSummaryPart_Attachements_Drag_and_Drop_Hint);
 		getTaskEditorPage().registerDefaultDropListener(dndHintLabel);
 
 	}
@@ -277,8 +280,8 @@ public class JiraTaskEditorAttachmentsPart extends AbstractTaskEditorPart {
 	}
 
 	private void initialize() {
-		attachments = getTaskData().getAttributeMapper().getAttributesByType(getTaskData(),
-				TaskAttribute.TYPE_ATTACHMENT);
+		attachments = getTaskData().getAttributeMapper()
+				.getAttributesByType(getTaskData(), TaskAttribute.TYPE_ATTACHMENT);
 		for (TaskAttribute attachmentAttribute : attachments) {
 			if (getModel().hasIncomingChanges(attachmentAttribute)) {
 				hasIncoming = true;
