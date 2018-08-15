@@ -6,8 +6,12 @@ plugin@org.apache.commons.lang,2.6.0=GET,http://download.eclipse.org/tools/orbit
 plugin@org.apache.commons.lang.source,2.6.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.apache.commons.lang.source_2.6.0.v201404270220.jar
 
 plugin@com.google.guava=GET,http://download.eclipse.org/tools/orbit/downloads/drops2/R20180606145124/repository/plugins/com.google.guava_21.0.0.v20170206-1425.jar
+
 plugin@com.google.gson=GET,http://download.eclipse.org/tools/orbit/downloads/drops2/R20180606145124/repository/plugins/com.google.gson_2.7.0.v20170129-0911.jar
 
+plugin@org.apache.xerces,2.9.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.apache.xerces_2.9.0.v201101211617.jar
+
+!# Not updated
 plugin@ch.ethz.iks.slp,1.0.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/ch.ethz.iks.slp_1.0.0.RC5_v20080820-1500.jar
 
 plugin@ch.ethz.iks.slp.source,1.0.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/ch.ethz.iks.slp.source_1.0.0.RC2_v20080604-1500.jar
@@ -623,8 +627,6 @@ plugin@org.apache.xalan,2.7.1=GET,http://download.eclipse.org/tools/orbit/downlo
 plugin@org.apache.xalan,2.7.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.xalan_2.7.0.v200806030241.jar
 
 plugin@org.apache.xerces,2.8.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.xerces_2.8.0.v200803070308.jar
-
-plugin@org.apache.xerces,2.9.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.xerces_2.9.0.v201005080400.jar
 
 plugin@org.apache.xml.resolver,1.1.0=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/bundles/org.apache.xml.resolver_1.1.0.v200806030311.jar
 
