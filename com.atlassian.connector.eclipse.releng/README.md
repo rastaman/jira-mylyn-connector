@@ -15,3 +15,7 @@ On windows set git to use long file names:
 Build:
 
     ant build all
+
+# References
+
+- https://wiki.eclipse.org/Mylyn/Integrator_Reference
