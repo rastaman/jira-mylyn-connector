@@ -109,6 +109,7 @@
       <import plugin="org.eclipse.mylyn.commons.workbench" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.tasks.ui" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.tasks.core" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylyn.wikitext.tasks.ui" version="1.2.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.wikitext.confluence" version="3.0.19" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.wikitext.confluence.ui" version="3.0.19" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.wikitext.mediawiki" version="3.0.19" match="greaterOrEqual"/>
@@ -399,22 +400,17 @@
          version="0.0.0"
          unpack="false"/>
 
+<!--
    <plugin
          id="org.eclipse.mylyn.wikitext.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+-->
 
    <plugin
-         id="org.eclipse.mylyn.wikitext.tasks.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.mylyn.wikitext.confluence.core"
+         id="org.eclipse.mylyn.wikitext.confluence"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -492,6 +488,27 @@
 
    <plugin
          id="org.eclipse.mylyn.tasks.bugs"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="javax.xml"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.xml.resolver"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.xml.serializer"
          download-size="0"
          install-size="0"
          version="0.0.0"
