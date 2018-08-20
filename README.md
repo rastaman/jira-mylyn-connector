@@ -1,0 +1,1 @@
+This is a work in progress fork/attempt to make the atlassian eclipse connector working again on Eclipse (4.8).
