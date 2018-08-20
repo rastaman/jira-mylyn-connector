@@ -20,3 +20,5 @@ Build:
 
 - https://wiki.eclipse.org/Mylyn/Integrator_Reference
 - [Orbit for Photon](http://download.eclipse.org/tools/orbit/downloads/drops/R20180606145124/?d)
+- [Mylyn repositories](http://git.eclipse.org/c/mylyn/)
+- 

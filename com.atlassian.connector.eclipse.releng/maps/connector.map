@@ -84,6 +84,17 @@ plugin@org.jdom_jaxen=GET,file://@buildDirectory@/../../../bundles/org.jdom_jaxe
 plugin@org.jetbrains.annotations=GET,file://@buildDirectory@/../../../bundles/org.jetbrains.annotations_7.0.2.v20081216-1400.jar
 plugin@com.perforce.p4java=GET,file://@buildDirectory@/../../../bundles/com.perforce.p4java_2009.2.234487.jar
 
+plugin@org.mockito=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.mockito_1.8.4.v201303031500.jar
+plugin@org.objenesis=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.objenesis_1.0.0.v201505121915.jar
+plugin@org.hamcrest=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.hamcrest_1.1.0.v20090501071000.jar
+plugin@org.easymock=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.easymock_2.4.0.v20090202-0900.jar
+
+plugin@org.hamcrest.core=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar
+plugin@org.hamcrest.generator=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.hamcrest.generator_1.1.0.v20090501071000.jar
+plugin@org.hamcrest.integration=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.hamcrest.integration_1.1.0.v201303031500.jar
+plugin@org.hamcrest.text=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.hamcrest.text_1.1.0.v20090501071000.jar
+plugin@org.hamcrest.library=GET,http://download.eclipse.org/tools/orbit/downloads/drops/R20180525155205/repository/plugins/org.hamcrest.library_1.1.0.v20090501071000.jar
+
 !**************************************************
 ! Mylyn's plugins that are required during release
 !**************************************************

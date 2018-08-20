@@ -22,7 +22,7 @@ feature@org.eclipse.mylyn.monitor_feature=COPY,@buildDirectory@/../../../../myly
 feature@org.eclipse.mylyn.sandbox.ui_feature=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.incubator, org.eclipse.mylyn.sandbox.ui-feature
 feature@org.eclipse.mylyn.sandbox.dev_feature=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.incubator, org.eclipse.mylyn.sandbox.dev-feature
 feature@org.eclipse.mylyn.trac.wiki_feature=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.incubator, org.eclipse.mylyn.trac.wiki-feature
-feature@org.eclipse.mylyn.wikitext_feature=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext-feature
+feature@org.eclipse.mylyn.wikitext_feature=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext-feature
 feature@org.eclipse.mylyn.experimental_sdk_feature=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.incubator, org.eclipse.mylyn.experimental-sdk-feature
 
 !******* OTHER *******
@@ -161,45 +161,46 @@ plugin@org.eclipse.mylyn.web.tasks=COPY,@buildDirectory@/../../../../mylyn/org.e
 
 !plugin@org.eclipse.mylyn.wikitext.confluence.core=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.confluence.core
 !plugin@org.eclipse.mylyn.wikitext.confluence.core=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.confluence.core
-plugin@org.eclipse.mylyn.wikitext.confluence=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.confluence
+plugin@org.eclipse.mylyn.wikitext.confluence=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext.confluence
 
 !plugin@org.eclipse.mylyn.wikitext.confluence.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.confluence.ui
-plugin@org.eclipse.mylyn.wikitext.confluence.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.confluence.ui
+plugin@org.eclipse.mylyn.wikitext.confluence.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.confluence.ui
 
 !plugin@org.eclipse.mylyn.wikitext.core=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.core
-plugin@org.eclipse.mylyn.wikitext.core=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.core
+plugin@org.eclipse.mylyn.wikitext=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext
 
 !plugin@org.eclipse.mylyn.wikitext.mediawiki.core=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.mediawiki.core
-plugin@org.eclipse.mylyn.wikitext.mediawiki.core=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.mediawiki.core
+plugin@org.eclipse.mylyn.wikitext.mediawiki=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext.mediawiki
 
 !plugin@org.eclipse.mylyn.wikitext.mediawiki.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.mediawiki.ui
-plugin@org.eclipse.mylyn.wikitext.mediawiki.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.mediawiki.ui
+plugin@org.eclipse.mylyn.wikitext.mediawiki.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.mediawiki.ui
 
 !plugin@org.eclipse.mylyn.wikitext.tasks.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tasks.ui
-plugin@org.eclipse.mylyn.wikitext.tasks.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tasks.ui
+plugin@org.eclipse.mylyn.wikitext.tasks.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.tasks.ui
 
-pse.fetch] Missing directory entry: plugin@org.eclipse.mylyn.wikitext.confluence.
-     [java] [eclipse.fetch] Missing directory entry: bundle@org.eclipse.mylyn.wikitext.confluence.
 !plugin@org.eclipse.mylyn.wikitext.textile.core=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.textile.core
-plugin@org.eclipse.mylyn.wikitext.textile.core=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.textile.core
+plugin@org.eclipse.mylyn.wikitext.textile=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext.textile
 
 !plugin@org.eclipse.mylyn.wikitext.textile.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.textile.ui
-plugin@org.eclipse.mylyn.wikitext.textile.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.textile.ui
+plugin@org.eclipse.mylyn.wikitext.textile.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.textile.ui
 
 !plugin@org.eclipse.mylyn.wikitext.tracwiki.core=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tracwiki.core
-plugin@org.eclipse.mylyn.wikitext.tracwiki.core=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tracwiki.core
+plugin@org.eclipse.mylyn.wikitext.tracwiki=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext.tracwiki
 
 !plugin@org.eclipse.mylyn.wikitext.tracwiki.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tracwiki.ui
-plugin@org.eclipse.mylyn.wikitext.tracwiki.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tracwiki.ui
+plugin@org.eclipse.mylyn.wikitext.tracwiki.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.tracwiki.ui
 
 !plugin@org.eclipse.mylyn.wikitext.twiki.core=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.twiki.core
-plugin@org.eclipse.mylyn.wikitext.twiki.core=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.twiki.core
+plugin@org.eclipse.mylyn.wikitext.twiki=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext.twiki
 
 !plugin@org.eclipse.mylyn.wikitext.twiki.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.twiki.ui
-plugin@org.eclipse.mylyn.wikitext.twiki.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.twiki.ui
+plugin@org.eclipse.mylyn.wikitext.twiki.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.twiki.ui
+
+plugin@org.eclipse.mylyn.wikitext.osgi=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.osgi
 
 !plugin@org.eclipse.mylyn.wikitext.ui=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.ui
-plugin@org.eclipse.mylyn.wikitext.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.ui
+plugin@org.eclipse.mylyn.wikitext.ui=COPY,@buildDirectory@/../../../mylyn/org.eclipse.mylyn.docs/wikitext/ui, org.eclipse.mylyn.wikitext.ui
+
 
 !plugin@org.eclipse.mylyn.xplanner.core=e_4_8_m_3_24_x,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.mylyn/sandbox/org.eclipse.mylyn.xplanner.core
 !plugin@org.eclipse.mylyn.xplanner.ui=e_4_8_m_3_24_x,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.mylyn/sandbox/org.eclipse.mylyn.xplanner.ui
@@ -236,5 +237,5 @@ plugin@org.eclipse.mylyn.tasks.tests=COPY,@buildDirectory@/../../../mylyn/org.ec
 plugin@org.eclipse.mylyn.team.tests=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.context, org.eclipse.mylyn.team.tests
 
 plugin@org.eclipse.mylyn.trac.tests=COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.tasks, org.eclipse.mylyn.trac.tests
-plugin@org.eclipse.mylyn.wikitext.tests==COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs, org.eclipse.mylyn.wikitext.tests
+plugin@org.eclipse.mylyn.wikitext.tests==COPY,@buildDirectory@/../../../../mylyn/org.eclipse.mylyn.docs/wikitext/core, org.eclipse.mylyn.wikitext.tests
 !plugin@org.eclipse.mylyn.xplanner.tests=e_4_8_m_3_24_x,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.mylyn/zArchive/org.eclipse.mylyn.xplanner.tests
