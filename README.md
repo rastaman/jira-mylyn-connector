@@ -8,7 +8,7 @@ The connector has been lightly tested with JIRA 6.3.1 on-premise and Atlassian C
 
 # Installation
 
-In an Eclipse Photon distribution with [Mylyn](http://www.eclipse.org/mylyn/) installed or included (like JEE), install the archive provided in the [current release](https://github.com/rastaman/mylyn-jira-connector/releases/tag/3.2.5.201808261123):
+In an Eclipse Photon distribution with [Mylyn](http://www.eclipse.org/mylyn/) installed or included (like JEE), install the archive provided in the [current release](https://github.com/rastaman/mylyn-jira-connector/releases/tag/3.2.5.201808261123) :
 
 - [eclipse-connector-3.2.5.201808261123.zip](https://github.com/rastaman/mylyn-jira-connector/releases/download/3.2.5.201808261123/eclipse-connector-3.2.5.201808261123.zip)
 
@@ -24,5 +24,5 @@ The release should work but the source is probably not ready to use, one have to
 
 # Roadmap
 
-- Remove all the unpackaged plugins of the connector, keep only JIRA related ones (and stash/bitbucket, confluence if it is worth it),
-- Make the headless build work again.
+- Remove all the unpackaged plugins of the connector, keep only JIRA related ones,
+- Make the headless build great again!
