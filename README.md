@@ -16,7 +16,7 @@ In an Eclipse Photon distribution with [Mylyn](http://www.eclipse.org/mylyn/) in
 
 Create a task repository from Mylyn dedicated view "Tasks repositories".
 
-If you want to use Atlassian Cloud, create and use an API token as the password in the configuration of the task repository: [API tokens](https://confluence.atlassian.com/cloud/api-tokens-938839638.html)
+If you want to use Atlassian Cloud, create and use an API token as the password in the configuration of the task repository : [API tokens](https://confluence.atlassian.com/cloud/api-tokens-938839638.html)
 
 # Build from source
 
