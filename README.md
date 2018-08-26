@@ -24,4 +24,5 @@ The release should work but the source is probably not ready to use, one have to
 
 # Roadmap
 
-- Remove all the unpackaged plugins of the connector, keep only JIRA related ones (and stash/bitbucket, confluence if it is worth it).
+- Remove all the unpackaged plugins of the connector, keep only JIRA related ones (and stash/bitbucket, confluence if it is worth it),
+- Make the headless build work again.
