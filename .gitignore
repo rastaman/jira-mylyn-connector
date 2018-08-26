@@ -9,6 +9,7 @@ com.atlassian.connector.eclipse.releng/build-results/
 mylyn/
 connector-commons/
 mylyn-bundles/
+orbit-buildrepo-R20180606145124/
 
 # Added
 **/bin
