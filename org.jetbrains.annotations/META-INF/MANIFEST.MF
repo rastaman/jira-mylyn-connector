@@ -6,3 +6,4 @@ Bundle-Version: 7.0.2.v20081216-1400
 Export-Package: org.jetbrains.annotations;version="7.0.2"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Atlassian
+Automatic-Module-Name: org.jetbrains.annotations

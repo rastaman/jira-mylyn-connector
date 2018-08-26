@@ -6,3 +6,4 @@ Bundle-Version: 3.2.5.qualifier
 Bundle-Vendor: Atlassian
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: com.atlassian.connector.eclipse.help

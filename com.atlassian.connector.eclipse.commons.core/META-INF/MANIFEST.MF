@@ -14,3 +14,4 @@ Require-Bundle: org.eclipse.core.runtime,
  com.atlassian.connector.eclipse.monitor.core;resolution:=optional
 Export-Package: com.atlassian.connector.eclipse.core.monitoring,
  com.atlassian.connector.eclipse.internal.core;x-internal:=true
+Automatic-Module-Name: com.atlassian.connector.eclipse.commons.core

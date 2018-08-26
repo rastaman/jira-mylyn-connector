@@ -58,3 +58,4 @@ Export-Package:
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.apache.commons.httpclient;bundle-version="3.1.0",
  org.codehaus.jettison;bundle-version="1.0.0"
+Automatic-Module-Name: com.sun.jersey

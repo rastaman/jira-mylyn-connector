@@ -14,3 +14,4 @@ Export-Package: org.jdom;version="1.0.0",
 Require-Bundle: org.apache.xerces;resolution:=optional
 Bundle-RequiredExecutionEnvironment: J2SE-1.4
 Bundle-Vendor: Atlassian
+Automatic-Module-Name: org.jdom_jaxen

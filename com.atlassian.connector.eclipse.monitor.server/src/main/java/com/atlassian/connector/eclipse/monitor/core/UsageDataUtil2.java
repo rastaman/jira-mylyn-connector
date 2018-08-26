@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import com.atlassian.connector.eclipse.monitor.server.servlet.UploadServlet;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
 import com.thoughtworks.xstream.core.BaseException;
 
 public class UsageDataUtil2 {
@@ -82,10 +81,6 @@ public class UsageDataUtil2 {
 			log.error("Unable to read input stream", e1);
 			return;
 		} 
-		
-		if (xml == null) {
-			return;
-		}
 		
 		try {
 			Object o = xs.fromXML(xml);

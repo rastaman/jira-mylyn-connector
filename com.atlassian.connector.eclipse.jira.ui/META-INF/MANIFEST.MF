@@ -34,3 +34,4 @@ Export-Package: com.atlassian.connector.eclipse.internal.jira.ui;x-friends:="com
  com.atlassian.connector.eclipse.internal.jira.ui.editor;x-internal:=true,
  com.atlassian.connector.eclipse.internal.jira.ui.wizards;x-internal:=true
 Bundle-Localization: plugin
+Automatic-Module-Name: com.atlassian.connector.eclipse.jira.ui

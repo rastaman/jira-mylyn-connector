@@ -31,3 +31,4 @@ Bundle-Vendor: Atlassian
 Import-Package: org.eclipse.mylyn.commons.net,
  org.eclipse.mylyn.tasks.core;bundle-version="[3.2.0,4.0.0)"
 Eclipse-BuddyPolicy: registered
+Automatic-Module-Name: com.atlassian.connector.eclipse.core

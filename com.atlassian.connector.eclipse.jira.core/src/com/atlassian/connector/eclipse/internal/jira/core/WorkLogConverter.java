@@ -37,27 +37,23 @@ public class WorkLogConverter {
 
 	private static List<JiraField<?>> _taskFields = new ArrayList<JiraField<?>>();
 
-	public final static JiraField<IRepositoryPerson> AUTOR = create(IRepositoryPerson.class,
-			"author", Messages.WorkLogConverter_Author, //$NON-NLS-1$
-			TaskAttribute.TYPE_PERSON);
+	public final static JiraField<IRepositoryPerson> AUTOR = create(IRepositoryPerson.class, "author", //$NON-NLS-1$
+			Messages.WorkLogConverter_Author, TaskAttribute.TYPE_PERSON);
 
 	public final static JiraField<String> COMMENT = create(String.class, "comment", Messages.WorkLogConverter_Comment, //$NON-NLS-1$
 			TaskAttribute.TYPE_LONG_TEXT);
 
-	public final static JiraField<Date> CREATION_DATE = create(Date.class,
-			"created", Messages.WorkLogConverter_Created, //$NON-NLS-1$
+	public final static JiraField<Date> CREATION_DATE = create(Date.class, "created", Messages.WorkLogConverter_Created, //$NON-NLS-1$
 			TaskAttribute.TYPE_DATETIME);
 
-	public final static JiraField<String> GROUP_LEVEL = create(String.class,
-			"groupLevel", Messages.WorkLogConverter_Group_Level, //$NON-NLS-1$
-			TaskAttribute.TYPE_DATETIME);
+	public final static JiraField<String> GROUP_LEVEL = create(String.class, "groupLevel", //$NON-NLS-1$
+			Messages.WorkLogConverter_Group_Level, TaskAttribute.TYPE_DATETIME);
 
-	public final static JiraField<String> ID = create(String.class,
-			"id", Messages.WorkLogConverter_Id, TaskAttribute.TYPE_SHORT_TEXT); //$NON-NLS-1$
+	public final static JiraField<String> ID = create(String.class, "id", Messages.WorkLogConverter_Id, //$NON-NLS-1$
+			TaskAttribute.TYPE_SHORT_TEXT);
 
-	public final static JiraField<Date> MODIFICATION_DATE = create(Date.class,
-			"updated", Messages.WorkLogConverter_Updated, //$NON-NLS-1$
-			TaskAttribute.TYPE_DATETIME);
+	public final static JiraField<Date> MODIFICATION_DATE = create(Date.class, "updated", //$NON-NLS-1$
+			Messages.WorkLogConverter_Updated, TaskAttribute.TYPE_DATETIME);
 
 	public static final String PREFIX_WORKLOG = "attribute.jira.worklog-"; //$NON-NLS-1$
 
@@ -65,16 +61,14 @@ public class WorkLogConverter {
 
 	public static final String ATTRIBUTE_WORKLOG_NEW_SUBMIT_FLAG = "attribute.jira.worklog.new.submit.flag"; //$NON-NLS-1$
 
-	public final static JiraField<String> ROLE_LEVEL_ID = create(String.class,
-			"roleLevelId", Messages.WorkLogConverter_Role_Level, //$NON-NLS-1$
-			TaskAttribute.TYPE_SHORT_TEXT);
+	public final static JiraField<String> ROLE_LEVEL_ID = create(String.class, "roleLevelId", //$NON-NLS-1$
+			Messages.WorkLogConverter_Role_Level, TaskAttribute.TYPE_SHORT_TEXT);
 
-	public final static JiraField<Date> START_DATE = create(Date.class,
-			"startDate", Messages.WorkLogConverter_Start_Date, //$NON-NLS-1$
-			TaskAttribute.TYPE_DATETIME);
+	public final static JiraField<Date> START_DATE = create(Date.class, "startDate", //$NON-NLS-1$
+			Messages.WorkLogConverter_Start_Date, TaskAttribute.TYPE_DATETIME);
 
-	public final static JiraField<Long> TIME_SPENT = create(Long.class,
-			"timeSpent", Messages.WorkLogConverter_Time, TaskAttribute.TYPE_LONG); //$NON-NLS-1$
+	public final static JiraField<Long> TIME_SPENT = create(Long.class, "timeSpent", Messages.WorkLogConverter_Time, //$NON-NLS-1$
+			TaskAttribute.TYPE_LONG);
 
 	public static final String TYPE_WORKLOG = "jira.worklog"; //$NON-NLS-1$
 
@@ -161,9 +155,6 @@ public class WorkLogConverter {
 					}
 				} else if (TaskAttribute.TYPE_BOOLEAN.equals(taskField.getType())) {
 					value = mapper.getBooleanValue(attribute);
-					if (value == null) {
-						value = false;
-					}
 				} else {
 					value = attribute.getValue();
 				}
@@ -214,7 +205,8 @@ public class WorkLogConverter {
 		metaData.setReadOnly(field.isReadOnly());
 		metaData.setKind(field.getKind());
 		// options
-		Map<String, String> options = ((ITaskAttributeMapper2) parent.getTaskData().getAttributeMapper()).getRepositoryOptions(attribute);
+		Map<String, String> options = ((ITaskAttributeMapper2) parent.getTaskData().getAttributeMapper())
+				.getRepositoryOptions(attribute);
 		if (options != null) {
 			for (Entry<String, String> option : options.entrySet()) {
 				attribute.putOption(option.getKey(), option.getValue());

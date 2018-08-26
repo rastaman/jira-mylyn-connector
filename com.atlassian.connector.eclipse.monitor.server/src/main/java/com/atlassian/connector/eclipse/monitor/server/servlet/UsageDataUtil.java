@@ -96,10 +96,6 @@ public class UsageDataUtil {
 			return;
 		} 
 		
-		if (xml == null) {
-			return;
-		}
-		
 		try {
 			Object o = xs.fromXML(xml);
 			if (o != null && o instanceof List<?>) {

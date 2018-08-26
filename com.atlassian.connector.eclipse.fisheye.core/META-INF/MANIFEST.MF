@@ -8,4 +8,5 @@ Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: com.atlassian.connector.eclipse.core
+Automatic-Module-Name: com.atlassian.connector.eclipse.fisheye.core
 

@@ -27,3 +27,4 @@ Export-Package: org.mortbay.component,
  org.mortbay.xml
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: javax.servlet;bundle-version="2.5.0"
+Automatic-Module-Name: org.mortbay.jetty

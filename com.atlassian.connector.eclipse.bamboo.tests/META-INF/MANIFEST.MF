@@ -21,3 +21,4 @@ Export-Package: com.atlassian.connector.eclipse.internal.bamboo.core;x-internal:
  com.atlassian.connector.eclipse.internal.bamboo.tests;x-internal:=true,
  com.atlassian.connector.eclipse.internal.bamboo.tests.util;x-internal:=true,
  com.atlassian.connector.eclipse.internal.bamboo.ui;x-internal:=true
+Automatic-Module-Name: com.atlassian.connector.eclipse.bamboo.tests

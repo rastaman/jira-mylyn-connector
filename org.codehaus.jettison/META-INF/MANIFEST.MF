@@ -11,3 +11,4 @@ Export-Package: org.codehaus.jettison,
  org.codehaus.jettison.mapped,
  org.codehaus.jettison.util
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Automatic-Module-Name: org.codehaus.jettison

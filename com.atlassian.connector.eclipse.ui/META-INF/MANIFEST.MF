@@ -36,3 +36,4 @@ Export-Package: com.atlassian.connector.eclipse.ui;x-friends:="com.atlassian.con
  com.atlassian.connector.eclipse.ui.commons;x-friends:="com.atlassian.connector.eclipse.bamboo.ui",
  com.atlassian.connector.eclipse.ui.dialogs,
  com.atlassian.connector.eclipse.ui.preferences;x-friends:="com.atlassian.connector.eclipse.directclickthrough.ui"
+Automatic-Module-Name: com.atlassian.connector.eclipse.ui

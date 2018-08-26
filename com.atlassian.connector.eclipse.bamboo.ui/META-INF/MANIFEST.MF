@@ -44,3 +44,4 @@ Export-Package: com.atlassian.connector.eclipse.bamboo.ui;x-internal:=true,
  com.atlassian.connector.eclipse.internal.bamboo.ui.operations;x-internal:=true,
  com.atlassian.connector.eclipse.internal.bamboo.ui.views;x-internal:=true
 Bundle-Vendor: Atlassian
+Automatic-Module-Name: com.atlassian.connector.eclipse.bamboo.ui

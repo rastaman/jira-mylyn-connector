@@ -29,3 +29,4 @@ Export-Package:
  com.atlassian.connector.eclipse.internal.monitor.usage.preferences;x-internal:=true,
  com.atlassian.connector.eclipse.internal.monitor.usage.wizards;x-internal:=true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Automatic-Module-Name: com.atlassian.connector.eclipse.monitor.ui

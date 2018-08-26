@@ -8,3 +8,4 @@ Require-Bundle: org.eclipse.mylyn.jira.core;bundle-version="[3.0.0,4.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Localization: plugin
+Automatic-Module-Name: org.eclipse.mylyn.jira.ui

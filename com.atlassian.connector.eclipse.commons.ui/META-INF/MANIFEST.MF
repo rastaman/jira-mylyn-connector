@@ -27,3 +27,4 @@ Require-Bundle: org.eclipse.swt,
  org.jetbrains.annotations;resolution:=optional,
  com.atlassian.connector.eclipse.commons.core
 Bundle-ClassPath: .
+Automatic-Module-Name: com.atlassian.connector.eclipse.commons.ui

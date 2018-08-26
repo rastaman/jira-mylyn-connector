@@ -11,15 +11,15 @@
 
 package com.atlassian.connector.eclipse.jira.tests.client;
 
-import junit.framework.TestCase;
-
 import org.eclipse.mylyn.commons.net.WebLocation;
-import org.eclipse.mylyn.commons.tests.support.TestProxy;
+import org.eclipse.mylyn.commons.sdk.util.MockServer;
 
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraClient;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraException;
 import com.atlassian.connector.eclipse.internal.jira.core.service.JiraServiceUnavailableException;
 import com.atlassian.connector.eclipse.jira.tests.util.JiraTestUtil;
+
+import junit.framework.TestCase;
 
 /**
  * @author Steffen Pingel
@@ -28,7 +28,7 @@ public class JiraClientOfflineTest extends TestCase {
 
 	private JiraClient client;
 
-	private TestProxy server;
+	private MockServer server;
 
 	private String manglePort(String message) {
 		return message.replaceAll("http:\\/\\/localhost\\/", "http://localhost:" + server.getPort() + "/");
@@ -36,7 +36,7 @@ public class JiraClientOfflineTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		server = new TestProxy();
+		server = new MockServer();
 		server.startAndWait();
 		client = new JiraClient(new WebLocation("http://localhost:" + server.getPort(), "", ""));
 	}

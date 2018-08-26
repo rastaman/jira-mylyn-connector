@@ -27,15 +27,14 @@ import com.atlassian.connector.eclipse.internal.bamboo.ui.model.ITestCaseElement
 import com.atlassian.connector.eclipse.internal.bamboo.ui.model.ITestElement;
 import com.atlassian.connector.eclipse.internal.bamboo.ui.model.ITestSuiteElement;
 import com.atlassian.connector.eclipse.internal.bamboo.ui.model.TestCaseElement;
-import com.atlassian.connector.eclipse.internal.bamboo.ui.model.TestSuiteElement;
 import com.atlassian.connector.eclipse.internal.bamboo.ui.model.TestElement.Status;
+import com.atlassian.connector.eclipse.internal.bamboo.ui.model.TestSuiteElement;
 
-import org.eclipse.jdt.internal.ui.viewsupport.BasicElementLabels;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
-import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 
@@ -73,7 +72,9 @@ public class TestSessionLabelProvider extends LabelProvider implements IStyledLa
 		ITestElement testElement = (ITestElement) element;
 		if (fLayoutMode != TestResultsView.LAYOUT_HIERARCHICAL) {
 			if (element instanceof ITestCaseElement) {
-				String className = BasicElementLabels.getJavaElementName(((ITestCaseElement) element).getTestClassName());
+				String className = ((ITestCaseElement) element).getTestClassName();
+				/*String className = org.eclipse.jdt.internal.ui.viewsupport.BasicElementLabels.
+						.getJavaElementName(testClassName);*/
 				String decorated = NLS.bind("{0} - {1}", new Object[] { label, className });
 				text = StyledCellLabelProvider.styleDecoratedString(decorated, StyledString.QUALIFIER_STYLER, text);
 			}
@@ -97,9 +98,13 @@ public class TestSessionLabelProvider extends LabelProvider implements IStyledLa
 
 	private String getSimpleLabel(Object element) {
 		if (element instanceof ITestCaseElement) {
-			return BasicElementLabels.getJavaElementName(((ITestCaseElement) element).getTestMethodName());
+			//return org.eclipse.jdt.internal.core.manipulation.util.BasicElementLabels
+			//		.getJavaElementName(((ITestCaseElement) element).getTestMethodName());
+			return ((ITestCaseElement) element).getTestMethodName();
 		} else if (element instanceof ITestSuiteElement) {
-			return BasicElementLabels.getJavaElementName(((ITestSuiteElement) element).getSuiteTypeName());
+			//return org.eclipse.jdt.internal.core.manipulation.util.BasicElementLabels
+			//		.getJavaElementName(((ITestSuiteElement) element).getSuiteTypeName());
+			return ((ITestSuiteElement) element).getSuiteTypeName();
 		}
 		return null;
 	}
@@ -112,7 +117,9 @@ public class TestSessionLabelProvider extends LabelProvider implements IStyledLa
 		ITestElement testElement = (ITestElement) element;
 		if (fLayoutMode != TestResultsView.LAYOUT_HIERARCHICAL) {
 			if (element instanceof ITestCaseElement) {
-				String className = BasicElementLabels.getJavaElementName(((ITestCaseElement) element).getTestClassName());
+				//String className = org.eclipse.jdt.internal.core.manipulation.util.BasicElementLabels
+				//		.getJavaElementName(((ITestCaseElement) element).getTestClassName());
+				String className = ((ITestCaseElement) element).getTestClassName();
 				label = NLS.bind("{0} - {1}", new Object[] { label, className });
 			}
 		}

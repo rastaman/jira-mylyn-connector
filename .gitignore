@@ -8,6 +8,7 @@ com.atlassian.connector.eclipse.releng/build-results/
 
 mylyn/
 connector-commons/
+mylyn-bundles/
 
 # Added
 **/bin
