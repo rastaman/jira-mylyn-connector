@@ -1,6 +1,6 @@
 # Context 
 
-This is a fork of the probably discontinued [Atlassian IDE Connector for Eclipse|https://bitbucket.org/atlassian/connector-eclipse] which work on Eclipse 4.8.
+This is a fork of the probably discontinued [Atlassian IDE Connector for Eclipse](https://bitbucket.org/atlassian/connector-eclipse) which work on Eclipse 4.8.
 
 # Target JIRA platforms
 
@@ -14,7 +14,7 @@ If you want to use Atlassian Cloud, create and use an API token as the password 
 
 # Build from source
 
-The release should work but the source is probably not ready to use, one have to add the target Eclipse Platform the [Mylyn bundles|http://mirror.switch.ch/eclipse/mylyn/drops/3.24.1/v20180619-2220/mylyn-3.24.1.v20180619-2220.zip] in order to export the JIRA connector feature from Eclipse.
+The release should work but the source is probably not ready to use, one have to add the target Eclipse Platform the [Mylyn bundles](http://mirror.switch.ch/eclipse/mylyn/drops/3.24.1/v20180619-2220/mylyn-3.24.1.v20180619-2220.zip) in order to export the JIRA connector feature from Eclipse.
 
 # Roadmap
 
