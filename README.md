@@ -8,7 +8,7 @@ The connector has been lightly tested with JIRA 6.3.1 on-premise and Atlassian C
 
 # Installation
 
-In an Eclipse Photon distribution with [Mylyn](http://www.eclipse.org/mylyn/) installed or included (like JEE), install the archive provided in the [current (and only) release](https://github.com/rastaman/mylyn-jira-connector/releases/tag/3.2.5.201808261123):
+In an Eclipse Photon distribution with [Mylyn](http://www.eclipse.org/mylyn/) installed or included (like JEE), install the archive provided in the [current release](https://github.com/rastaman/mylyn-jira-connector/releases/tag/3.2.5.201808261123):
 
 - [eclipse-connector-3.2.5.201808261123.zip](https://github.com/rastaman/mylyn-jira-connector/releases/download/3.2.5.201808261123/eclipse-connector-3.2.5.201808261123.zip).
 
