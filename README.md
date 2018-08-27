@@ -1,6 +1,6 @@
 # Context 
 
-This is a fork of the probably discontinued [Atlassian IDE Connector for Eclipse](https://bitbucket.org/atlassian/connector-eclipse) which work on Eclipse 4.8.
+This is a fork of the probably discontinued [Atlassian IDE Connector for Eclipse](https://bitbucket.org/atlassian/connector-eclipse) which work on Eclipse 4.8. It has been tested with MacOS and Linux and as Java code it should work everywhere.
 
 # Target JIRA platforms
 
